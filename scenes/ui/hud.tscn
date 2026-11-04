@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://ccjdlg8w2xb1i"]
 
-[ext_resource type="Texture2D" uid="uid://raqlu6hh4bw6" path="res://assets/sprites/coin/coin1_16x16.png" id="1_0mwgc"]
+[ext_resource type="Texture2D" uid="uid://raqlu6hh4bw6" path="res://assets/sprites/ui/coin/coin1_16x16.png" id="1_0mwgc"]
 [ext_resource type="Script" uid="uid://xhvcsy0ye0qb" path="res://scripts/ui/hud.gd" id="1_hqnrr"]
 [ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_8qguk"]
-[ext_resource type="Texture2D" uid="uid://c7chgm7inwbx7" path="res://assets/sprites/skull/Skull_Old.png" id="3_bo48s"]
+[ext_resource type="Texture2D" uid="uid://dtx83f6vjlxqe" path="res://assets/sprites/ui/ui_boost_icon.png" id="2_136eg"]
+[ext_resource type="Texture2D" uid="uid://c7chgm7inwbx7" path="res://assets/sprites/ui/skull/Skull_Old.png" id="3_bo48s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqnrr"]
 atlas = ExtResource("1_0mwgc")
@@ -118,77 +119,157 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
+bg_color = Color(0.11858138, 0.11858139, 0.11858132, 1)
+border_color = Color(0.2665752, 0.26657522, 0.26657504, 1)
+
+[sub_resource type="Gradient" id="Gradient_oj5la"]
+offsets = PackedFloat32Array(0, 0.53246754, 1)
+colors = PackedColorArray(0.5468977, 0.19122759, 0.909037, 1, 0.7081883, 0.01683421, 0.9999921, 1, 0.33046862, 0.43455, 0.9279247, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_riqys"]
+gradient = SubResource("Gradient_oj5la")
+width = 256
+height = 12
+repeat = 2
+
+[sub_resource type="Animation" id="Animation_136eg"]
+resource_name = "default"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oj5la"]
+_data = {
+&"default": SubResource("Animation_136eg")
+}
+
 [node name="Hud" type="CanvasLayer" unique_id=1693138881]
+process_mode = 3
 script = ExtResource("1_hqnrr")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=960770737]
+[node name="Control" type="Control" parent="." unique_id=1621357409]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FlowContainer" type="FlowContainer" parent="Control" unique_id=214946072]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 20.0
+offset_bottom = 31.0
 grow_horizontal = 2
 
-[node name="FlowContainer" type="FlowContainer" parent="PanelContainer" unique_id=2042899978]
+[node name="PanelContainer" type="PanelContainer" parent="Control/FlowContainer" unique_id=960770737]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/FlowContainer/PanelContainer" unique_id=504360066]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/FlowContainer" unique_id=790334156]
-layout_mode = 2
-text = "Level: 0"
-vertical_alignment = 2
-
-[node name="LevelContainer" type="MarginContainer" parent="PanelContainer/FlowContainer" unique_id=1806044580]
+[node name="LevelContainer" type="MarginContainer" parent="Control/FlowContainer/PanelContainer/MarginContainer" unique_id=1806044580]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FlowContainer/LevelContainer" unique_id=1297752338]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/FlowContainer/PanelContainer/MarginContainer/LevelContainer" unique_id=1297752338]
 layout_mode = 2
 
-[node name="Time" type="Label" parent="PanelContainer/FlowContainer/LevelContainer/VBoxContainer" unique_id=1709015249]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/FlowContainer/PanelContainer/MarginContainer/LevelContainer/VBoxContainer" unique_id=1094298875]
+layout_mode = 2
+alignment = 1
+
+[node name="LevelTexture" type="TextureRect" parent="Control/FlowContainer/PanelContainer/MarginContainer/LevelContainer/VBoxContainer/HBoxContainer" unique_id=1265848299]
+layout_mode = 2
+texture = ExtResource("2_136eg")
+expand_mode = 2
+
+[node name="LevelLabel" type="Label" parent="Control/FlowContainer/PanelContainer/MarginContainer/LevelContainer/VBoxContainer/HBoxContainer/LevelTexture" unique_id=790334156]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 79.0
+offset_bottom = 20.0
+theme = ExtResource("2_8qguk")
+text = "Lv. 0"
+vertical_alignment = 1
+
+[node name="Container" type="Container" parent="Control/FlowContainer/PanelContainer/MarginContainer" unique_id=1071484414]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Coins" type="Label" parent="Control/FlowContainer/PanelContainer/MarginContainer/Container" unique_id=1318847985]
 unique_name_in_owner = true
 layout_mode = 2
-text = "time"
-horizontal_alignment = 1
-
-[node name="Level" type="Panel" parent="PanelContainer/FlowContainer/LevelContainer/VBoxContainer" unique_id=1954577815]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FlowContainer" unique_id=1299587273]
-layout_mode = 2
-alignment = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/FlowContainer/HBoxContainer" unique_id=1075337272]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer" unique_id=800073688]
-layout_mode = 2
-alignment = 2
-
-[node name="Coins" type="Label" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1318847985]
-unique_name_in_owner = true
-layout_mode = 2
+theme = ExtResource("2_8qguk")
 text = "Coins"
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1196000200]
+[node name="TextureRect" type="TextureRect" parent="Control/FlowContainer/PanelContainer/MarginContainer/Container" unique_id=1196000200]
 layout_mode = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer/HBoxContainer/TextureRect" unique_id=2092734160]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control/FlowContainer/PanelContainer/MarginContainer/Container/TextureRect" unique_id=2092734160]
 position = Vector2(-58, 12)
 sprite_frames = SubResource("SpriteFrames_kwnof")
 autoplay = "default"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer" unique_id=264518690]
+[node name="HSplitContainer" type="HSplitContainer" parent="Control/FlowContainer/PanelContainer/MarginContainer" unique_id=475905115]
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2080510116]
+[node name="TextureRect" type="TextureRect" parent="Control/FlowContainer/PanelContainer/MarginContainer/HSplitContainer" unique_id=2080510116]
+custom_maximum_size = Vector2(-1, 16)
 layout_mode = 2
 texture = ExtResource("3_bo48s")
 expand_mode = 2
 
-[node name="Score" type="Label" parent="PanelContainer/FlowContainer/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1288681742]
+[node name="Score" type="Label" parent="Control/FlowContainer/PanelContainer/MarginContainer/HSplitContainer" unique_id=1288681742]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("2_8qguk")
 text = "score"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1416033049]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TimeLabel" type="Label" parent="VBoxContainer" unique_id=1709015249]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_8qguk")
+theme_override_colors/font_color = Color(1, 1, 1, 0.78431374)
+theme_override_font_sizes/font_size = 40
+text = "05:50"
+horizontal_alignment = 1
+
+[node name="LevelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=1054035845]
+layout_mode = 2
+offset_transform_enabled = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/LevelContainer" unique_id=922199559]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Level" type="TextureProgressBar" parent="VBoxContainer/LevelContainer/MarginContainer" unique_id=1136639911]
+custom_minimum_size = Vector2(0, 12)
+custom_maximum_size = Vector2(-1, 16)
+layout_mode = 2
+size_flags_vertical = 3
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_riqys")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/LevelContainer/MarginContainer/Level" unique_id=909077705]
+libraries/ = SubResource("AnimationLibrary_oj5la")

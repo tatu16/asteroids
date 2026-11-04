@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://icens2vt4h7h"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1736143335]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1868645878]
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1158366226]
+layout_mode = 2
