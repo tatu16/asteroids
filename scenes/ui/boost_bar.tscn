@@ -20,7 +20,7 @@ colors = PackedColorArray(0.12103007, 0.12103007, 0.12103007, 1, 0.11119685, 0.1
 gradient = SubResource("Gradient_rxlux")
 
 [sub_resource type="Gradient" id="Gradient_iv0kb"]
-colors = PackedColorArray(0.16273972, 0.6077262, 0, 1, 0.24313726, 0.9372549, 0, 1)
+colors = PackedColorArray(0.98498565, 0.29921097, 0.40354142, 1, 0.9999997, 0.12177885, 0.22100624, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rvr8k"]
 gradient = SubResource("Gradient_iv0kb")
@@ -35,7 +35,8 @@ layout_mode = 0
 offset_right = 103.0
 offset_bottom = 365.0
 
-[node name="Label" type="Label" parent="VFlowContainer" unique_id=544911576]
+[node name="BoostLabel" type="Label" parent="VFlowContainer" unique_id=544911576]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_rxlux")
 theme_override_font_sizes/font_size = 40
