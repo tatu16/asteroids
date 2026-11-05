@@ -36,7 +36,13 @@ func add_weapon(weapon_scene: PackedScene) -> void:
     var weapon = weapon_scene.instantiate() as Weapon
     add_child(weapon)
     current_weapons.append(weapon)
-    
+
+func take_damage(amount: float) -> void:
+    if self is Player:
+        GameManager.damage_player(self, amount)
+    else:
+        current_hp = maxf(current_hp - amount, 0.0)
+
 func load_character_data() -> void:
     character_name = character_data.character_name
     max_hp = character_data.max_hp

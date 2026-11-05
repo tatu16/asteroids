@@ -1,8 +1,8 @@
 extends Node
 
 func load_save():
-	pass
-	
+    pass
+    
 func get_save():
-	pass
-	
+    pass
+    

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://s4h6wl2y16ie"]
+
+[ext_resource type="Script" uid="uid://cbalyqcfiwqle" path="res://scripts/ui/hp_bar.gd" id="1_wupjp"]
+[ext_resource type="Texture2D" uid="uid://cuoihvddvkddq" path="res://assets/sprites/ui/ui_health_heart.png" id="2_sxha3"]
+
+[sub_resource type="Gradient" id="Gradient_rxlux"]
+colors = PackedColorArray(0.12103007, 0.12103007, 0.12103007, 1, 0.11119685, 0.11119684, 0.11119684, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kwnof"]
+gradient = SubResource("Gradient_rxlux")
+
+[sub_resource type="Gradient" id="Gradient_iv0kb"]
+colors = PackedColorArray(0.76781195, 0.13001075, 0.0581294, 1, 0.9194146, 0, 0.24340597, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rvr8k"]
+gradient = SubResource("Gradient_iv0kb")
+repeat = 2
+
+[node name="HPBar" type="PanelContainer" unique_id=1630034222]
+offset_right = 65.0
+offset_bottom = 74.0
+script = ExtResource("1_wupjp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=463716044]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=1868645878]
+layout_mode = 2
+texture = ExtResource("2_sxha3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=143169557]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer" unique_id=1757875567]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/VBoxContainer/MarginContainer" unique_id=1158366226]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+value = 85.0
+rounded = true
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_kwnof")
+texture_progress = SubResource("GradientTexture2D_rvr8k")

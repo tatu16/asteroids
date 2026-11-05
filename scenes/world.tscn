@@ -31,6 +31,8 @@ autostart = true
 [node name="Enemies" type="Node" parent="." unique_id=141298119]
 
 [node name="TestEnemy" parent="Enemies" unique_id=941123928 instance=ExtResource("4_k0juu")]
+position = Vector2(-304, -405)
+move_speed = 100.0
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=474386151]
 autoscroll = Vector2(5, 0)
