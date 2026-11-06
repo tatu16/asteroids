@@ -43,6 +43,7 @@ func apply_player_damage(player_path: NodePath, damage: float) -> void:
     player.current_hp = maxf(player.current_hp - damage, 0.0)
     player_damaged.emit(player, damage, player.current_hp)
     if player.current_hp <= 0.0:
+        player.is_dead = true
         player_died.emit(player)
 
 func heal_player(player: Player, heal: float) -> void:

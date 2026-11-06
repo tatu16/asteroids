@@ -6,6 +6,7 @@ extends Node2D
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
 const UPGRADE_MENU: PackedScene = preload("res://scenes/menus/upgrade_menu.tscn")
+const GAME_OVER_MENU: PackedScene = preload("res://scenes/menus/game_over.tscn")
 
 var elapsed_time: int = 0
 var is_paused: bool = false
@@ -82,11 +83,39 @@ func end_game() -> void:
         return
        
     timer.stop()
+    enemy_spawner.stop_spawning()
+    is_paused = true
     GameManager.end_game()
 
-func _on_player_died(player: Player) -> void:
-    print("player died: ", player)
+func are_all_players_dead() -> bool:
+    var players = get_tree().get_nodes_in_group("players")
+    var all_dead = true
+    for player in players:
+        if not player.is_dead:
+            all_dead = false
+            break
+    return all_dead
 
+func _on_player_died(player: Player) -> void:
+    if not multiplayer.is_server():
+        return
+        
+    print("player died: ", player.name)
+    
+    if are_all_players_dead():
+        end_game()
+        show_game_over_menu.rpc()
+        
+
+@rpc("authority", "call_local", "reliable")
+func show_game_over_menu() -> void:
+    if hud.get_node_or_null("GameOverMenu"):
+        return
+
+    var menu = GAME_OVER_MENU.instantiate()
+    menu.name = "GameOverMenu"
+    hud.add_child(menu)
+    
 func _on_player_levelup(player: Player) -> void:
     if not multiplayer.is_server():
         return
