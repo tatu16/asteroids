@@ -5,6 +5,47 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahq63"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(70, 80, 243, 236)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h4y0"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(313, 80, 243, 236)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b58ev"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(556, 80, 243, 236)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ankfk"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(781, 80, 237, 237)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [],
+"loop": 0,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahq63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h4y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b58ev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ankfk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 2.0
+}]
+
 [node name="Slime" type="CharacterBody2D" unique_id=941123928]
 collision_layer = 4
 collision_mask = 3
@@ -15,3 +56,7 @@ shape = SubResource("CircleShape2D_kwnof")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
 texture = ExtResource("2_ahq63")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1559345602]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+animation = &"attack"

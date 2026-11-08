@@ -7,27 +7,27 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6cn2c"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(0, 0, 508, 508)
+region = Rect2(0, 0, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04ffy"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(508, 0, 508, 508)
+region = Rect2(421, 0, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x17u5"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(1016, 0, 508, 508)
+region = Rect2(842, 0, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y158s"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(0, 508, 508, 508)
+region = Rect2(0, 421, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_it1ww"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(508, 508, 508, 508)
+region = Rect2(421, 421, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pkoye"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(1016, 508, 508, 508)
+region = Rect2(842, 421, 421, 421)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
 animations = [{
@@ -52,7 +52,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [node name="Destoryer" type="CharacterBody2D" unique_id=941123928]
@@ -68,4 +68,4 @@ shape = SubResource("CircleShape2D_kwnof")
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_kwnof")
 autoplay = "default"
-frame_progress = 0.8635121
+frame_progress = 0.24942923

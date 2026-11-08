@@ -5,6 +5,42 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1247l"]
+atlas = ExtResource("2_1247l")
+region = Rect2(0, 0, 394, 432)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xvxm"]
+atlas = ExtResource("2_1247l")
+region = Rect2(394, 0, 394, 432)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5acxu"]
+atlas = ExtResource("2_1247l")
+region = Rect2(788, 0, 394, 432)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02sjw"]
+atlas = ExtResource("2_1247l")
+region = Rect2(1970, 0, 394, 432)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1247l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xvxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5acxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02sjw")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
 [node name="Watcher" type="CharacterBody2D" unique_id=941123928]
 collision_layer = 4
 collision_mask = 3
@@ -14,5 +50,7 @@ shoot_projectiles = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
 shape = SubResource("CircleShape2D_kwnof")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
-texture = ExtResource("2_1247l")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=563016582]
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.46916994
