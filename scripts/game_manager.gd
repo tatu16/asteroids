@@ -30,6 +30,14 @@ func damage_player(player: Player, damage: float) -> void:
         return
     if player.current_hp <= 0.0:
         return
+        
+    var peer_id = player.get_multiplayer_authority()
+    SaveManager.add_run_stat(
+        peer_id,
+        SaveManager.Stat.DAMAGE_TAKEN,
+        damage
+    )
+    
     apply_player_damage.rpc(player.get_path(), damage)
 
 @rpc("authority", "call_local", "reliable")
@@ -78,3 +86,4 @@ func end_game() -> void:
 
 func reset() -> void:
     score = 0
+    score_changed.emit(score)

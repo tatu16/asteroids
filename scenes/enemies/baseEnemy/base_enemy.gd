@@ -29,6 +29,10 @@ func die(attacker_peer_id: int):
         attacker_peer_id,
         SaveManager.Stat.ENEMIES_KILLED
     )
+    SaveManager.add_run_stat(
+        attacker_peer_id,
+        SaveManager.Stat.SCORE
+    )
     
     if xp_orb_spawner:
         xp_orb_spawner.spawn_xp_orb(xp,global_position)

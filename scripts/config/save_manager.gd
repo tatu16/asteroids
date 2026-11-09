@@ -12,8 +12,13 @@ enum Stat {
     PLAYERS_DIED,
     GAMES_PLAYED,
     LEVEL_UP,
+    LONGEST_RUN,
+    HIGHEST_LEVEL,
+    SCORE,
 }
 
+# Player's last run's stats
+var last_run_stats: Dictionary = {}
 # Server-side run stats
 var run_stats: Dictionary = {}
 # Client-side lifetime stats
@@ -68,7 +73,13 @@ func add_finished_run(stats: Dictionary) -> void:
         if stat == Stat.GAMES_PLAYED:
             continue
 
-        total_stats[stat] += stats.get(stat, 0)
+        if stat == Stat.LONGEST_RUN or stat == Stat.HIGHEST_LEVEL:
+            total_stats[stat] = maxi(
+                total_stats[stat],
+                stats.get(stat, 0)
+            )
+        else:
+            total_stats[stat] += stats.get(stat, 0)
 
     save()
 
