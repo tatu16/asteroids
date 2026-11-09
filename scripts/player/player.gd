@@ -2,6 +2,7 @@ class_name Player extends Character
 
 @onready var visuals = $Visuals
 
+var projectile_spawner: MultiplayerSpawner
 var current_speed: float = 0.0
 var current_level: int = 0
 var boost_active: bool = false
@@ -22,6 +23,7 @@ func handle_shooting() -> void:
         return
     var direction = global_position.direction_to(get_global_mouse_position())
     for weapon in current_weapons:
+        weapon.projectile_spawner = projectile_spawner
         weapon.try_fire(direction)
 
 func handle_movement(delta: float) -> void:

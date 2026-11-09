@@ -12,33 +12,41 @@ class_name Enemy extends CharacterBody2D
 @export var projectile_speed: float = 250.0
 @export var projectile_damage: float = 10.0
 @export var projectile_spawner: MultiplayerSpawner
+@export var xp_orb_spawner: MultiplayerSpawner
 
-@onready var xp_orb: PackedScene = preload("res://scenes/misc/xp_orb.tscn")
-
-var hp: float
+var hp: float = 999
 var can_attack = true
 
 func _ready() -> void:
     add_to_group("enemies")
     hp = max_hp
     
-func die():
-    var orb = xp_orb.instantiate()
-    orb.xp_value = xp
-    orb.global_position = global_position
-    get_parent().add_child(orb)
-    queue_free()
-    
-func take_damage(amount: float):
+func die(attacker_peer_id: int):
     if not multiplayer.is_server():
         return
-    apply_damage.rpc(amount)
         
-@rpc("authority", "call_local", "reliable")
-func apply_damage(amount: float) -> void:
+    SaveManager.add_run_stat(
+        attacker_peer_id,
+        SaveManager.Stat.ENEMIES_KILLED
+    )
+    
+    if xp_orb_spawner:
+        xp_orb_spawner.spawn_xp_orb(xp,global_position)
+        
+    queue_free()
+    
+func take_damage(amount: float, attacker_peer_id: int) -> void:
+    if not multiplayer.is_server():
+        return
+    
     hp -= amount
+    SaveManager.add_run_stat(
+        attacker_peer_id,
+        SaveManager.Stat.DAMAGE_DEALT,
+        amount
+    )
     if(hp <= 0):
-        die()
+        die(attacker_peer_id)
         
 func attack_player(player: Player) -> void:
     if not can_attack:
