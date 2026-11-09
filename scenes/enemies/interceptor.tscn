@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://xwdlcbdaejci"]
+[gd_scene load_steps=5 format=3 uid="uid://xwdlcbdaejci"]
 
-[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_leyjb"]
+[ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_leyjb"]
 [ext_resource type="Texture2D" uid="uid://dowi3fdlmbg1m" path="res://assets/sprites/enemies/enemy_interceptor.png" id="2_leyjb"]
 [ext_resource type="PackedScene" uid="uid://quc17hjjergs" path="res://scenes/projectiles/rocket.tscn" id="2_yghn5"]
 
@@ -56,14 +56,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Interceptor" type="CharacterBody2D" unique_id=941123928]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("1_leyjb")
+[node name="Interceptor" instance=ExtResource("1_leyjb")]
 shoot_projectiles = true
 projectile_scene = ExtResource("2_yghn5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
+[node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("CircleShape2D_kwnof")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1654554168]

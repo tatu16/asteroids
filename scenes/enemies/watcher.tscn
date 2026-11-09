@@ -1,18 +1,15 @@
-[gd_scene format=3 uid="uid://b5dr71h0b4eqi"]
+[gd_scene load_steps=3 format=3 uid="uid://b5dr71h0b4eqi"]
 
-[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_1247l"]
+[ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_1247l"]
 [ext_resource type="Texture2D" uid="uid://3u0d27lh4xkq" path="res://assets/sprites/enemies/enemy_watcher.png" id="2_1247l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
-[node name="Watcher" type="CharacterBody2D" unique_id=941123928]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("1_1247l")
+[node name="Watcher" instance=ExtResource("1_1247l")]
 shoot_projectiles = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
+[node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("CircleShape2D_kwnof")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1247l")
