@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*uid://cfkeun8i84o88"
+SaveManager="*uid://b3j4lu52gd23t"
 
 [display]
 
