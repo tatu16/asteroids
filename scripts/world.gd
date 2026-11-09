@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var projectile_spawner: MultiplayerSpawner = $ProjectileSpawner
 @onready var timer: Timer = $Timer
 @onready var hud: CanvasLayer = $Hud
 @onready var enemy_spawner = $EnemySpawner
@@ -9,6 +10,7 @@ const UPGRADE_MENU: PackedScene = preload("res://scenes/menus/upgrade_menu.tscn"
 
 var elapsed_time: int = 0
 var is_paused: bool = false
+var game_finished: bool = false
 
 func _ready() -> void:
     GameManager.player_died.connect(_on_player_died)
@@ -27,6 +29,8 @@ func start_game() -> void:
     if not multiplayer.is_server():
         return
         
+    SaveManager.reset_run_stats()
+        
     elapsed_time = 0
     is_paused = false
     
@@ -41,6 +45,7 @@ func spawn_player(peer_id: int) -> void:
     player.character_data = GameManager.selected_character
     player.name = str(peer_id)
     player.set_multiplayer_authority(peer_id)
+    player.projectile_spawner = projectile_spawner
     add_child(player)
     
 func _on_timer_timeout() -> void:
@@ -78,13 +83,40 @@ func set_game_paused(paused: bool) -> void:
     is_paused = paused
     
 func end_game() -> void:
-    if not multiplayer.is_server():
+    if not multiplayer.is_server() or game_finished:
         return
        
+    game_finished = true
     timer.stop()
+    enemy_spawner.stop_spawning()
+    for peer_id in SaveManager.run_stats.keys():
+        SaveManager.add_run_stat(
+            peer_id,
+            SaveManager.Stat.TIME_SURVIVED,
+            elapsed_time
+        )
+        var stats = SaveManager.get_run_stats(peer_id)
+        if peer_id == 1:
+            receive_run_stats(stats)
+        else:
+            receive_run_stats.rpc_id(peer_id, stats)
     GameManager.end_game()
 
+@rpc("authority", "call_remote", "reliable")
+func receive_run_stats(stats: Dictionary) -> void:
+    if multiplayer.get_remote_sender_id() != 1:
+        return
+    SaveManager.add_finished_run(stats)
+
 func _on_player_died(player: Player) -> void:
+    if not multiplayer.is_server():
+        return
+        
+    var peer_id = player.get_multiplayer_authority()
+    SaveManager.add_run_stat(
+        peer_id,
+        SaveManager.Stat.PLAYERS_DIED
+    )
     print("player died: ", player)
 
 func _on_player_levelup(player: Player) -> void:
@@ -94,6 +126,11 @@ func _on_player_levelup(player: Player) -> void:
     print("Player leveled up: ", player.name)
     pause_game()
     var peer_id = player.get_multiplayer_authority()
+    SaveManager.add_run_stat(
+        peer_id, 
+        SaveManager.Stat.LEVEL_UP, 
+        player.current_level
+    )
     if peer_id == multiplayer.get_unique_id():
         show_upgrade_menu()
     else:
@@ -120,4 +157,5 @@ func request_continue_game() -> void:
 func _on_player_xp_changed(peer_id: int, current_xp: float, xp_required: float, level: int) -> void:
     if peer_id != multiplayer.get_unique_id():
         return
+    print(SaveManager.get_run_stats(peer_id))
     hud.update_xp(current_xp, xp_required, level)

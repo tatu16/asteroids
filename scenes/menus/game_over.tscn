@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dowwxii5oupbv"]
 
-[ext_resource type="Script" uid="uid://d0n3cdhqa3vb4" path="res://scripts/ui/game_over.gd" id="1_asori"]
 [ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="1_ujjcl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujjcl"]
@@ -12,7 +11,6 @@ border_width_bottom = 4
 border_color = Color(0.23921569, 0.29803923, 0.5882353, 1)
 
 [node name="GameOver" type="CanvasLayer" unique_id=578591867]
-script = ExtResource("1_asori")
 
 [node name="Control" type="Control" parent="." unique_id=1168180320]
 layout_mode = 3
