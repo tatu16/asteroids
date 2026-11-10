@@ -14,7 +14,7 @@ const SPRITE_ROTATION_OFFSET := deg_to_rad(90)
 var selected_character: CharacterData
 var score: int = 0
 
-func ability_player(player: Player, amount_left: float) -> void:
+func use_ability_player(player: Player, amount_left: float) -> void:
     if not multiplayer.is_server():
         return
     update_player_ability.rpc(player.get_path(), amount_left)

@@ -121,3 +121,5 @@ func _update_ability(player: Player, amount: float) -> void:
     if player != self:
         return
     ability_energy = minf(ability_energy + amount, max_ability)
+    GameManager.use_ability_player(self, ability_energy)
+    

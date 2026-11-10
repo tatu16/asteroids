@@ -1,7 +1,6 @@
 class_name PowerUp
 extends Area2D
 
-
 func _ready() -> void:
     if not multiplayer.is_server():
         return
@@ -19,7 +18,6 @@ func _on_body_entered(body: Node2D) -> void:
 func collect(player: Player) -> void:
     if not multiplayer.is_server():
         return
-    print("collect powerup")
     apply_effect(player)
     queue_free()
 

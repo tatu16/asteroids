@@ -16,7 +16,7 @@ func process_ability(delta: float) -> void:
             player.max_ability
         )
 
-    GameManager.ability_player(player, player.ability_energy)
+    GameManager.use_ability_player(player, player.ability_energy)
 
 func movement_multiplier() -> float:
     return player.ability_multiplier if active else 1.0

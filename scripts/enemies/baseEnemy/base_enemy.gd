@@ -11,9 +11,17 @@ class_name Enemy extends CharacterBody2D
 @export var projectile_scene: PackedScene = preload("res://scenes/projectiles/bolt.tscn")
 @export var projectile_speed: float = 250.0
 @export var projectile_damage: float = 10.0
-@export var projectile_spawner: MultiplayerSpawner
-@export var xp_orb_spawner: MultiplayerSpawner
 
+@export_group("Powerup Drops")
+@export var drop_chance: float = 0.25
+@export var powerup_pool: Array[PackedScene] = [
+    preload("res://scenes/powerups/hp_powerup.tscn"),
+    preload("res://scenes/powerups/ability_powerup.tscn")
+]
+
+var powerup_spawner: PowerupSpawner
+var projectile_spawner: MultiplayerSpawner
+var xp_orb_spawner: MultiplayerSpawner
 var hp: float = 999
 var can_attack = true
 
@@ -36,8 +44,23 @@ func die(attacker_peer_id: int):
     
     if xp_orb_spawner:
         xp_orb_spawner.spawn_xp_orb(xp,global_position)
-        
+    
+    drop_powerup()
     queue_free()
+    
+func drop_powerup() -> void:
+    if not multiplayer.is_server():
+        return
+    if randf() > drop_chance:
+        return
+    if powerup_pool.is_empty() or powerup_spawner == null:
+        return
+
+    var powerup_scene = powerup_pool.pick_random()
+    powerup_spawner.spawn_powerup(
+        powerup_scene,
+        global_position
+    )
     
 func take_damage(amount: float, attacker_peer_id: int) -> void:
     if not multiplayer.is_server():

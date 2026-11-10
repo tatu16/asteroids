@@ -5,6 +5,7 @@ extends Node
 @export var multiplayer_spawner: MultiplayerSpawner
 @export var projectile_spawner: MultiplayerSpawner
 @export var xp_orb_spawner: MultiplayerSpawner
+@export var powerup_spawner: MultiplayerSpawner
 @export var enemies_container: Node2D
 
 @export_group("Spawning")
@@ -46,6 +47,7 @@ func _spawn_enemy_replica(data: Dictionary) -> Node:
     enemy.position = data["position"]
     enemy.projectile_spawner = projectile_spawner
     enemy.xp_orb_spawner = xp_orb_spawner
+    enemy.powerup_spawner = powerup_spawner
     if multiplayer.is_server():
         alive_enemies.append(enemy)
         enemy.tree_exited.connect(
