@@ -1,6 +1,9 @@
 class_name Player extends Character
 
+@export var reference_resolution := Vector2(1920.0, 1080.0)
+
 @onready var visuals = $Visuals
+@onready var camera = $Camera2D
 
 var projectile_spawner: MultiplayerSpawner
 var abilities: Array[PlayerAbility] = []
@@ -10,6 +13,10 @@ var angular_velocity: float = 0.0
 var current_xp: float = 0.0
 var xp_to_next_level: float = 10.0
 var is_dead: bool = false
+var zoom_min: float = 0.8
+var zoom_max: float = 1.5
+var zoom_speed: float = 0.1
+var base_zoom := Vector2.ONE
 
 func _ready() -> void:
     super()
@@ -114,3 +121,26 @@ func level_up() -> void:
 
 func _on_ready() -> void:
     add_to_group("players")
+    base_zoom = camera.zoom
+
+func _update_ability(player: Player, amount: float) -> void:
+    if player != self:
+        return
+    ability_energy = minf(ability_energy + amount, max_ability)
+    GameManager.use_ability_player(self, ability_energy)
+    
+    
+func _unhandled_input(event: InputEvent) -> void:
+    if event is InputEventMouseButton:
+        if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+            zoom_camera(-zoom_speed)
+        elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+            zoom_camera(zoom_speed)
+
+func zoom_camera(amount: float) -> void:
+    var new_zoom := clampf(
+        camera.zoom.x + amount,
+        zoom_min,
+        zoom_max
+    )
+    camera.zoom = Vector2(new_zoom, new_zoom)

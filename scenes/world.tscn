@@ -83,7 +83,7 @@ shader_parameter/blur2 = 0.014
 shader_parameter/bg_speed = 0.12
 shader_parameter/mid_speed = 0.3
 shader_parameter/fg_speed = 0.45
-shader_parameter/pixel_size = 5.0
+shader_parameter/pixel_size = 1.0
 shader_parameter/color_steps = 5.0
 shader_parameter/pixel_dither = 0.035
 shader_parameter/cloud_softness = 1.0
@@ -101,17 +101,16 @@ shader_parameter/color_lavender = Color(0.3, 0.2, 0.48, 1)
 shader = ExtResource("8_dss4m")
 shader_parameter/camera_position = Vector2(0, 0)
 shader_parameter/zoom = 1.0
+shader_parameter/viewport_size = Vector2(1920, 1080)
 shader_parameter/world_scale = Vector2(1920, 1080)
 shader_parameter/space_color = Color(0.008, 0.012, 0.035, 1)
 shader_parameter/blue_glow = Color(0.025, 0.055, 0.16, 1)
 shader_parameter/purple_glow = Color(0.09, 0.025, 0.14, 1)
 shader_parameter/cyan_glow = Color(0.015, 0.09, 0.14, 1)
-shader_parameter/pixel_size = 5.0
+shader_parameter/pixel_size = 1.5
 shader_parameter/glow_strength = 0.650000030875
-shader_parameter/dust_strength = 0.1200000057
-shader_parameter/vignette_strength = 0.550000026125
+shader_parameter/vignette_strength = 0.45
 shader_parameter/animation_speed = 0.008
-shader_parameter/dither_strength = 0.018
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rvr8k"]
 shader = ExtResource("9_7t5mc")
@@ -173,7 +172,6 @@ grid_line_thickness = 1.0
 grid_glow_strength = 0.6
 camera_exclusion_radius = 0.34
 camera_fade_softness = 0.5
-large_frequency = 0.012
 
 [node name="Starfield" type="ColorRect" parent="BackgroundManager" unique_id=147986569]
 z_index = 4
@@ -210,8 +208,6 @@ mouse_filter = 2
 
 [node name="Grid" type="ColorRect" parent="BackgroundManager" unique_id=346505675]
 z_index = 2
-texture_filter = 1
-texture_repeat = 2
 material = SubResource("ShaderMaterial_rvr8k")
 anchors_preset = 15
 anchor_right = 1.0

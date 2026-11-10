@@ -33,7 +33,7 @@ uniform float mid_speed = 0.30;
 uniform float fg_speed = 0.45;
 
 // Pixel art
-uniform float pixel_size = 5.0;
+uniform float pixel_size = 1.0;
 uniform float color_steps : hint_range(2.0, 16.0) = 5.0;
 uniform float pixel_dither : hint_range(0.0, 0.2) = 0.035;
 
