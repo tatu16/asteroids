@@ -1,6 +1,7 @@
 extends Node
 
 signal player_died(player: Player)
+signal player_add_ability(player: Player, amount: float)
 signal player_use_ability(player: Player, amount_left: float)
 signal player_damaged(player: Player, damage: float, new_hp)
 signal player_healed(player: Player, heal: float, new_hp: float)
@@ -18,12 +19,24 @@ func ability_player(player: Player, amount_left: float) -> void:
         return
     update_player_ability.rpc(player.get_path(), amount_left)
 
+func add_player_ability(player: Player, amount: float) -> void:
+    if not multiplayer.is_server():
+        return
+    apply_player_ability.rpc(player.get_path(), amount)
+
 @rpc("authority", "call_local", "unreliable")
 func update_player_ability(player_path: NodePath, amount_left: float) -> void:
     var player = get_node_or_null(player_path) as Player
     if player == null:
         return
     player_use_ability.emit(player, amount_left)
+
+@rpc("authority", "call_local", "unreliable")
+func apply_player_ability(player_path: NodePath, amount: float) -> void:
+    var player = get_node_or_null(player_path) as Player
+    if player == null:
+        return
+    player_add_ability.emit(player, amount)
 
 func damage_player(player: Player, damage: float) -> void:
     if not multiplayer.is_server():

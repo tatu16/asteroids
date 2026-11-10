@@ -30,6 +30,8 @@ func _ready() -> void:
         add_child(ability)
         abilities.append(ability)
 
+    GameManager.player_add_ability.connect(_update_ability)
+
 func _physics_process(delta: float) -> void:
     if is_multiplayer_authority():
         handle_movement(delta)
@@ -114,3 +116,8 @@ func level_up() -> void:
 
 func _on_ready() -> void:
     add_to_group("players")
+
+func _update_ability(player: Player, amount: float) -> void:
+    if player != self:
+        return
+    ability_energy = minf(ability_energy + amount, max_ability)

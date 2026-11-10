@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cbtg15lbocqme"]
+[gd_scene format=3 uid="uid://bm6fvehbn324w"]
 
 [ext_resource type="PackedScene" uid="uid://chtmvoyhxeqht" path="res://scenes/powerups/base_powerup.tscn" id="1_8k5bf"]
-[ext_resource type="Script" path="res://scripts/powerups/hp_powerup.gd" id="2_xs0th"]
+[ext_resource type="Script" uid="uid://80ibxtbf865d" path="res://scripts/powerups/hp_powerup.gd" id="2_xs0th"]
 
 [node name="HpPowerUp" unique_id=521559601 instance=ExtResource("1_8k5bf")]
 script = ExtResource("2_xs0th")

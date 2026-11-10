@@ -1,7 +1,7 @@
 extends Control
 
 @onready var ability_bar: TextureProgressBar = %TextureProgressBar
-@onready var ability_label: Label = %AbilityLabelLabel
+@onready var ability_label: Label = %AbilityLabel
 
 func _ready() -> void:
     GameManager.player_use_ability.connect(update_ability)

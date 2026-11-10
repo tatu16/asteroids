@@ -1,10 +1,17 @@
 [gd_scene format=3 uid="uid://chtmvoyhxeqht"]
 
+[ext_resource type="Script" uid="uid://bn3l2623r6dlj" path="res://scripts/powerups/base_powerup.gd" id="1_krk5w"]
+[ext_resource type="Texture2D" uid="uid://c7b5d2sqxc0v3" path="res://assets/sprites/pickups/pickup_health.png" id="2_ve6bp"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
 [node name="BasePowerup" type="Area2D" unique_id=521559601]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_krk5w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028702179]
 shape = SubResource("CircleShape2D_kwnof")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1510588934]
+texture = ExtResource("2_ve6bp")

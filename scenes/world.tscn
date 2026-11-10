@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bwxbaqghk8ghd" path="res://scenes/enemies/destroyer.tscn" id="10_q5onr"]
 [ext_resource type="PackedScene" uid="uid://b5dr71h0b4eqi" path="res://scenes/enemies/watcher.tscn" id="11_jhx03"]
 [ext_resource type="PackedScene" uid="uid://xwdlcbdaejci" path="res://scenes/enemies/interceptor.tscn" id="12_o8fc1"]
+[ext_resource type="PackedScene" uid="uid://bm6fvehbn324w" path="res://scenes/powerups/hp_power_up.tscn" id="18_lakw3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("1_rwgxs")
@@ -164,6 +165,8 @@ script = ExtResource("5_7t5mc")
 
 [node name="XpOrbs" type="Node2D" parent="." unique_id=784941827]
 
+[node name="PowerUps" type="Node2D" parent="." unique_id=1682830168]
+
 [node name="BackgroundManager" type="CanvasLayer" parent="." unique_id=2061202080]
 layer = -1
 script = ExtResource("5_qfnet")
@@ -238,3 +241,6 @@ spawn_distance = 700.0
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=74926261]
 
 [node name="DifficultyTimer" type="Timer" parent="EnemySpawner" unique_id=535142506]
+
+[node name="HpPowerUp" parent="." unique_id=521559601 instance=ExtResource("18_lakw3")]
+position = Vector2(671, 492)

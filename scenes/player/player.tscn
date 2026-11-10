@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chrm3aobewxyi"]
 
 [ext_resource type="Script" uid="uid://dvub8j1ok235u" path="res://scripts/player/player.gd" id="1_3vyb7"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
 [node name="Player" type="CharacterBody2D" unique_id=2123365197 groups=["players"]]
