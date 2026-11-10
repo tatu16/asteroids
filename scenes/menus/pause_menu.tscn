@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cloe867u2mwel"]
+
+[ext_resource type="Script" uid="uid://bw8pduksyvwjx" path="res://scripts/ui/pause_menu.gd" id="1_fwndu"]
+[ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_7unhi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvr8k"]
+bg_color = Color(0.13725491, 0.20784314, 0.30980393, 0.3647059)
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1215251899]
+script = ExtResource("1_fwndu")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=417254347]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvr8k")
+
+[node name="Label" type="Label" parent="PanelContainer" unique_id=868266052]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer" unique_id=1941722287]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Control" unique_id=309293393]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -53.5
+offset_right = 37.0
+offset_bottom = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control/MarginContainer" unique_id=413908404]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ContinueButton" type="Button" parent="PanelContainer/Control/MarginContainer/VBoxContainer" unique_id=301418167]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+text = "Continue"
+
+[node name="OptionsButton" type="Button" parent="PanelContainer/Control/MarginContainer/VBoxContainer" unique_id=637835207]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+text = "Options"
+
+[node name="ExitGameButton" type="Button" parent="PanelContainer/Control/MarginContainer/VBoxContainer" unique_id=1292943170]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+text = "Exit Game"
+
+[connection signal="pressed" from="PanelContainer/Control/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="PanelContainer/Control/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="PanelContainer/Control/MarginContainer/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

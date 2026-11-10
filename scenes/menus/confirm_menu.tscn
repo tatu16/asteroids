@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://fu5n051ay78x"]
+
+[ext_resource type="Script" uid="uid://dmhf5y2h3c5po" path="res://scripts/ui/confirm_menu.gd" id="1_1mp08"]
+[ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_epuqv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1mp08"]
+bg_color = Color(0.13725491, 0.20784314, 0.30980393, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23921569, 0.29803923, 0.5882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="ConfirmMenu" type="CanvasLayer" unique_id=1964798614]
+script = ExtResource("1_1mp08")
+
+[node name="Control" type="Control" parent="." unique_id=1553113917]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=580496924]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -29.0
+offset_right = 68.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer" unique_id=2127291444]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1mp08")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer" unique_id=63874197]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer" unique_id=1168343438]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1195555478]
+layout_mode = 2
+theme = ExtResource("2_epuqv")
+text = "Leave the game?"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1227514426]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ConfirmButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=426841149]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_epuqv")
+text = "Confirm"
+
+[node name="ReturnButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=195692743]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_epuqv")
+text = "Return"
+
+[connection signal="pressed" from="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]
