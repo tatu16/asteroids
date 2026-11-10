@@ -2,11 +2,22 @@ class_name PowerUp
 extends Area2D
 
 const FLOATING_TEXT = preload("res://scenes/powerups/powerup_label.tscn")
+const GLOW = preload("res://resources/shaders/sprite_glow.gdshader")
 
 @export var pickup_text := "+25 HP"
 @export var pickup_color := Color("e2001dff")
 
+@onready var glow: ColorRect = $Glow
+
+var glow_material: ShaderMaterial
+
 func _ready() -> void:
+    if glow:
+        var material := ShaderMaterial.new()
+        material.shader = GLOW
+        material.set_shader_parameter("glow_color", pickup_color)
+        glow.material = material
+        
     if not multiplayer.is_server():
         return
     
