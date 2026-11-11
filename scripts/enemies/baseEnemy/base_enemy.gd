@@ -4,12 +4,15 @@ class_name Enemy extends CharacterBody2D
 @export var move_speed: float = 50
 @export var damage: float = 5.0
 @export var attack_cooldown: float = 1.0
+@export var attack_distance: float = 300.0
 @export var xp: float = 1
 
 @export_group("Projectile")
 @export var shoot_projectiles: bool = false
 @export var projectile_scene: PackedScene = preload("res://scenes/projectiles/bolt.tscn")
 @export var projectile_speed: float = 250.0
+@export var projectile_acceleration: float = 0.0
+@export var projectile_max_speed: float = 0.0
 @export var projectile_damage: float = 10.0
 
 @export_group("Powerup Drops")
@@ -107,7 +110,8 @@ func _physics_process(delta: float) -> void:
     if closest_player == null:
         return
         
-    if shoot_projectiles:
+    var distance_to_player := global_position.distance_to(closest_player.global_position)
+    if shoot_projectiles and distance_to_player <= attack_distance:
         velocity = Vector2.ZERO
         move_and_slide()
         shoot_at_player(closest_player)
@@ -120,7 +124,7 @@ func _physics_process(delta: float) -> void:
         var body = collision.get_collider()
         if body is Player:
             attack_player(body)
-    
+  
 func move_towards_player(player: Player):
     var direction = global_position.direction_to(
         player.global_position
@@ -142,7 +146,7 @@ func shoot_at_player(player: Player) -> void:
     else:
         projectile_path = projectile_scene.resource_path
         
-    projectile_spawner.spawn({
+    var projectile_data := {
         "position": global_position,
         "direction": direction,
         "speed": projectile_speed,
@@ -150,7 +154,12 @@ func shoot_at_player(player: Player) -> void:
         "projectile_path": projectile_path,
         "shooter_is_enemy": true,
         "shooter_path": get_path()
-    })
+    }
+    if projectile_acceleration != 0.0:
+        projectile_data["acceleration"] = projectile_acceleration
+    if projectile_max_speed > 0.0:
+        projectile_data["max_speed"] = projectile_max_speed
+    projectile_spawner.spawn(projectile_data)
 
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true

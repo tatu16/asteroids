@@ -38,22 +38,13 @@
 			"tasks": [
 				"842e04e8-fe6c-4940-a4a2-7bb15d21bc97",
 				"60d7090e-5ffb-44dc-ac77-8b9c5a6a17e4",
-				"a5d7ec6d-b801-4100-99d2-d62949b33d5d",
-				"210b819c-37c0-43db-b1dd-5b3701819be5",
-				"8bafbf30-a8c1-4e6b-8918-7062e06a937a",
-				"923949a3-b4bc-4de1-841e-3e7764890ce1",
-				"073e2e07-cab2-4c93-9b64-5d788dedb57b",
-				"150bb4fd-f8b4-48bc-abdf-668f6d0c3e2d",
 				"a1da655a-06a0-4213-b6b9-33145047ebcd",
 				"a017a31a-cde6-40ce-afb0-e9db8195df03",
 				"c7276b00-cbb2-4a6a-9834-4f0859f3f46f",
 				"8484dab7-a548-4b05-b530-88b693975aff",
 				"552ed52d-9c36-4001-be8d-57984916c367",
-				"c28c599a-bb27-4277-8ea7-17ca0305ebf0",
-				"186f43ec-893e-47e1-abfe-86be60895d67",
 				"6069574a-f557-49d5-87b2-b195b2326568",
 				"8387f388-0249-41e2-aa62-90329d7d3009",
-				"a2eeceb1-ab0a-4709-ae91-65fcaf07a8d4",
 				"08e66973-3ef8-4dd9-80bd-b142eabdc409",
 				"28b17728-06df-4cab-b34e-55dee243d5d6",
 				"99c063ef-f572-421d-9594-3f95b0f98c7a"
@@ -62,7 +53,16 @@
 		{
 			"uuid": "2090c6f7-72e0-45f1-87ae-9ce438f6455d",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"c28c599a-bb27-4277-8ea7-17ca0305ebf0",
+				"186f43ec-893e-47e1-abfe-86be60895d67",
+				"923949a3-b4bc-4de1-841e-3e7764890ce1",
+				"a5d7ec6d-b801-4100-99d2-d62949b33d5d",
+				"210b819c-37c0-43db-b1dd-5b3701819be5",
+				"073e2e07-cab2-4c93-9b64-5d788dedb57b",
+				"a2eeceb1-ab0a-4709-ae91-65fcaf07a8d4",
+				"150bb4fd-f8b4-48bc-abdf-668f6d0c3e2d"
+			]
 		},
 		{
 			"uuid": "4658e24c-2300-429f-95e7-1b09fa70ecf9",
@@ -95,13 +95,6 @@
 		{
 			"uuid": "210b819c-37c0-43db-b1dd-5b3701819be5",
 			"title": "Character selector",
-			"description": "",
-			"category": "3624ecef-a6fc-47e6-a2dc-cd28be165db9",
-			"steps": []
-		},
-		{
-			"uuid": "8bafbf30-a8c1-4e6b-8918-7062e06a937a",
-			"title": "Options",
 			"description": "",
 			"category": "3624ecef-a6fc-47e6-a2dc-cd28be165db9",
 			"steps": []

@@ -15,6 +15,8 @@ enum FireMode {
 @export var damage: float = 10.0
 @export var fire_rate: float = 5.0
 @export var projectile_speed: float = 600.0
+@export var projectile_acceleration: float = 0.0
+@export var projectile_max_speed: float = 0.0
 
 @export_group("Projectile")
 @export var projectile_count: int = 1

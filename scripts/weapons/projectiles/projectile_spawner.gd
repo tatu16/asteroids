@@ -26,6 +26,10 @@ func spawn_projectile_replica(data: Dictionary) -> Node:
     projectile.direction = data["direction"]
     projectile.speed = data["speed"]
     projectile.damage = data["damage"]
+    if data.has("acceleration"):
+        projectile.acceleration = data["acceleration"]
+    if data.has("max_speed"):
+        projectile.max_speed = data["max_speed"]
     projectile.shooter_peer_id = data.get("shooter_peer_id", -1)
     projectile.shooter_is_enemy = data.get("shooter_is_enemy", false)
 
