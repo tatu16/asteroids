@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://bwxbaqghk8ghd"]
 
-[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_6cn2c"]
+[ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_r8358"]
 [ext_resource type="Texture2D" uid="uid://cs0ndeiaqh0k0" path="res://assets/sprites/enemies/enemy_destroyer.png" id="2_6cn2c"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6cn2c"]
 atlas = ExtResource("2_6cn2c")
@@ -55,17 +53,9 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="Destoryer" type="CharacterBody2D" unique_id=941123928]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("1_6cn2c")
+[node name="Destroyer" unique_id=1292825599 instance=ExtResource("1_r8358")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
-scale = Vector2(2.9199982, 3.0800016)
-shape = SubResource("CircleShape2D_kwnof")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1420735909]
-scale = Vector2(0.4, 0.4)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=485127028]
 sprite_frames = SubResource("SpriteFrames_kwnof")
 autoplay = "default"
 frame_progress = 0.24942923

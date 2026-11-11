@@ -2,12 +2,44 @@ class_name Player extends Character
 
 @onready var visuals = $Visuals
 
+var projectile_spawner: MultiplayerSpawner
+var abilities: Array[PlayerAbility] = []
 var current_speed: float = 0.0
 var current_level: int = 0
-var boost_active: bool = false
 var angular_velocity: float = 0.0
 var current_xp: float = 0.0
 var xp_to_next_level: float = 10.0
+var is_dead: bool = false
+
+func _ready() -> void:
+    super()
+    if character_data == null:
+        return
+
+    for ability_scene in character_data.abilities:
+        var ability := ability_scene.instantiate() as PlayerAbility
+        if ability == null:
+            push_error(
+                "Character ability scene must use PlayerAbility: "
+                + ability_scene.resource_path
+            )
+            continue
+
+        ability.set_multiplayer_authority(get_multiplayer_authority())
+        ability.initialize(self)
+        add_child(ability)
+        abilities.append(ability)
+
+    GameManager.player_add_ability.connect(_update_ability)
+    GameManager.player_healed.emit(self, 0.0, current_hp)
+    if multiplayer.is_server():
+        GameManager.use_ability_player(self, ability_energy)
+        GameManager.update_player_xp.rpc(
+            get_multiplayer_authority(),
+            current_xp,
+            xp_to_next_level,
+            current_level
+        )
 
 func _physics_process(delta: float) -> void:
     if is_multiplayer_authority():
@@ -21,6 +53,7 @@ func handle_shooting() -> void:
         return
     var direction = global_position.direction_to(get_global_mouse_position())
     for weapon in current_weapons:
+        weapon.projectile_spawner = projectile_spawner
         weapon.try_fire(direction)
 
 func handle_movement(delta: float) -> void:
@@ -31,22 +64,15 @@ func handle_movement(delta: float) -> void:
 		"move_down"
     )
     
-    boost_active = Input.is_action_pressed("boost") and boost_energy > 0
-    if boost_active:
-        boost_energy = maxf(
-            boost_energy - boost_drain * delta, 0.0)
-    else:
-        boost_energy = minf(
-            boost_energy + boost_recovery * delta, max_boost)
+    for ability in abilities:
+        ability.process_ability(delta)
 
-    GameManager.boost_player(self, boost_energy)
-            
-    var speed_multiplier := boost_multiplier if boost_active else 1.0
+    var speed_multiplier := 1.0
+    for ability in abilities:
+        speed_multiplier *= ability.movement_multiplier()
     var target_speed := max_speed * speed_multiplier
 
-    var acceleration_force := acceleration
-    if boost_active:
-        acceleration_force *= boost_multiplier
+    var acceleration_force := acceleration * speed_multiplier
 
     if direction != Vector2.ZERO:
         if velocity.dot(direction) < 0.0:
@@ -90,6 +116,7 @@ func gain_xp(amount: float) -> void:
     
     for i in range(levels_gained):
         GameManager.player_levelup.emit(self)
+        
 func level_up() -> void:
     current_level += 1
     xp_to_next_level *= 1.5
@@ -98,3 +125,10 @@ func level_up() -> void:
 
 func _on_ready() -> void:
     add_to_group("players")
+
+func _update_ability(player: Player, amount: float) -> void:
+    if player != self:
+        return
+    ability_energy = minf(ability_energy + amount, max_ability)
+    GameManager.use_ability_player(self, ability_energy)
+    

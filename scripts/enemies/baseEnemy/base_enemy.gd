@@ -11,34 +11,70 @@ class_name Enemy extends CharacterBody2D
 @export var projectile_scene: PackedScene = preload("res://scenes/projectiles/bolt.tscn")
 @export var projectile_speed: float = 250.0
 @export var projectile_damage: float = 10.0
-@export var projectile_spawner: MultiplayerSpawner
 
-@onready var xp_orb: PackedScene = preload("res://scenes/misc/xp_orb.tscn")
+@export_group("Powerup Drops")
+@export var drop_chance: float = 0.25
+@export var powerup_pool: Array[PackedScene] = [
+    preload("res://scenes/powerups/hp_powerup.tscn"),
+    preload("res://scenes/powerups/ability_powerup.tscn")
+]
 
-var hp: float
+var powerup_spawner: PowerupSpawner
+var projectile_spawner: MultiplayerSpawner
+var xp_orb_spawner: MultiplayerSpawner
+var hp: float = 999
 var can_attack = true
 
 func _ready() -> void:
     add_to_group("enemies")
     hp = max_hp
     
-func die():
-    var orb = xp_orb.instantiate()
-    orb.xp_value = xp
-    orb.global_position = global_position
-    get_parent().add_child(orb)
-    queue_free()
-    
-func take_damage(amount: float):
+func die(attacker_peer_id: int):
     if not multiplayer.is_server():
         return
-    apply_damage.rpc(amount)
         
-@rpc("authority", "call_local", "reliable")
-func apply_damage(amount: float) -> void:
+    SaveManager.add_run_stat(
+        attacker_peer_id,
+        SaveManager.Stat.ENEMIES_KILLED
+    )
+    SaveManager.add_run_stat(
+        attacker_peer_id,
+        SaveManager.Stat.SCORE
+    )
+    GameManager.add_score(1)
+    
+    if xp_orb_spawner:
+        xp_orb_spawner.spawn_xp_orb(xp,global_position)
+    
+    drop_powerup()
+    queue_free()
+    
+func drop_powerup() -> void:
+    if not multiplayer.is_server():
+        return
+    if randf() > drop_chance:
+        return
+    if powerup_pool.is_empty() or powerup_spawner == null:
+        return
+
+    var powerup_scene = powerup_pool.pick_random()
+    powerup_spawner.spawn_powerup(
+        powerup_scene,
+        global_position
+    )
+    
+func take_damage(amount: float, attacker_peer_id: int) -> void:
+    if not multiplayer.is_server():
+        return
+    
     hp -= amount
+    SaveManager.add_run_stat(
+        attacker_peer_id,
+        SaveManager.Stat.DAMAGE_DEALT,
+        amount
+    )
     if(hp <= 0):
-        die()
+        die(attacker_peer_id)
         
 func attack_player(player: Player) -> void:
     if not can_attack:
@@ -112,6 +148,7 @@ func shoot_at_player(player: Player) -> void:
         "speed": projectile_speed,
         "damage": projectile_damage,
         "projectile_path": projectile_path,
+        "shooter_is_enemy": true,
         "shooter_path": get_path()
     })
 

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://icens2vt4h7h"]
 
-[ext_resource type="Script" uid="uid://duwl3w5cvasbr" path="res://scripts/ui/boost_bar.gd" id="1_iv0kb"]
-[ext_resource type="Texture2D" uid="uid://dtx83f6vjlxqe" path="res://assets/sprites/ui/ui_boost_icon.png" id="1_qi7kw"]
-[ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="1_rxlux"]
+[ext_resource type="Script" uid="uid://duwl3w5cvasbr" path="res://scripts/ui/ability_bar.gd" id="1_jmf1h"]
+[ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_j3ybl"]
+[ext_resource type="Texture2D" uid="uid://dtx83f6vjlxqe" path="res://assets/sprites/ui/ui_ability_icon.png" id="3_jmf1h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvr8k"]
 bg_color = Color(0.13725491, 0.20784314, 0.30980393, 1)
@@ -26,20 +26,20 @@ colors = PackedColorArray(0.98498565, 0.29921097, 0.40354142, 1, 0.9999997, 0.12
 gradient = SubResource("Gradient_iv0kb")
 repeat = 2
 
-[node name="BoostBar" type="Control" unique_id=2042111351]
+[node name="AbilityBar" type="Control" unique_id=2042111351]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_iv0kb")
+script = ExtResource("1_jmf1h")
 
 [node name="VFlowContainer" type="VBoxContainer" parent="." unique_id=332722076]
 layout_mode = 0
 offset_right = 103.0
 offset_bottom = 365.0
 
-[node name="BoostLabel" type="Label" parent="VFlowContainer" unique_id=544911576]
+[node name="AbilityLabel" type="Label" parent="VFlowContainer" unique_id=544911576]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("1_rxlux")
+theme = ExtResource("2_j3ybl")
 theme_override_font_sizes/font_size = 40
 text = "85%"
 horizontal_alignment = 1
@@ -53,7 +53,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="VFlowContainer/PanelContainer/VBoxContainer" unique_id=1593559455]
 layout_mode = 2
-texture = ExtResource("1_qi7kw")
+texture = ExtResource("3_jmf1h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VFlowContainer/PanelContainer/VBoxContainer" unique_id=1178313673]
 layout_mode = 2

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dgsfc25q8xrwu"]
 
-[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_tgu21"]
+[ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_tgu21"]
 [ext_resource type="Texture2D" uid="uid://cxnewa82fysae" path="res://assets/sprites/enemies/enemy_jellyfish.png" id="2_tgu21"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
@@ -242,7 +242,7 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_tgu21")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
+[node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("CircleShape2D_kwnof")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=244096947]

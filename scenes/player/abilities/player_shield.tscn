@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c2kugafs1m0f3"]
+
+[ext_resource type="Script" uid="uid://cx3bfoqooa7qu" path="res://scripts/player/ability/shield_ability.gd" id="1_8qwsx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shield"]
+radius = 72.0
+
+[node name="PlayerShield" type="Area2D" unique_id=988375799]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("1_8qwsx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=325681986]
+shape = SubResource("CircleShape2D_shield")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=1306580334]
+color = Color(0.2, 0.7, 1, 0.22)
+polygon = PackedVector2Array(0, -72, 36, -62, 62, -36, 72, 0, 62, 36, 36, 62, 0, 72, -36, 62, -62, 36, -72, 0, -62, -36, -36, -62)

@@ -1,29 +1,8 @@
 [gd_scene format=3 uid="uid://chrm3aobewxyi"]
 
 [ext_resource type="Script" uid="uid://dvub8j1ok235u" path="res://scripts/player/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://xbnn517mmcia" path="res://assets/sprites/ships/ship_scout.png" id="2_g2els"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
-atlas = ExtResource("2_g2els")
-region = Rect2(8, 11, 110, 132)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
-animations = [{
-"frames": [],
-"loop": 1,
-"name": &"boost",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qhqgy")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
 
 [node name="Player" type="CharacterBody2D" unique_id=2123365197 groups=["players"]]
 z_index = 1
@@ -42,8 +21,7 @@ rotation_smoothing_enabled = true
 [node name="Visuals" type="Node2D" parent="." unique_id=197805212]
 scale = Vector2(0.5, 0.5)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1743324801]
-sprite_frames = SubResource("SpriteFrames_kwnof")
+[node name="ShipSprite" type="Sprite2D" parent="Visuals" unique_id=1743324801]
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="ready" from="." to="." method="_on_ready"]

@@ -1,14 +1,14 @@
 class_name Character 
 extends CharacterBody2D
 
-@export var character_data: CharacterData
+var character_data: CharacterData
 
 var character_name: String
 var max_hp: float
-var max_boost: float
-var boost_multiplier: float
-var boost_recovery: float
-var boost_drain: float
+var max_ability: float
+var ability_multiplier: float
+var ability_recovery: float
+var ability_drain: float
 
 var rotation_speed: float
 var linear_drag: float
@@ -19,7 +19,7 @@ var acceleration: float
 var default_weapon: WeaponData
 
 var current_hp: float
-var boost_energy: float
+var ability_energy: float
 var current_weapons: Array[Weapon] = []
 
 func _ready() -> void:
@@ -27,7 +27,7 @@ func _ready() -> void:
         load_character_data()
         
     current_hp = max_hp
-    boost_energy = max_boost
+    ability_energy = max_ability
     
     if default_weapon:
         add_weapon(default_weapon)
@@ -48,11 +48,18 @@ func take_damage(amount: float) -> void:
 
 func load_character_data() -> void:
     character_name = character_data.character_name
+    var ship_sprite := get_node_or_null("Visuals/ShipSprite") as Sprite2D
+    if ship_sprite != null and character_data.ship_texture != null:
+        var atlas_texture := AtlasTexture.new()
+        atlas_texture.atlas = character_data.ship_texture
+        atlas_texture.region = character_data.ship_region
+        ship_sprite.texture = atlas_texture
+
     max_hp = character_data.max_hp
-    max_boost = character_data.max_boost
-    boost_multiplier = character_data.boost_multiplier
-    boost_recovery = character_data.boost_recovery
-    boost_drain = character_data.boost_drain
+    max_ability = character_data.max_ability
+    ability_multiplier = character_data.ability_multiplier
+    ability_recovery = character_data.ability_recovery
+    ability_drain = character_data.ability_drain
     
     rotation_speed = character_data.rotation_speed
     linear_drag = character_data.linear_drag

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://g53gjcgvno83"]
+
+[ext_resource type="Resource" uid="uid://dx111lcewrskc" path="res://resources/weapons/pulse_gun.tres" id="1_2nf5v"]
+[ext_resource type="PackedScene" uid="uid://c2kugafs1m0f3" path="res://scenes/player/abilities/player_shield.tscn" id="1_m5jyd"]
+[ext_resource type="Texture2D" uid="uid://dcelyd66jxnul" path="res://assets/sprites/ships/ship_guardian.png" id="2_2nf5v"]
+[ext_resource type="Script" uid="uid://rrnb0rlitc3b" path="res://resources/characters/character_data.gd" id="2_m5jyd"]
+
+[resource]
+script = ExtResource("2_m5jyd")
+character_name = "Guardian"
+portrait = ExtResource("2_2nf5v")
+ship_texture = ExtResource("2_2nf5v")
+default_weapon = ExtResource("1_2nf5v")
+abilities = Array[PackedScene]([ExtResource("1_m5jyd")])
+metadata/_custom_type_script = "uid://rrnb0rlitc3b"

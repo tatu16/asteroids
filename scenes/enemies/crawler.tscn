@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dcbbdfokwjv3l"]
 
-[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_cgsye"]
+[ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_cgsye"]
 [ext_resource type="Texture2D" uid="uid://cw38naid3m3v7" path="res://assets/sprites/enemies/enemy_crawler.png" id="2_8yhgg"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+[node name="Crawler" unique_id=1998242713 instance=ExtResource("1_cgsye")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgsye"]
 atlas = ExtResource("2_8yhgg")

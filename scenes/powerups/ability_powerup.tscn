@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dh62rb3aar3f8"]
+
+[ext_resource type="PackedScene" uid="uid://chtmvoyhxeqht" path="res://scenes/powerups/base_powerup.tscn" id="1_3y80w"]
+[ext_resource type="Script" uid="uid://hrbomsfg455m" path="res://scripts/powerups/ability_powerup.gd" id="2_ti36n"]
+[ext_resource type="Texture2D" uid="uid://dtx83f6vjlxqe" path="res://assets/sprites/ui/ui_ability_icon.png" id="3_jwntd"]
+
+[node name="AbilityPowerup" unique_id=521559601 instance=ExtResource("1_3y80w")]
+script = ExtResource("2_ti36n")
+ability = 100.0
+
+[node name="Sprite2D" parent="." index="1" unique_id=1510588934]
+texture = ExtResource("3_jwntd")

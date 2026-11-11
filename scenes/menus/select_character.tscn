@@ -2,37 +2,32 @@
 
 [ext_resource type="Script" uid="uid://85ccjw0pnbnx" path="res://scripts/ui/select_character.gd" id="1_vrpqn"]
 
-[node name="SelectCharacter" type="Control" unique_id=170462860]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_vrpqn")
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1748834219]
-clip_contents = true
-layout_mode = 0
+[node name="SelectCharacter" type="AspectRatioContainer" unique_id=1624968947]
+custom_minimum_size = Vector2(256, 256)
 offset_right = 256.0
 offset_bottom = 256.0
+script = ExtResource("1_vrpqn")
 
-[node name="Panel" type="Panel" parent="AspectRatioContainer" unique_id=1501891206]
+[node name="Panel" type="Panel" parent="." unique_id=1501891206]
 layout_mode = 2
 offset_transform_enabled = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/Panel" unique_id=1580416127]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1580416127]
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 256.0
 alignment = 1
 
-[node name="NameLabel" type="Label" parent="AspectRatioContainer/Panel/VBoxContainer" unique_id=1163727770]
+[node name="NameLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1163727770]
 unique_name_in_owner = true
 layout_mode = 2
 text = "character"
 horizontal_alignment = 1
 
-[node name="SelectButton" type="Button" parent="AspectRatioContainer/Panel/VBoxContainer" unique_id=1845969310]
+[node name="SelectButton" type="Button" parent="Panel/VBoxContainer" unique_id=1845969310]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 text = "Select"
 
-[connection signal="pressed" from="AspectRatioContainer/Panel/VBoxContainer/SelectButton" to="." method="_on_select_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/SelectButton" to="." method="_on_select_button_pressed"]

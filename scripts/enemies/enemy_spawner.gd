@@ -4,6 +4,8 @@ extends Node
 @export var enemy_scenes: Array[PackedScene]
 @export var multiplayer_spawner: MultiplayerSpawner
 @export var projectile_spawner: MultiplayerSpawner
+@export var xp_orb_spawner: MultiplayerSpawner
+@export var powerup_spawner: MultiplayerSpawner
 @export var enemies_container: Node2D
 
 @export_group("Spawning")
@@ -40,9 +42,12 @@ func _ready() -> void:
 func _spawn_enemy_replica(data: Dictionary) -> Node:
     var scene_index: int = data["scene_index"]
     var enemy = enemy_scenes[scene_index].instantiate() as Enemy
-
+    
+    enemy.set_multiplayer_authority(1)
     enemy.position = data["position"]
     enemy.projectile_spawner = projectile_spawner
+    enemy.xp_orb_spawner = xp_orb_spawner
+    enemy.powerup_spawner = powerup_spawner
     if multiplayer.is_server():
         alive_enemies.append(enemy)
         enemy.tree_exited.connect(

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bxopx164bk1qg"]
+
+[ext_resource type="Script" uid="uid://bp0h4uqb4u40p" path="res://scripts/player/ability/boost_ability.gd" id="1_0xoid"]
+
+[node name="BoostAbility" type="Area2D" unique_id=1821695162]
+script = ExtResource("1_0xoid")
+
+[node name="Visual" type="Node2D" parent="." unique_id=2062298591]
