@@ -1,14 +1,45 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cvnjmsdgc4x4q"]
 
-[ext_resource type="PackedScene" path="res://scenes/projectiles/base_projectile.tscn" id="1_base"]
-[ext_resource type="Script" path="res://scripts/weapons/projectiles/wave_projectile.gd" id="2_script"]
-[ext_resource type="Texture2D" uid="uid://d0wa5r8a47trr" path="res://assets/sprites/projectiles/projectile_fireball.png" id="3_texture"]
+[ext_resource type="Script" uid="uid://c4ckcbdf18qp" path="res://scripts/weapons/projectiles/wave_projectile.gd" id="2_script"]
 
-[node name="Wave" instance=ExtResource("1_base")]
-script = ExtResource("2_script")
+[sub_resource type="CircleShape2D" id="CircleShape2D_jdxkx"]
+
+[sub_resource type="Animation" id="Animation_kp3cm"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gkivl"]
+_data = {
+&"attack": SubResource("Animation_kp3cm")
+}
+
+[node name="Wave" type="Area2D" unique_id=192048907]
 scale = Vector2(1.25, 1.25)
+collision_layer = 8
+collision_mask = 79
+script = ExtResource("2_script")
 acceleration = 20.0
 max_speed = 280.0
+metadata/_custom_type_script = "uid://chw5n14gdpla0"
 
-[node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("3_texture")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1328337806]
+scale = Vector2(-6.7798357, 6.818924)
+shape = SubResource("CircleShape2D_jdxkx")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=249870129]
+color = Color(0.49411765, 1, 0, 0.54901963)
+polygon = PackedVector2Array(0, -72, 36, -62, 62, -36, 72, 0, 62, 36, 36, 62, 0, 72, -36, 62, -62, 36, -72, 0, -62, -36, -36, -62)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1828064938]
+libraries/ = SubResource("AnimationLibrary_gkivl")

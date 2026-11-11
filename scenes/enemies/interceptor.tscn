@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_leyjb"]
 [ext_resource type="Texture2D" uid="uid://dowi3fdlmbg1m" path="res://assets/sprites/enemies/enemy_interceptor.png" id="2_leyjb"]
+[ext_resource type="Script" uid="uid://behmmm7ojmifl" path="res://scripts/enemies/interceptor.gd" id="2_nqdo6"]
 [ext_resource type="PackedScene" uid="uid://quc17hjjergs" path="res://scenes/projectiles/rocket.tscn" id="2_yghn5"]
 [ext_resource type="Texture2D" uid="uid://cr7tvddupymjn" path="res://assets/sprites/enemies/enemy_interceptor_attack.png" id="3_1u0yl"]
 
@@ -146,17 +147,19 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Interceptor" instance=ExtResource("1_leyjb")]
+[node name="Interceptor" unique_id=1219479794 instance=ExtResource("1_leyjb")]
+script = ExtResource("2_nqdo6")
+explosion_radius = 75.0
+explosion_damage = 20.0
 shoot_projectiles = true
 projectile_scene = ExtResource("2_yghn5")
+projectile_acceleration = 25.0
+projectile_max_speed = 500.0
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" parent="." index="0" unique_id=1541145150]
 shape = SubResource("CircleShape2D_kwnof")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1654554168]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=1654554168]
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kwnof")
-animation = &"attack"
 autoplay = "default"
-frame = 11
-frame_progress = 1.0

@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_ahq63"]
 [ext_resource type="Texture2D" uid="uid://cb8w0bk3py7qo" path="res://assets/sprites/enemies/enemy_slime.png" id="2_ahq63"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/wave.tscn" id="3_b58ev"]
+[ext_resource type="Script" uid="uid://ds6cqtypgobar" path="res://scripts/enemies/slime.gd" id="3_slime"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahq63"]
 atlas = ExtResource("2_ahq63")
@@ -46,10 +46,23 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+
 [node name="Slime" unique_id=1814177290 instance=ExtResource("1_ahq63")]
+script = ExtResource("3_slime")
+wave_projectile_scene = ExtResource("3_b58ev")
+wave_projectile_speed = 180.0
+wave_projectile_acceleration = 0.0
+wave_projectile_max_speed = 0.0
+wave_projectile_damage = 12.0
+projectile_distance = 120.0
 
-[node name="CollisionShape2D" parent="." index="0" unique_id=1541145150]
-shape = SubResource("CircleShape2D_kwnof")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=1559345602]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1559345602]
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_bhunq")
+animation = &"attack"
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_kwnof")

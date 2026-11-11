@@ -35,7 +35,7 @@ func _ready() -> void:
     hp = max_hp
     play_default_animation()
     
-func die(attacker_peer_id: int):
+func die(attacker_peer_id: int) -> void:
     if not multiplayer.is_server():
         return
         
@@ -130,7 +130,7 @@ func _physics_process(delta: float) -> void:
         if body is Player:
             attack_player(body)
   
-func move_towards_player(player: Player):
+func move_towards_player(player: Player) -> void:
     var direction = global_position.direction_to(
         player.global_position
     )

@@ -55,7 +55,11 @@ animations = [{
 
 [node name="Destroyer" unique_id=1292825599 instance=ExtResource("1_r8358")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=485127028]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=485127028]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kwnof")
 autoplay = "default"
 frame_progress = 0.24942923
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+scale = Vector2(2, 2)

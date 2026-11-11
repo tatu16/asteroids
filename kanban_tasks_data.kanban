@@ -47,7 +47,9 @@
 				"8387f388-0249-41e2-aa62-90329d7d3009",
 				"08e66973-3ef8-4dd9-80bd-b142eabdc409",
 				"28b17728-06df-4cab-b34e-55dee243d5d6",
-				"99c063ef-f572-421d-9594-3f95b0f98c7a"
+				"99c063ef-f572-421d-9594-3f95b0f98c7a",
+				"dba91d50-0c7d-489d-8887-33ab7304be47",
+				"e7d740d9-c149-4562-9742-f11932071951"
 			]
 		},
 		{
@@ -209,6 +211,20 @@
 			"title": "Better spawning",
 			"description": "",
 			"category": "cc348701-8a46-4949-a670-76911ef5a0bf",
+			"steps": []
+		},
+		{
+			"uuid": "dba91d50-0c7d-489d-8887-33ab7304be47",
+			"title": "Add explosion to interceptor",
+			"description": "",
+			"category": "30c39c30-5a76-42d5-8ade-6bdd921992dd",
+			"steps": []
+		},
+		{
+			"uuid": "e7d740d9-c149-4562-9742-f11932071951",
+			"title": "Add feedback for taking damage (player/enemy)",
+			"description": "",
+			"category": "30c39c30-5a76-42d5-8ade-6bdd921992dd",
 			"steps": []
 		}
 	],
