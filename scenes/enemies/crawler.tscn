@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_cgsye"]
 [ext_resource type="Texture2D" uid="uid://cw38naid3m3v7" path="res://assets/sprites/enemies/enemy_crawler.png" id="2_8yhgg"]
+[ext_resource type="Script" uid="uid://3jl0q6jm57hn" path="res://scripts/enemies/crawler.gd" id="3_crawler"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgsye"]
 atlas = ExtResource("2_8yhgg")
@@ -124,8 +125,14 @@ animations = [{
 }]
 
 [node name="Crawler" unique_id=853659130 instance=ExtResource("1_cgsye")]
+script = ExtResource("3_crawler")
+grab_distance = 70.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=133863090]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=133863090]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
 frame_progress = 0.88915324
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+scale = Vector2(1.5, 1.5)

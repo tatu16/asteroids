@@ -28,9 +28,12 @@ var xp_orb_spawner: MultiplayerSpawner
 var hp: float = 999
 var can_attack = true
 
+@onready var animated_sprite := get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+
 func _ready() -> void:
     add_to_group("enemies")
     hp = max_hp
+    play_default_animation()
     
 func die(attacker_peer_id: int):
     if not multiplayer.is_server():
@@ -84,9 +87,11 @@ func attack_player(player: Player) -> void:
         return
         
     can_attack = false
+    play_attack_animation()
     player.take_damage(damage)
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true
+    play_default_animation()
         
 func get_closest_player():
     var all_players = get_tree().get_nodes_in_group("players")
@@ -139,6 +144,7 @@ func shoot_at_player(player: Player) -> void:
         return
         
     can_attack = false
+    play_attack_animation()
     var direction = global_position.direction_to(player.global_position)
     var projectile_path := ""
     if projectile_scene == null:
@@ -163,3 +169,19 @@ func shoot_at_player(player: Player) -> void:
 
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true
+    play_default_animation()
+
+func play_attack_animation() -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    if not animated_sprite.sprite_frames.has_animation(&"attack"):
+        return
+    if animated_sprite.sprite_frames.get_frame_count(&"attack") == 0:
+        return
+    animated_sprite.play(&"attack")
+
+func play_default_animation() -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    if animated_sprite.sprite_frames.has_animation(&"default"):
+        animated_sprite.play(&"default")

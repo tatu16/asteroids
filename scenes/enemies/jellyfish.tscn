@@ -2,83 +2,83 @@
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_tgu21"]
 [ext_resource type="Texture2D" uid="uid://cxnewa82fysae" path="res://assets/sprites/enemies/enemy_jellyfish.png" id="2_tgu21"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tgu21"]
-atlas = ExtResource("2_tgu21")
-region = Rect2(0, 0, 316, 421)
+[ext_resource type="Script" uid="uid://cypbcdf2axecw" path="res://scripts/enemies/jellyfish.gd" id="3_jellyfish"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uhsk6"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(632, 421, 316, 421)
+region = Rect2(0, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m05u0"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(948, 421, 316, 421)
+region = Rect2(768, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1egoa"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(0, 0, 316, 421)
+region = Rect2(1152, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ywsy2"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(632, 421, 316, 421)
+region = Rect2(768, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_undyx"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(948, 421, 316, 421)
+region = Rect2(384, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2knwg"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(316, 0, 316, 421)
+region = Rect2(0, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cv0g"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(632, 421, 316, 421)
+region = Rect2(1152, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_45h6e"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(0, 0, 316, 421)
+region = Rect2(0, 0, 384, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0ppg"]
+atlas = ExtResource("2_tgu21")
+region = Rect2(768, 512, 384, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t6o6"]
+atlas = ExtResource("2_tgu21")
+region = Rect2(1152, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i47tk"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(0, 0, 316, 421)
+region = Rect2(0, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dda0u"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(316, 0, 316, 421)
+region = Rect2(384, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ctx0m"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(632, 0, 316, 421)
+region = Rect2(768, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cuhdu"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(948, 0, 316, 421)
+region = Rect2(1152, 0, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dioda"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(0, 421, 316, 421)
+region = Rect2(0, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4t3tw"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(316, 421, 316, 421)
+region = Rect2(384, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yjtbi"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(632, 421, 316, 421)
+region = Rect2(768, 512, 384, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4tqwe"]
 atlas = ExtResource("2_tgu21")
-region = Rect2(948, 421, 316, 421)
+region = Rect2(1152, 512, 384, 512)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tgu21")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uhsk6")
 }, {
@@ -102,6 +102,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_45h6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0ppg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t6o6")
 }],
 "loop": 1,
 "name": &"default",
@@ -114,7 +120,7 @@ animations = [{
 "duration": 0.2,
 "texture": SubResource("AtlasTexture_dda0u")
 }, {
-"duration": 0.15,
+"duration": 0.2,
 "texture": SubResource("AtlasTexture_ctx0m")
 }, {
 "duration": 0.06,
@@ -132,18 +138,26 @@ animations = [{
 "duration": 0.12,
 "texture": SubResource("AtlasTexture_4tqwe")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"move",
 "speed": 1.0
 }]
 
-[node name="Jellyfish" instance=ExtResource("1_tgu21")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
-[node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("CircleShape2D_kwnof")
+[node name="Jellyfish" unique_id=1155625488 instance=ExtResource("1_tgu21")]
+script = ExtResource("3_jellyfish")
+slide_interval = 2.0
+slide_start_speed_multiplier = 4.0
+slide_deceleration = 35.0
+restart_delay = 0.5
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=244096947]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=244096947]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_bhunq")
-animation = &"move"
 autoplay = "default"
-frame_progress = 0.8374052
+frame_progress = 0.4629228
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_kwnof")
