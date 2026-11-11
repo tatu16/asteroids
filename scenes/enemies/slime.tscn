@@ -46,17 +46,10 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="Slime" type="CharacterBody2D" unique_id=941123928]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("1_ahq63")
+[node name="Slime" unique_id=1814177290 instance=ExtResource("1_ahq63")]
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" parent="." index="0" unique_id=1541145150]
 shape = SubResource("CircleShape2D_kwnof")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ahq63")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1559345602]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=1559345602]
 sprite_frames = SubResource("SpriteFrames_bhunq")
-animation = &"attack"

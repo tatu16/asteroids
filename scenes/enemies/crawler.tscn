@@ -3,8 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_cgsye"]
 [ext_resource type="Texture2D" uid="uid://cw38naid3m3v7" path="res://assets/sprites/enemies/enemy_crawler.png" id="2_8yhgg"]
 
-[node name="Crawler" unique_id=1998242713 instance=ExtResource("1_cgsye")]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgsye"]
 atlas = ExtResource("2_8yhgg")
 region = Rect2(0, 0, 384, 256)
@@ -125,15 +123,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Crawler" type="CharacterBody2D" unique_id=941123928 groups=["enemies"]]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("1_cgsye")
+[node name="Crawler" unique_id=853659130 instance=ExtResource("1_cgsye")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
-shape = SubResource("CircleShape2D_kwnof")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=133863090]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=133863090]
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
 frame_progress = 0.88915324
