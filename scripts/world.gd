@@ -8,6 +8,7 @@ extends Node2D
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player/player.tscn")
 const UPGRADE_MENU: PackedScene = preload("res://scenes/menus/upgrade_menu.tscn")
 const GAME_OVER_MENU: PackedScene = preload("res://scenes/menus/game_over.tscn")
+const PAUSE_MENU: PackedScene = preload("res://scenes/menus/pause_menu.tscn")
 
 var elapsed_time: int = 0
 var is_paused: bool = false
@@ -25,6 +26,28 @@ func _ready() -> void:
         for peer_id in multiplayer.get_peers():
             spawn_player(peer_id)
         start_game()
+
+func _unhandled_input(event: InputEvent) -> void:
+    if not game_finished:
+        if event.is_action_pressed("pause_menu"):
+            var pause_menu = hud.get_node_or_null("PauseMenu")
+            if pause_menu != null:
+                pause_menu.queue_free()
+                if multiplayer.is_server():
+                    continue_game()
+                else:
+                    request_continue_game.rpc_id(1)
+                return
+            if is_paused:
+                return
+            var menu = PAUSE_MENU.instantiate()
+            menu.name = "PauseMenu"
+            hud.add_child(menu)
+
+            if multiplayer.is_server():
+                pause_game()
+            else:
+                request_pause_game.rpc_id(1)
         
 func start_game() -> void:
     if not multiplayer.is_server():
@@ -70,6 +93,12 @@ func pause_game() -> void:
     timer.stop()
     enemy_spawner.stop_spawning()
     set_game_paused.rpc(true)
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_pause_game() -> void:
+    if not multiplayer.is_server():
+        return
+    pause_game()
     
 func continue_game() -> void:
     if not multiplayer.is_server() or not is_paused:
@@ -83,6 +112,15 @@ func continue_game() -> void:
 @rpc("authority", "call_local", "reliable")
 func set_game_paused(paused: bool) -> void:
     is_paused = paused
+    for group_name in ["players", "enemies", "projectiles", "xp_orbs", "powerups"]:
+        for gameplay_node in get_tree().get_nodes_in_group(group_name):
+            if not is_instance_valid(gameplay_node):
+                continue
+            gameplay_node.process_mode = (
+                Node.PROCESS_MODE_DISABLED
+                if paused
+                else Node.PROCESS_MODE_INHERIT
+            )
     
 func end_game() -> void:
     if not multiplayer.is_server() or game_finished:
@@ -167,7 +205,7 @@ func _on_player_levelup(player: Player) -> void:
     pause_game()
     var peer_id = player.get_multiplayer_authority()
     SaveManager.add_run_stat(
-        peer_id, 
+        peer_id,
         SaveManager.Stat.LEVEL_UP
     )
     if peer_id == multiplayer.get_unique_id():
