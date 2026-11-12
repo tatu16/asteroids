@@ -39,7 +39,7 @@ func shoot(direction: Vector2) -> void:
         var shot_direction = direction.rotated(spread_angle)
         var peer_id = owner_character.get_multiplayer_authority()
         
-        projectile_spawner.spawn({
+        var projectile_data := {
             "position": owner_character.global_position,
             "direction": shot_direction,
             "speed": weapon_data.projectile_speed,
@@ -47,7 +47,12 @@ func shoot(direction: Vector2) -> void:
             "projectile_path": weapon_data.projectile_scene.resource_path,
             "shooter_peer_id": peer_id,
             "shooter_is_enemy": false
-        })
+        }
+        if weapon_data.projectile_acceleration != 0.0:
+            projectile_data["acceleration"] = weapon_data.projectile_acceleration
+        if weapon_data.projectile_max_speed > 0.0:
+            projectile_data["max_speed"] = weapon_data.projectile_max_speed
+        projectile_spawner.spawn(projectile_data)
         
         SaveManager.add_run_stat(
             peer_id, 

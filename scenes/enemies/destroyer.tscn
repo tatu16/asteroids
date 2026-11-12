@@ -5,27 +5,27 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6cn2c"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(0, 0, 508, 508)
+region = Rect2(0, 0, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04ffy"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(508, 0, 508, 508)
+region = Rect2(421, 0, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x17u5"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(1016, 0, 508, 508)
+region = Rect2(842, 0, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y158s"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(0, 508, 508, 508)
+region = Rect2(0, 421, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_it1ww"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(508, 508, 508, 508)
+region = Rect2(421, 421, 421, 421)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pkoye"]
 atlas = ExtResource("2_6cn2c")
-region = Rect2(1016, 508, 508, 508)
+region = Rect2(842, 421, 421, 421)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
 animations = [{
@@ -50,10 +50,16 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [node name="Destroyer" unique_id=1292825599 instance=ExtResource("1_r8358")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=485127028]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=485127028]
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kwnof")
+autoplay = "default"
+frame_progress = 0.24942923
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+scale = Vector2(2, 2)

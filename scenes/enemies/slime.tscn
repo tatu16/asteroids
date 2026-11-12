@@ -2,13 +2,64 @@
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_ahq63"]
 [ext_resource type="Texture2D" uid="uid://cb8w0bk3py7qo" path="res://assets/sprites/enemies/enemy_slime.png" id="2_ahq63"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/wave.tscn" id="3_b58ev"]
+[ext_resource type="Script" uid="uid://ds6cqtypgobar" path="res://scripts/enemies/slime.gd" id="3_slime"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahq63"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(70, 80, 243, 236)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h4y0"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(313, 80, 243, 236)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b58ev"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(556, 80, 243, 236)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ankfk"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(781, 80, 237, 237)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [],
+"loop": 0,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahq63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h4y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b58ev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ankfk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 2.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
-[node name="Slime" instance=ExtResource("1_ahq63")]
+[node name="Slime" unique_id=1814177290 instance=ExtResource("1_ahq63")]
+script = ExtResource("3_slime")
+wave_projectile_scene = ExtResource("3_b58ev")
+wave_projectile_damage = 12.0
+projectile_distance = 120.0
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1559345602]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+animation = &"attack"
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_kwnof")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ahq63")

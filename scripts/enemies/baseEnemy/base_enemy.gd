@@ -4,12 +4,15 @@ class_name Enemy extends CharacterBody2D
 @export var move_speed: float = 50
 @export var damage: float = 5.0
 @export var attack_cooldown: float = 1.0
+@export var attack_distance: float = 300.0
 @export var xp: float = 1
 
 @export_group("Projectile")
 @export var shoot_projectiles: bool = false
 @export var projectile_scene: PackedScene = preload("res://scenes/projectiles/bolt.tscn")
 @export var projectile_speed: float = 250.0
+@export var projectile_acceleration: float = 0.0
+@export var projectile_max_speed: float = 0.0
 @export var projectile_damage: float = 10.0
 
 @export_group("Powerup Drops")
@@ -19,17 +22,21 @@ class_name Enemy extends CharacterBody2D
     preload("res://scenes/powerups/ability_powerup.tscn")
 ]
 
+var stop_moving_while_shooting = true
 var powerup_spawner: PowerupSpawner
 var projectile_spawner: MultiplayerSpawner
 var xp_orb_spawner: MultiplayerSpawner
 var hp: float = 999
 var can_attack = true
 
+@onready var animated_sprite := get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+
 func _ready() -> void:
     add_to_group("enemies")
     hp = max_hp
+    play_default_animation()
     
-func die(attacker_peer_id: int):
+func die(attacker_peer_id: int) -> void:
     if not multiplayer.is_server():
         return
         
@@ -81,9 +88,11 @@ func attack_player(player: Player) -> void:
         return
         
     can_attack = false
+    play_attack_animation()
     player.take_damage(damage)
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true
+    play_default_animation()
         
 func get_closest_player():
     var all_players = get_tree().get_nodes_in_group("players")
@@ -107,11 +116,13 @@ func _physics_process(delta: float) -> void:
     if closest_player == null:
         return
         
-    if shoot_projectiles:
-        velocity = Vector2.ZERO
-        move_and_slide()
+    var distance_to_player := global_position.distance_to(closest_player.global_position)
+    if shoot_projectiles and distance_to_player <= attack_distance:
         shoot_at_player(closest_player)
-        return
+        if stop_moving_while_shooting:
+            velocity = Vector2.ZERO
+            move_and_slide()
+            return
         
     move_towards_player(closest_player)
     
@@ -120,8 +131,8 @@ func _physics_process(delta: float) -> void:
         var body = collision.get_collider()
         if body is Player:
             attack_player(body)
-    
-func move_towards_player(player: Player):
+  
+func move_towards_player(player: Player) -> void:
     var direction = global_position.direction_to(
         player.global_position
     )
@@ -135,6 +146,7 @@ func shoot_at_player(player: Player) -> void:
         return
         
     can_attack = false
+    play_attack_animation()
     var direction = global_position.direction_to(player.global_position)
     var projectile_path := ""
     if projectile_scene == null:
@@ -142,7 +154,7 @@ func shoot_at_player(player: Player) -> void:
     else:
         projectile_path = projectile_scene.resource_path
         
-    projectile_spawner.spawn({
+    var projectile_data := {
         "position": global_position,
         "direction": direction,
         "speed": projectile_speed,
@@ -150,7 +162,28 @@ func shoot_at_player(player: Player) -> void:
         "projectile_path": projectile_path,
         "shooter_is_enemy": true,
         "shooter_path": get_path()
-    })
+    }
+    if projectile_acceleration != 0.0:
+        projectile_data["acceleration"] = projectile_acceleration
+    if projectile_max_speed > 0.0:
+        projectile_data["max_speed"] = projectile_max_speed
+    projectile_spawner.spawn(projectile_data)
 
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true
+    play_default_animation()
+
+func play_attack_animation() -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    if not animated_sprite.sprite_frames.has_animation(&"attack"):
+        return
+    if animated_sprite.sprite_frames.get_frame_count(&"attack") == 0:
+        return
+    animated_sprite.play(&"attack")
+
+func play_default_animation() -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    if animated_sprite.sprite_frames.has_animation(&"default"):
+        animated_sprite.play(&"default")
