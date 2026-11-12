@@ -47,18 +47,21 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 32
 text = "Continue"
 
 [node name="OptionsButton" type="Button" parent="PanelContainer/Control/MarginContainer/VBoxContainer" unique_id=637835207]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 32
 text = "Options"
 
 [node name="ExitGameButton" type="Button" parent="PanelContainer/Control/MarginContainer/VBoxContainer" unique_id=1292943170]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 32
 text = "Exit Game"
 
 [connection signal="pressed" from="PanelContainer/Control/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

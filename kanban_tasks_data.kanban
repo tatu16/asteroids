@@ -45,31 +45,30 @@
 				"552ed52d-9c36-4001-be8d-57984916c367",
 				"6069574a-f557-49d5-87b2-b195b2326568",
 				"8387f388-0249-41e2-aa62-90329d7d3009",
+				"a2eeceb1-ab0a-4709-ae91-65fcaf07a8d4",
 				"08e66973-3ef8-4dd9-80bd-b142eabdc409",
 				"28b17728-06df-4cab-b34e-55dee243d5d6",
-				"99c063ef-f572-421d-9594-3f95b0f98c7a",
-				"dba91d50-0c7d-489d-8887-33ab7304be47",
-				"e7d740d9-c149-4562-9742-f11932071951"
+				"99c063ef-f572-421d-9594-3f95b0f98c7a"
 			]
 		},
 		{
 			"uuid": "2090c6f7-72e0-45f1-87ae-9ce438f6455d",
 			"title": "Doing",
 			"tasks": [
-				"c28c599a-bb27-4277-8ea7-17ca0305ebf0",
-				"186f43ec-893e-47e1-abfe-86be60895d67",
-				"923949a3-b4bc-4de1-841e-3e7764890ce1",
-				"a5d7ec6d-b801-4100-99d2-d62949b33d5d",
-				"210b819c-37c0-43db-b1dd-5b3701819be5",
-				"073e2e07-cab2-4c93-9b64-5d788dedb57b",
-				"a2eeceb1-ab0a-4709-ae91-65fcaf07a8d4",
-				"150bb4fd-f8b4-48bc-abdf-668f6d0c3e2d"
+				"8bafbf30-a8c1-4e6b-8918-7062e06a937a"
 			]
 		},
 		{
 			"uuid": "4658e24c-2300-429f-95e7-1b09fa70ecf9",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"923949a3-b4bc-4de1-841e-3e7764890ce1",
+				"a5d7ec6d-b801-4100-99d2-d62949b33d5d",
+				"210b819c-37c0-43db-b1dd-5b3701819be5",
+				"c28c599a-bb27-4277-8ea7-17ca0305ebf0",
+				"186f43ec-893e-47e1-abfe-86be60895d67",
+				"150bb4fd-f8b4-48bc-abdf-668f6d0c3e2d"
+			]
 		}
 	],
 	"tasks": [
@@ -102,15 +101,15 @@
 			"steps": []
 		},
 		{
-			"uuid": "923949a3-b4bc-4de1-841e-3e7764890ce1",
-			"title": "Pause",
+			"uuid": "8bafbf30-a8c1-4e6b-8918-7062e06a937a",
+			"title": "Options",
 			"description": "",
 			"category": "3624ecef-a6fc-47e6-a2dc-cd28be165db9",
 			"steps": []
 		},
 		{
-			"uuid": "073e2e07-cab2-4c93-9b64-5d788dedb57b",
-			"title": "Options",
+			"uuid": "923949a3-b4bc-4de1-841e-3e7764890ce1",
+			"title": "Pause",
 			"description": "",
 			"category": "3624ecef-a6fc-47e6-a2dc-cd28be165db9",
 			"steps": []
@@ -211,20 +210,6 @@
 			"title": "Better spawning",
 			"description": "",
 			"category": "cc348701-8a46-4949-a670-76911ef5a0bf",
-			"steps": []
-		},
-		{
-			"uuid": "dba91d50-0c7d-489d-8887-33ab7304be47",
-			"title": "Add explosion to interceptor",
-			"description": "",
-			"category": "30c39c30-5a76-42d5-8ade-6bdd921992dd",
-			"steps": []
-		},
-		{
-			"uuid": "e7d740d9-c149-4562-9742-f11932071951",
-			"title": "Add feedback for taking damage (player/enemy)",
-			"description": "",
-			"category": "30c39c30-5a76-42d5-8ade-6bdd921992dd",
 			"steps": []
 		}
 	],

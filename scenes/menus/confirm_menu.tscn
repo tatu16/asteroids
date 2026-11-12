@@ -60,6 +60,7 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1195555478]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_epuqv")
 text = "Leave the game?"
@@ -74,6 +75,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_epuqv")
+theme_override_font_sizes/font_size = 24
 text = "Confirm"
 
 [node name="ReturnButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=195692743]
@@ -81,6 +83,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_epuqv")
+theme_override_font_sizes/font_size = 24
 text = "Return"
 
 [connection signal="pressed" from="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]

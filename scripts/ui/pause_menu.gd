@@ -23,4 +23,12 @@ func _on_options_button_pressed() -> void:
 
 func _on_exit_game_button_pressed() -> void:
     var confirm = confirm_menu_scene.instantiate()
+    confirm.confirmation_text = "Are you sure you want to\nleave the game?"
+    confirm.confirmation_result.connect(_on_confirmation_result)
     add_child(confirm)
+
+func _on_confirmation_result(confirmed: bool) -> void:
+    if confirmed:
+        get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+    else:
+        print("Exit cancelled")

@@ -15,6 +15,7 @@ enum Stat {
     LONGEST_RUN,
     HIGHEST_LEVEL,
     SCORE,
+    COINS,
 }
 
 # Player's last run's stats
