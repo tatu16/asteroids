@@ -22,6 +22,7 @@ class_name Enemy extends CharacterBody2D
     preload("res://scenes/powerups/ability_powerup.tscn")
 ]
 
+var stop_moving_while_shooting = true
 var powerup_spawner: PowerupSpawner
 var projectile_spawner: MultiplayerSpawner
 var xp_orb_spawner: MultiplayerSpawner
@@ -117,10 +118,11 @@ func _physics_process(delta: float) -> void:
         
     var distance_to_player := global_position.distance_to(closest_player.global_position)
     if shoot_projectiles and distance_to_player <= attack_distance:
-        velocity = Vector2.ZERO
-        move_and_slide()
         shoot_at_player(closest_player)
-        return
+        if stop_moving_while_shooting:
+            velocity = Vector2.ZERO
+            move_and_slide()
+            return
         
     move_towards_player(closest_player)
     

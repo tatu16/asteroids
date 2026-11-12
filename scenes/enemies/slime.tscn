@@ -51,9 +51,6 @@ animations = [{
 [node name="Slime" unique_id=1814177290 instance=ExtResource("1_ahq63")]
 script = ExtResource("3_slime")
 wave_projectile_scene = ExtResource("3_b58ev")
-wave_projectile_speed = 180.0
-wave_projectile_acceleration = 0.0
-wave_projectile_max_speed = 0.0
 wave_projectile_damage = 12.0
 projectile_distance = 120.0
 

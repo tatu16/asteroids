@@ -1,22 +1,110 @@
 [gd_scene format=3 uid="uid://cvnjmsdgc4x4q"]
 
+[ext_resource type="Shader" uid="uid://d23vikmhab2so" path="res://resources/shaders/wave_glow.gdshader" id="2_5k77s"]
+[ext_resource type="Texture2D" uid="uid://cqi3i321u22l7" path="res://assets/sprites/projectiles/shockwave/sheets/four-shockwave_shockwave_green_32.png" id="2_gkivl"]
 [ext_resource type="Script" uid="uid://c4ckcbdf18qp" path="res://scripts/weapons/projectiles/wave_projectile.gd" id="2_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jdxkx"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gkivl"]
+shader = ExtResource("2_5k77s")
+shader_parameter/glow_color = Color(0.35, 1, 0.2, 1)
+shader_parameter/glow_strength = 3.50000016625
+shader_parameter/glow_opacity = 0.8
+shader_parameter/glow_size = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k77s"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnsml"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvji0"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qb0n"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otxul"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4y0n"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4jia"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdoqr"]
+atlas = ExtResource("2_gkivl")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k77s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnsml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvji0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qb0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4y0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4jia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdoqr")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 11.0
+}]
+
 [sub_resource type="Animation" id="Animation_kp3cm"]
 resource_name = "attack"
+length = 0.75
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": []
+"values": [Vector2(0, 0), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.75),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finish_wave"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gkivl"]
@@ -25,21 +113,24 @@ _data = {
 }
 
 [node name="Wave" type="Area2D" unique_id=192048907]
-scale = Vector2(1.25, 1.25)
+scale = Vector2(1e-05, 1e-05)
 collision_layer = 8
 collision_mask = 79
 script = ExtResource("2_script")
-acceleration = 20.0
-max_speed = 280.0
 metadata/_custom_type_script = "uid://chw5n14gdpla0"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1328337806]
 scale = Vector2(-6.7798357, 6.818924)
 shape = SubResource("CircleShape2D_jdxkx")
 
-[node name="Visual" type="Polygon2D" parent="." unique_id=249870129]
-color = Color(0.49411765, 1, 0, 0.54901963)
-polygon = PackedVector2Array(0, -72, 36, -62, 62, -36, 72, 0, 62, 36, 36, 62, 0, 72, -36, 62, -62, 36, -72, 0, -62, -36, -36, -62)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1632412011]
+material = SubResource("ShaderMaterial_gkivl")
+scale = Vector2(4.5, 4.5)
+sprite_frames = SubResource("SpriteFrames_kwnof")
+autoplay = "default"
+frame = 7
+frame_progress = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1828064938]
 libraries/ = SubResource("AnimationLibrary_gkivl")
+autoplay = &"attack"
