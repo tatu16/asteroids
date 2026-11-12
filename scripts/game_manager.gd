@@ -10,6 +10,7 @@ signal player_xp_changed(peer_id: int, current_xp: float, xp_required: float, le
 signal score_changed(new_score: int)
 signal coins_changed(new_coins: int)
 signal game_ended()
+signal character_selected(button: Button)
 
 const SPRITE_ROTATION_OFFSET := deg_to_rad(90)
 var selected_character: CharacterData
