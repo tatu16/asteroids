@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_7sm24")
+projectile_count = 3
+fire_mode = 1
 metadata/_custom_type_script = "uid://ciohp752diq3d"

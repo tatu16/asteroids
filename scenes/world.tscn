@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://ccjdlg8w2xb1i" path="res://scenes/ui/hud.tscn" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://qw6ecitnvlsk" path="res://scripts/world.gd" id="1_k0juu"]
-[ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://csqkbljsr6fvb" path="res://scripts/weapons/projectiles/projectile_spawner.gd" id="4_jhx03"]
 [ext_resource type="PackedScene" uid="uid://dcbbdfokwjv3l" path="res://scenes/enemies/crawler.tscn" id="4_k0juu"]
 [ext_resource type="Script" uid="uid://bg8qnpe7idde0" path="res://scripts/misc/xp_orb_spawner.gd" id="5_7t5mc"]
@@ -24,15 +23,8 @@
 [ext_resource type="PackedScene" uid="uid://bj2xs4hywoh4u" path="res://scenes/objects/wall.tscn" id="23_wall"]
 [ext_resource type="Script" uid="uid://ndd86rt31731" path="res://scripts/objects/object_spawner.gd" id="24_object_spawner"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
-panorama = ExtResource("1_rwgxs")
-
-[sub_resource type="Sky" id="Sky_nnsk1"]
-sky_material = SubResource("PanoramaSkyMaterial_k0juu")
-
 [sub_resource type="Environment" id="Environment_kwnof"]
 background_mode = 3
-sky = SubResource("Sky_nnsk1")
 glow_enabled = true
 glow_bloom = 0.2
 
