@@ -13,8 +13,10 @@ const PAUSE_MENU: PackedScene = preload("res://scenes/menus/pause_menu.tscn")
 var elapsed_time: int = 0
 var is_paused: bool = false
 var game_finished: bool = false
+var pending_upgrades: Dictionary = {}
 
 func _ready() -> void:
+    add_to_group("world")
     GameManager.player_died.connect(_on_player_died)
     GameManager.player_levelup.connect(_on_player_levelup)
     GameManager.player_xp_changed.connect(_on_player_xp_changed)
@@ -58,6 +60,7 @@ func start_game() -> void:
         
     elapsed_time = 0
     is_paused = false
+    pending_upgrades.clear()
     
     enemy_spawner.update_difficulty(elapsed_time)
     enemy_spawner.start_spawning()
@@ -125,11 +128,11 @@ func set_game_paused(paused: bool) -> void:
 func end_game() -> void:
     if not multiplayer.is_server() or game_finished:
         return
-       
+
     game_finished = true
-    
     timer.stop()
     enemy_spawner.stop_spawning()
+
     for peer_id in SaveManager.run_stats.keys():
         SaveManager.add_run_stat(
             peer_id,
@@ -201,13 +204,16 @@ func _on_player_levelup(player: Player) -> void:
     if not multiplayer.is_server():
         return
         
-    print("Player leveled up: ", player.name)
-    pause_game()
     var peer_id = player.get_multiplayer_authority()
+    pending_upgrades[peer_id] = pending_upgrades.get(peer_id, 0) + 1
+    print("Player leveled up: ", player.name)
     SaveManager.add_run_stat(
         peer_id,
         SaveManager.Stat.LEVEL_UP
     )
+    pause_game()
+    if pending_upgrades[peer_id] > 1:
+        return
     if peer_id == multiplayer.get_unique_id():
         show_upgrade_menu()
     else:
@@ -215,15 +221,69 @@ func _on_player_levelup(player: Player) -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func show_upgrade_menu() -> void:
+    var existing_menu = hud.get_node_or_null("UpgradeMenu")
+    if existing_menu != null:
+        if existing_menu.is_queued_for_deletion():
+            await get_tree().process_frame
+            show_upgrade_menu()
+        return
     var menu = UPGRADE_MENU.instantiate()
+    menu.name = "UpgradeMenu"
     hud.add_child(menu)
     menu.upgrade_finished.connect(_on_upgrade_finished)
 
-func _on_upgrade_finished() -> void:
-    if multiplayer.is_server():
-        continue_game()
+func _show_upgrade_menu_for_peer(peer_id: int) -> void:
+    if peer_id == multiplayer.get_unique_id():
+        show_upgrade_menu()
     else:
-        request_continue_game.rpc_id(1)
+        rpc_id(peer_id, "show_upgrade_menu")
+
+func _on_upgrade_finished() -> void:
+    pass
+
+@rpc("any_peer", "reliable")
+func request_upgrade(player_path: NodePath, upgrade_id: String) -> void:
+    if not multiplayer.is_server():
+        return
+    var peer_id := multiplayer.get_remote_sender_id()
+    if peer_id == 0:
+        peer_id = multiplayer.get_unique_id()
+    var player := get_node_or_null(player_path) as Player
+    if player == null or player.get_multiplayer_authority() != peer_id:
+        return
+    if upgrade_id not in [
+        "attack_speed",
+        "projectile_count",
+        "damage",
+        "max_hp",
+        "boost",
+    ]:
+        push_error("Unknown upgrade requested: " + upgrade_id)
+        return
+    if upgrade_id == "boost" and not player.supports_upgrade(upgrade_id):
+        push_error("Upgrade is not available for player: " + upgrade_id)
+        return
+    if not player.can_upgrade(upgrade_id):
+        push_error("Upgrade is already at maximum level: " + upgrade_id)
+        return
+    player.apply_upgrade(upgrade_id)
+    sync_player_upgrade.rpc(player_path, upgrade_id)
+    pending_upgrades[peer_id] -= 1
+    if pending_upgrades[peer_id] > 0:
+        call_deferred("_show_upgrade_menu_for_peer", peer_id)
+    else:
+        pending_upgrades.erase(peer_id)
+        if pending_upgrades.is_empty():
+            continue_game()
+
+@rpc("authority", "call_local", "reliable")
+func sync_player_upgrade(player_path: NodePath, upgrade_id: String) -> void:
+    if multiplayer.is_server():
+        return
+    var player := get_node_or_null(player_path) as Player
+    if player == null:
+        return
+    player.apply_upgrade(upgrade_id)
 
 @rpc("any_peer", "call_remote", "reliable")
 func request_continue_game() -> void:

@@ -3,6 +3,7 @@ extends Area2D
 
 var player: Player
 var active: bool = false
+@export var supported_upgrade_ids: Array[String] = []
 
 func _ready() -> void:
     visible = false

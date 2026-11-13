@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://xpmbwhwjflf8"]
 
 [ext_resource type="PackedScene" uid="uid://dko3qs58litj5" path="res://scenes/projectiles/base_projectile.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://dpm485trajnjw" path="res://scenes/particles/bolt_break.tscn" id="2_yniuu"]
 
 [node name="Bolt" unique_id=18764605 instance=ExtResource("1_base")]
+break_particles_scene = ExtResource("2_yniuu")

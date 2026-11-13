@@ -10,6 +10,15 @@ var angular_velocity: float = 0.0
 var current_xp: float = 0.0
 var xp_to_next_level: float = 10.0
 var is_dead: bool = false
+var upgrade_levels: Dictionary = {}
+
+const MAX_UPGRADE_LEVELS: Dictionary = {
+    "attack_speed": 10,
+    "projectile_count": 5,
+    "damage": 5,
+    "max_hp": 10,
+    "boost": 10,
+}
 
 func _ready() -> void:
     super()
@@ -97,15 +106,11 @@ func handle_rotation(delta: float) -> void:
 func gain_xp(amount: float) -> void:
     if not multiplayer.is_server():
         return
-    
-    var levels_gained := 0
-        
+
     current_xp += amount
     while current_xp >= xp_to_next_level:
         current_xp -= xp_to_next_level
-        current_level += 1
-        xp_to_next_level *= 1.5
-        levels_gained += 1
+        level_up()
         
     GameManager.update_player_xp.rpc(
         get_multiplayer_authority(), 
@@ -113,15 +118,51 @@ func gain_xp(amount: float) -> void:
         xp_to_next_level,
         current_level
     )
-    
-    for i in range(levels_gained):
-        GameManager.player_levelup.emit(self)
         
 func level_up() -> void:
+    if not multiplayer.is_server():
+        return
     current_level += 1
     xp_to_next_level *= 1.5
     print("Level up! Current level: ", current_level)
     GameManager.player_levelup.emit(self)
+
+func apply_upgrade(upgrade_id: String) -> void:
+    match upgrade_id:
+        "attack_speed":
+            for weapon in current_weapons:
+                weapon.attack_speed_multiplier *= 1.15
+        "projectile_count":
+            for weapon in current_weapons:
+                weapon.projectile_count_bonus += 1
+        "damage":
+            for weapon in current_weapons:
+                weapon.damage_multiplier *= 1.2
+        "max_hp":
+            max_hp += 20.0
+            current_hp += 20.0
+            GameManager.player_healed.emit(self, 20.0, current_hp)
+        "boost":
+            ability_multiplier *= 1.15
+        _:
+            push_error("Unknown player upgrade: " + upgrade_id)
+            return
+    upgrade_levels[upgrade_id] = get_upgrade_level(upgrade_id) + 1
+
+func supports_upgrade(upgrade_id: String) -> bool:
+    for ability in abilities:
+        if upgrade_id in ability.supported_upgrade_ids:
+            return true
+    return false
+
+func can_upgrade(upgrade_id: String) -> bool:
+    return get_upgrade_level(upgrade_id) < MAX_UPGRADE_LEVELS.get(upgrade_id, -1)
+
+func get_upgrade_max_level(upgrade_id: String) -> int:
+    return MAX_UPGRADE_LEVELS.get(upgrade_id, -1)
+
+func get_upgrade_level(upgrade_id: String) -> int:
+    return upgrade_levels.get(upgrade_id, 1)
 
 func _on_ready() -> void:
     add_to_group("players")
