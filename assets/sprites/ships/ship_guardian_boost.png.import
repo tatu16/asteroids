@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://73swb2q80nqb"
-path="res://.godot/imported/Starfield_02-1024x1024.png-d934d535ec03be192ac21a9d115e1e4a.ctex"
+uid="uid://166gddlptqag"
+path="res://.godot/imported/ship_guardian_boost.png-72f6ade817bcafb37c64bae809b6aa4f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sky/Starfields/Starfield_02-1024x1024.png"
-dest_files=["res://.godot/imported/Starfield_02-1024x1024.png-d934d535ec03be192ac21a9d115e1e4a.ctex"]
+source_file="res://assets/sprites/ships/ship_guardian_boost.png"
+dest_files=["res://.godot/imported/ship_guardian_boost.png-72f6ade817bcafb37c64bae809b6aa4f.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gqd4jc0ltq5e"
-path="res://.godot/imported/Starfield_07-1024x1024.png-7410876ff0bd56c0dd54a84704ed9d2d.ctex"
+uid="uid://bk5kju4t8ohtq"
+path="res://.godot/imported/ship_scout_boost.png-56052936ad8f662b2a089a041e90e447.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sky/Starfields/Starfield_07-1024x1024.png"
-dest_files=["res://.godot/imported/Starfield_07-1024x1024.png-7410876ff0bd56c0dd54a84704ed9d2d.ctex"]
+source_file="res://assets/sprites/ships/ship_scout_boost.png"
+dest_files=["res://.godot/imported/ship_scout_boost.png-56052936ad8f662b2a089a041e90e447.ctex"]
 
 [params]
 
