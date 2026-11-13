@@ -115,5 +115,5 @@ autoplay = "default"
 frame_progress = 0.4925426
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_kwnof")

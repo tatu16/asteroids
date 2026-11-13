@@ -153,11 +153,12 @@ slide_deceleration = 35.0
 restart_delay = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=244096947]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
 frame_progress = 0.4629228
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+position = Vector2(0, -16)
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_kwnof")

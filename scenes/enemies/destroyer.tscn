@@ -62,4 +62,4 @@ autoplay = "default"
 frame_progress = 0.24942923
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
