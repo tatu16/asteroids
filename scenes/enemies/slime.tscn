@@ -5,18 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://cvnjmsdgc4x4q" path="res://scenes/projectiles/wave.tscn" id="3_b58ev"]
 [ext_resource type="Script" uid="uid://ds6cqtypgobar" path="res://scripts/enemies/slime.gd" id="3_slime"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b58ev"]
-atlas = ExtResource("2_ahq63")
-region = Rect2(0, 296, 290, 296)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ankfk"]
-atlas = ExtResource("2_ahq63")
-region = Rect2(290, 296, 290, 296)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e12yk"]
-atlas = ExtResource("2_ahq63")
-region = Rect2(580, 296, 290, 296)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhme6"]
 atlas = ExtResource("2_ahq63")
 region = Rect2(870, 296, 290, 296)
@@ -36,6 +24,18 @@ region = Rect2(290, 592, 290, 296)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ikdmk"]
 atlas = ExtResource("2_ahq63")
 region = Rect2(0, 296, 290, 296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b58ev"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(0, 296, 290, 296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ankfk"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(290, 296, 290, 296)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e12yk"]
+atlas = ExtResource("2_ahq63")
+region = Rect2(580, 296, 290, 296)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jjup5"]
 atlas = ExtResource("2_ahq63")
@@ -57,15 +57,6 @@ region = Rect2(870, 0, 290, 296)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b58ev")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ankfk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e12yk")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_bhme6")
 }, {
 "duration": 3.0,
@@ -79,6 +70,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ikdmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b58ev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ankfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e12yk")
 }],
 "loop": 0,
 "name": &"attack",
@@ -116,8 +116,6 @@ scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 animation = &"attack"
 autoplay = "default"
-frame = 7
-frame_progress = 1.0
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
 scale = Vector2(3, 3)

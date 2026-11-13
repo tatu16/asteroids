@@ -146,7 +146,7 @@ func shoot_at_player(player: Player) -> void:
         return
         
     can_attack = false
-    play_attack_animation()
+    await wait_for_attack_animation()
     var direction = global_position.direction_to(player.global_position)
     var projectile_path := ""
     if projectile_scene == null:
@@ -172,6 +172,17 @@ func shoot_at_player(player: Player) -> void:
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true
     play_default_animation()
+
+func wait_for_attack_animation() -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    if not animated_sprite.sprite_frames.has_animation(&"attack"):
+        return
+    if animated_sprite.sprite_frames.get_frame_count(&"attack") == 0:
+        return
+
+    play_attack_animation()
+    await get_tree().process_frame
 
 func play_attack_animation() -> void:
     if animated_sprite == null or animated_sprite.sprite_frames == null:

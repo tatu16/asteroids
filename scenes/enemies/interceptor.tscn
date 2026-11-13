@@ -5,10 +5,6 @@
 [ext_resource type="Script" uid="uid://behmmm7ojmifl" path="res://scripts/enemies/interceptor.gd" id="2_nqdo6"]
 [ext_resource type="PackedScene" uid="uid://quc17hjjergs" path="res://scenes/projectiles/rocket.tscn" id="2_yghn5"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1u0yl"]
-atlas = ExtResource("2_leyjb")
-region = Rect2(0, 512, 512, 512)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_nqdo6"]
 atlas = ExtResource("2_leyjb")
 region = Rect2(512, 512, 512, 512)
@@ -53,6 +49,10 @@ region = Rect2(2048, 1024, 512, 512)
 atlas = ExtResource("2_leyjb")
 region = Rect2(2560, 1024, 512, 512)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u0yl"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(0, 512, 512, 512)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw22t"]
 atlas = ExtResource("2_leyjb")
 region = Rect2(0, 0, 512, 512)
@@ -80,9 +80,6 @@ region = Rect2(2560, 0, 512, 512)
 [sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1u0yl")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nqdo6")
 }, {
@@ -115,6 +112,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hpmgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u0yl")
 }],
 "loop": 0,
 "name": &"attack",
