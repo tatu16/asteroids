@@ -29,7 +29,6 @@ func set_active(next_active: bool) -> void:
 @rpc("authority", "call_local", "unreliable")
 func set_active_remote(next_active: bool) -> void:
     active = next_active
-    player.set_ability_visual(active)
     visible = active
     monitoring = active
     var collision_shape := get_node_or_null("CollisionShape2D") as CollisionShape2D

@@ -7,7 +7,6 @@ extends Resource
 
 @export_group("Visuals")
 @export var ship_texture: Texture2D
-@export var ability_ship_texture: Texture2D
 @export var ship_region: Rect2 = Rect2(8, 11, 110, 132)
 
 @export_group("Stats")

@@ -50,7 +50,10 @@ func load_character_data() -> void:
     character_name = character_data.character_name
     var ship_sprite := get_node_or_null("Visuals/ShipSprite") as Sprite2D
     if ship_sprite != null and character_data.ship_texture != null:
-        set_ship_texture(character_data.ship_texture)
+        var atlas_texture := AtlasTexture.new()
+        atlas_texture.atlas = character_data.ship_texture
+        atlas_texture.region = character_data.ship_region
+        ship_sprite.texture = atlas_texture
 
     max_hp = character_data.max_hp
     max_ability = character_data.max_ability
@@ -65,22 +68,4 @@ func load_character_data() -> void:
     acceleration = character_data.acceleration
     
     default_weapon = character_data.default_weapon
-
-func set_ability_visual(enabled: bool) -> void:
-    if character_data == null or character_data.ability_ship_texture == null:
-        return
-    set_ship_texture(
-        character_data.ability_ship_texture if enabled
-        else character_data.ship_texture
-    )
-
-func set_ship_texture(texture: Texture2D) -> void:
-    var ship_sprite := get_node_or_null("Visuals/ShipSprite") as Sprite2D
-    if ship_sprite == null or texture == null:
-        return
-
-    var atlas_texture := AtlasTexture.new()
-    atlas_texture.atlas = texture
-    atlas_texture.region = character_data.ship_region
-    ship_sprite.texture = atlas_texture
     
