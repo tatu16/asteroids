@@ -127,6 +127,7 @@ animations = [{
 [node name="Crawler" unique_id=853659130 instance=ExtResource("1_cgsye")]
 script = ExtResource("3_crawler")
 grab_distance = 70.0
+death_particles_color = Color(0.520711, 0.0030368578, 0.8536263, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=133863090]
 scale = Vector2(0.3, 0.3)

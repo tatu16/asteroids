@@ -21,12 +21,13 @@ func _ready() -> void:
     body_entered.connect(_on_body_entered)
     area_entered.connect(_on_area_entered)
 
-func clear_projectile() -> void:
+func clear_projectile(spawn_particles: bool = true) -> void:
     if destroyed:
         return
         
     destroyed = true
-    spawn_break_particles()
+    if spawn_particles:
+        spawn_break_particles()
     queue_free()
 
 func spawn_break_particles() -> void:
@@ -85,7 +86,9 @@ func _on_body_entered(body: Node2D) -> void:
         
     if body is Enemy:
         if not shooter_is_enemy:
-            body.take_damage(damage, shooter_peer_id)
+            body.take_damage(damage, shooter_peer_id, direction)
+            clear_projectile(false)
+            return
     elif body is Player:
         if shooter_is_enemy:
             body.take_damage(damage)

@@ -107,6 +107,7 @@ animations = [{
 script = ExtResource("2_5xvxm")
 player_close_distance = 200.0
 shoot_projectiles = true
+death_particles_color = Color(0.6, 0.7411765, 1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=563016582]
 scale = Vector2(0.15, 0.15)

@@ -151,6 +151,7 @@ slide_interval = 2.0
 slide_start_speed_multiplier = 4.0
 slide_deceleration = 35.0
 restart_delay = 0.5
+death_particles_color = Color(0.68235296, 0.09411765, 1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=244096947]
 scale = Vector2(0.25, 0.25)

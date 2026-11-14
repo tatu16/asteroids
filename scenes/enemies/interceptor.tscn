@@ -154,6 +154,7 @@ shoot_projectiles = true
 projectile_scene = ExtResource("2_yghn5")
 projectile_acceleration = 25.0
 projectile_max_speed = 500.0
+death_particles_color = Color(1, 0.05490196, 0.050980393, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1654554168]
 scale = Vector2(0.2, 0.2)

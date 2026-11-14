@@ -110,6 +110,7 @@ script = ExtResource("3_slime")
 wave_projectile_scene = ExtResource("3_b58ev")
 wave_projectile_damage = 12.0
 projectile_distance = 120.0
+death_particles_color = Color(0.02745098, 0.9882353, 0, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1559345602]
 scale = Vector2(0.4, 0.4)

@@ -1,7 +1,10 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dkq626sywu8pe"]
 
 [ext_resource type="Script" uid="uid://ciohp752diq3d" path="res://resources/weapons/weapon_data.gd" id="1_7sm24"]
+[ext_resource type="PackedScene" uid="uid://qcsckgk1hi5d" path="res://scenes/projectiles/fireball.tscn" id="1_r528d"]
 
 [resource]
 script = ExtResource("1_7sm24")
+projectile_scene = ExtResource("1_r528d")
+projectile_count = 3
 metadata/_custom_type_script = "uid://ciohp752diq3d"
