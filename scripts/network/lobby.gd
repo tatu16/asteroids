@@ -11,6 +11,13 @@ const MAX_CONNECTIONS = 20
 var players = {} # contains player's unique IDs
 var player_info = {"name": "Name"}
 var players_loaded = 0
+var current_port: int = DEFAULT_PORT
+
+func get_local_ip() -> String:
+    for address in IP.get_local_addresses():
+        if address.count(".") == 3 and not address.begins_with("127."):
+            return address
+    return DEFAULT_SERVER_IP
 
 func _ready():
     multiplayer.peer_connected.connect(_on_player_connected)
@@ -34,31 +41,29 @@ func join_game(address = "", port = DEFAULT_PORT):
     print("Attempting to connect to %s:%s" % [address, port])
     return OK
 
-func is_port_used(port: int) -> bool:
-    var http_request = HTTPRequest.new()
-    add_child(http_request)
-    var error = http_request.request("http://127.0.0.1:%s") % port
-    if error != OK:
-        return false
-    return true
-
-func get_valid_port() -> int:
-    var port: int = randi_range(10000, 50000)
-    while is_port_used(port):
-        print("port: %s is used, retrying" % port)
-        port = randi_range(10000, 50000)
-    return port
-
 func create_game():
-    var peer = ENetMultiplayerPeer.new()
-    var port = get_valid_port()
-    var error = peer.create_server(port, MAX_CONNECTIONS)
-    if error:
+    var peer: ENetMultiplayerPeer
+    var port: int
+    var error: Error = ERR_CANT_CREATE
+
+    for attempt in 100:
+        peer = ENetMultiplayerPeer.new()
+        port = randi_range(10000, 50000)
+        error = peer.create_server(port, MAX_CONNECTIONS)
+        if error == OK:
+            break
+        print("Port %s is unavailable, retrying" % port)
+
+    if error != OK:
+        print("Failed to create server after 100 attempts: ", error)
         return error
+
+    current_port = port
     multiplayer.multiplayer_peer = peer
     players[1] = player_info.duplicate()
     player_connected.emit(1, player_info)
     print("created a game to port = %s" % port)
+    return OK
 
 func set_player_character(char_path: String) -> void:
     player_info["character_path"] = char_path
@@ -82,8 +87,12 @@ func _update_player_character(char_path: String) -> void:
     players[sender_id]["character_path"] = char_path
 
 func remove_multiplayer_peer():
+    if multiplayer.has_multiplayer_peer():
+        multiplayer.multiplayer_peer.close()
+        
     multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
     players.clear()
+    players_loaded = 0
 
 @rpc("call_local", "reliable")
 func load_game(game_scene_path):
@@ -103,6 +112,23 @@ func _register_player(new_player_info):
     print("Registering player: ", new_player_id)
     players[new_player_id] = new_player_info
     player_connected.emit(new_player_id, new_player_info)
+
+func leave_lobby() -> void:
+    if not multiplayer.has_multiplayer_peer():
+        return
+    
+    # notify clients that host is leaving
+    if multiplayer.is_server():
+        _host_is_leaving.rpc()
+        await get_tree().create_timer(0.25).timeout
+    remove_multiplayer_peer()
+    print("Left lobby")
+
+@rpc("authority", "call_remote", "reliable")
+func _host_is_leaving() -> void:
+    print("Host is leaving the lobby")
+    remove_multiplayer_peer()
+    server_disconnected.emit()
 
 func _on_player_disconnected(id):
     print("Player disconnected: %s" % id)
