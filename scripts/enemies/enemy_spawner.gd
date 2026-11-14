@@ -102,10 +102,13 @@ func spawn_enemy() -> void:
         return
 
     var players = get_tree().get_nodes_in_group("players")
-    if players.is_empty():
+    var alive_players = players.filter(
+        func(p): return is_instance_valid(p) and not (p as Player).is_dead
+    )
+    if alive_players.is_empty():
         return
 
-    var target = players.pick_random() as Node2D
+    var target = alive_players.pick_random() as Node2D
 
     var offset = Vector2.RIGHT.rotated(randf() * TAU) * spawn_distance
     var spawn_position = target.global_position + offset

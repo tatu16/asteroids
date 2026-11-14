@@ -61,6 +61,8 @@ func _ready() -> void:
         )
 
 func _physics_process(delta: float) -> void:
+    if is_dead:
+        return
     if is_multiplayer_authority():
         handle_movement(delta)
         handle_rotation(delta)
@@ -68,7 +70,7 @@ func _physics_process(delta: float) -> void:
         move_and_slide()
 
 func handle_shooting() -> void:
-    if not Input.is_action_pressed("shoot"):
+    if is_dead or not Input.is_action_pressed("shoot"):
         return
     var direction = global_position.direction_to(get_global_mouse_position())
     if multiplayer.is_server():
@@ -84,7 +86,7 @@ func handle_shooting() -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func request_fire(direction: Vector2) -> void:
-    if not multiplayer.is_server():
+    if not multiplayer.is_server() or is_dead:
         return
     var sender_id := multiplayer.get_remote_sender_id()
     if sender_id != 0 and sender_id != get_multiplayer_authority():
@@ -194,6 +196,21 @@ func get_upgrade_max_level(upgrade_id: String) -> int:
 
 func get_upgrade_level(upgrade_id: String) -> int:
     return upgrade_levels.get(upgrade_id, 1)
+
+func die() -> void:
+    if is_dead:
+        return
+    is_dead = true
+    if is_in_group("players"):
+        remove_from_group("players")
+    add_to_group("dead_players")
+    
+    collision_layer = 0
+    collision_mask = 0
+    velocity = Vector2.ZERO
+    
+    if visuals:
+        visuals.visible = false
 
 func _on_ready() -> void:
     add_to_group("players")

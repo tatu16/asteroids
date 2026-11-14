@@ -118,18 +118,20 @@ func attack_player(player: Player) -> void:
     can_attack = true
     play_default_animation()
         
-func get_closest_player():
+func get_closest_player() -> Player:
     var all_players = get_tree().get_nodes_in_group("players")
-    var closest_player = null
+    var closest_player: Player = null
+    var closest_dist_sq := INF
     
-    if all_players.size() > 0:
-        closest_player = all_players[0]
-        for player in all_players:
-            var distance_to_this_player = global_position.distance_squared_to(player.global_position)
-            var distance_to_closest_player = global_position.distance_squared_to(closest_player.global_position)
-            if (distance_to_this_player < distance_to_closest_player):
-                closest_player = player
-                
+    for node in all_players:
+        var player := node as Player
+        if player == null or player.is_dead:
+            continue
+        var dist_sq := global_position.distance_squared_to(player.global_position)
+        if dist_sq < closest_dist_sq:
+            closest_dist_sq = dist_sq
+            closest_player = player
+            
     return closest_player
     
 func _physics_process(delta: float) -> void:
@@ -157,6 +159,8 @@ func _physics_process(delta: float) -> void:
             attack_player(body)
   
 func move_towards_player(player: Player) -> void:
+    if player == null or player.is_dead:
+        return
     var direction = global_position.direction_to(
         player.global_position
     )
@@ -166,7 +170,7 @@ func move_towards_player(player: Player) -> void:
 func shoot_at_player(player: Player) -> void:
     if not multiplayer.is_server():
         return
-    if not can_attack or projectile_spawner == null:
+    if not can_attack or projectile_spawner == null or player == null or player.is_dead:
         return
         
     can_attack = false

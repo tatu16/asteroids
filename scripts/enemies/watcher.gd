@@ -12,7 +12,7 @@ func move_towards_player(player: Player) -> void:
     var found_close_player: bool = false
 
     for candidate in get_tree().get_nodes_in_group("players"):
-        if not (candidate is Player):
+        if not (candidate is Player) or (candidate as Player).is_dead:
             continue
 
         var away_direction: Vector2 = global_position - candidate.global_position

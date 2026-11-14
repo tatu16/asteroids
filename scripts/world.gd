@@ -165,7 +165,7 @@ func continue_game() -> void:
 @rpc("authority", "call_local", "reliable")
 func set_game_paused(paused: bool) -> void:
     is_paused = paused
-    for group_name in ["players", "enemies", "projectiles", "xp_orbs", "powerups"]:
+    for group_name in ["players", "dead_players", "enemies", "projectiles", "xp_orbs", "powerups"]:
         for gameplay_node in get_tree().get_nodes_in_group(group_name):
             if not is_instance_valid(gameplay_node):
                 continue
@@ -218,15 +218,16 @@ func receive_run_stats(stats: Dictionary) -> void:
     SaveManager.add_finished_run(stats)
 
 func are_all_players_dead() -> bool:
-    var players = get_tree().get_nodes_in_group("players")
-    if players.is_empty():
+    var all_player_nodes := []
+    if players_container != null:
+        all_player_nodes = players_container.get_children()
+    else:
+        all_player_nodes = get_tree().get_nodes_in_group("dead_players") + get_tree().get_nodes_in_group("players")
+        
+    if all_player_nodes.is_empty():
         return false
         
-    for player in players:
-        if not player.is_dead:
-            return false
-            
-    return true
+    return get_tree().get_nodes_in_group("players").is_empty()
 
 func _on_player_died(player: Player) -> void:
     if not multiplayer.is_server():

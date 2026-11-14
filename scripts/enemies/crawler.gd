@@ -6,6 +6,11 @@ var grabbed_player: Player
 var grab_player: bool = false
 
 func attack_grabbed_player() -> void:
+    if not is_instance_valid(grabbed_player) or grabbed_player.is_dead:
+        grab_player = false
+        grabbed_player = null
+        return
+        
     var target := grabbed_player.global_transform.origin
     var direction := global_transform.origin.direction_to(target)
     velocity = direction * 999
