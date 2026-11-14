@@ -35,7 +35,6 @@ scale = Vector2(0.5, 0.5)
 [node name="SpeedTrail" parent="Visuals" unique_id=152685920 instance=ExtResource("2_dovo2")]
 scale = Vector2(2, 2)
 max_points = 120
-trail_offset = 8.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=184920485]
 replication_config = SubResource("SceneReplicationConfig_player")

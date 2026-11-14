@@ -34,12 +34,24 @@ func join_game(address = "", port = DEFAULT_PORT):
     print("Attempting to connect to %s:%s" % [address, port])
     return OK
 
+func is_port_used(port: int) -> bool:
+    var http_request = HTTPRequest.new()
+    add_child(http_request)
+    var error = http_request.request("http://127.0.0.1:%s") % port
+    if error != OK:
+        return false
+    return true
+
 func get_valid_port() -> int:
-    return randi_range(1000, 65565)
+    var port: int = randi_range(10000, 50000)
+    while is_port_used(port):
+        print("port: %s is used, retrying" % port)
+        port = randi_range(10000, 50000)
+    return port
 
 func create_game():
     var peer = ENetMultiplayerPeer.new()
-    var port = DEFAULT_PORT
+    var port = get_valid_port()
     var error = peer.create_server(port, MAX_CONNECTIONS)
     if error:
         return error
