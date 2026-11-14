@@ -17,6 +17,8 @@ var is_paused: bool = false
 var game_finished: bool = false
 var pending_upgrades: Dictionary = {}
 
+@export var respawn_time: float = 20.0
+
 func _ready() -> void:
     add_to_group("world")
     
@@ -239,11 +241,60 @@ func _on_player_died(player: Player) -> void:
         SaveManager.Stat.PLAYERS_DIED
     )
     print("player died: ", player)
+    
     if are_all_players_dead():
         end_game()
+        return
+        
+    start_player_respawn(peer_id)
+
+func start_player_respawn(peer_id: int) -> void:
+    if not multiplayer.is_server():
+        return
+        
+    if peer_id == multiplayer.get_unique_id():
+        notify_respawn_timer(respawn_time)
+    else:
+        notify_respawn_timer.rpc_id(peer_id, respawn_time)
+        
+    await get_tree().create_timer(respawn_time, false).timeout
+    
+    if game_finished:
+        return
+        
+    if are_all_players_dead():
+        return
+        
+    var player = get_player(peer_id)
+    if player == null or not is_instance_valid(player):
+        return
+        
+    var alive_players: Array[Node] = get_tree().get_nodes_in_group("players")
+    var spawn_pos := Vector2.ZERO
+    if not alive_players.is_empty():
+        var buddy := alive_players.pick_random() as Node2D
+        if buddy != null:
+            spawn_pos = buddy.global_position + Vector2.RIGHT.rotated(randf() * TAU) * 120.0
+            
+    server_respawn_player.rpc(peer_id, spawn_pos)
+
+@rpc("authority", "call_local", "reliable")
+func notify_respawn_timer(duration: float) -> void:
+    var my_id = multiplayer.get_unique_id() if multiplayer.has_multiplayer_peer() else 1
+    var my_player = get_player(my_id)
+    if my_player != null and is_instance_valid(my_player) and my_player.is_multiplayer_authority():
+        my_player.start_respawn_countdown(duration)
+
+@rpc("authority", "call_local", "reliable")
+func server_respawn_player(peer_id: int, spawn_pos: Vector2) -> void:
+    var player = get_player(peer_id)
+    if player != null and is_instance_valid(player):
+        player.respawn(spawn_pos)
 
 @rpc("authority", "call_local", "reliable")
 func show_game_over_menu() -> void:
+    if hud != null:
+        hud.hide_spectator_overlay()
     if hud.get_node_or_null("GameOverMenu"):
         return
 

@@ -44,7 +44,7 @@ func apply_player_ability(player_path: NodePath, amount: float) -> void:
 func damage_player(player: Player, damage: float) -> void:
     if not multiplayer.is_server():
         return
-    if player.current_hp <= 0.0:
+    if player.current_hp <= 0.0 or player.is_dead or player.is_invulnerable:
         return
         
     var peer_id = player.get_multiplayer_authority()
@@ -61,7 +61,7 @@ func apply_player_damage(player_path: NodePath, damage: float) -> void:
     var player = get_node_or_null(player_path) as Player
     if player == null:
         return
-    if player.current_hp <= 0.0:
+    if player.current_hp <= 0.0 or player.is_dead or player.is_invulnerable:
         return
 
     player.current_hp = maxf(player.current_hp - damage, 0.0)

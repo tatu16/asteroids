@@ -6,9 +6,61 @@ extends CanvasLayer
 @onready var score_label: Label = %Score
 @onready var coins_label: Label = %Coins
 
+var spectator_panel: Control = null
+var respawn_timer_label: Label = null
+var spectating_label: Label = null
+var respawn_countdown: float = -1.0
+
+const SPECTATOR_OVERLAY_SCENE: PackedScene = preload("res://scenes/ui/spectator_overlay.tscn")
+
 func _ready() -> void:
     GameManager.score_changed.connect(update_score)
     GameManager.coins_changed.connect(update_coins)
+
+    spectator_panel = SPECTATOR_OVERLAY_SCENE.instantiate()
+    $Control.add_child(spectator_panel)
+    spectator_panel.visible = false
+    respawn_timer_label = spectator_panel.get_node(
+        "PanelContainer/MarginContainer/VBoxContainer/TimerLabel")
+    spectating_label = spectator_panel.get_node(
+        "PanelContainer/MarginContainer/VBoxContainer/SpectatingLabel")
+
+func _process(delta: float) -> void:
+    var world = get_tree().root.find_child("World", true, false)
+    if world != null and world.is_paused:
+        return
+        
+    if respawn_countdown > 0.0:
+        respawn_countdown = maxf(respawn_countdown - delta, 0.0)
+        if respawn_timer_label != null:
+            respawn_timer_label.text = "Respawning in: %ds" % ceili(respawn_countdown)
+            if respawn_countdown <= 0.0:
+                respawn_timer_label.text = "Respawning..."
+
+func show_spectator_overlay(target_name: String, countdown: float = -1.0) -> void:
+    if spectator_panel == null:
+        return
+    spectator_panel.visible = true
+    update_spectating_name(target_name)
+    if countdown >= 0.0:
+        respawn_countdown = countdown
+        respawn_timer_label.visible = true
+        respawn_timer_label.text = "Respawning in: %ds" % ceili(countdown)
+    else:
+        respawn_countdown = -1.0
+        respawn_timer_label.visible = false
+
+func update_spectating_name(target_name: String) -> void:
+    if spectating_label != null:
+        if target_name.is_empty():
+            spectating_label.text = "SPECTATING"
+        else:
+            spectating_label.text = "SPECTATING: %s" % target_name
+
+func hide_spectator_overlay() -> void:
+    if spectator_panel != null:
+        spectator_panel.visible = false
+    respawn_countdown = -1.0
 
 func update_time(time: int) -> void:
     var minutes := time / 60

@@ -1,6 +1,7 @@
 class_name Player extends Character
 
 @onready var visuals = $Visuals
+@onready var camera: Camera2D = $Camera2D
 
 var projectile_spawner: MultiplayerSpawner
 var abilities: Array[PlayerAbility] = []
@@ -10,6 +11,9 @@ var angular_velocity: float = 0.0
 var current_xp: float = 0.0
 var xp_to_next_level: float = 10.0
 var is_dead: bool = false
+var spectate_target: Player = null
+var is_spectating: bool = false
+var is_invulnerable: bool = false
 var upgrade_levels: Dictionary = {}
 
 const MAX_UPGRADE_LEVELS: Dictionary = {
@@ -197,6 +201,17 @@ func get_upgrade_max_level(upgrade_id: String) -> int:
 func get_upgrade_level(upgrade_id: String) -> int:
     return upgrade_levels.get(upgrade_id, 1)
 
+func _process(_delta: float) -> void:
+    if is_spectating and is_multiplayer_authority():
+        _update_spectating()
+
+func _unhandled_input(event: InputEvent) -> void:
+    if is_spectating and is_multiplayer_authority():
+        if event.is_action_pressed("shoot"):
+            spectate_next_alive_player()
+        elif event.is_action_pressed("ability"):
+            spectate_prev_alive_player()
+
 func die() -> void:
     if is_dead:
         return
@@ -211,6 +226,123 @@ func die() -> void:
     
     if visuals:
         visuals.visible = false
+
+    if is_multiplayer_authority():
+        start_spectating()
+
+func start_spectating() -> void:
+    is_spectating = true
+    if camera != null:
+        camera.top_level = true
+        camera.enabled = true
+        camera.make_current()
+    spectate_next_alive_player()
+
+func _update_spectating() -> void:
+    if spectate_target == null or not is_instance_valid(spectate_target) or spectate_target.is_dead:
+        spectate_next_alive_player()
+        
+    if spectate_target != null and is_instance_valid(spectate_target) and camera != null:
+        camera.global_position = spectate_target.global_position
+        camera.global_rotation = 0.0
+
+func get_alive_players() -> Array[Player]:
+    var alive: Array[Player] = []
+    for node in get_tree().get_nodes_in_group("players"):
+        var p := node as Player
+        if p != null and is_instance_valid(p) and not p.is_dead and p != self:
+            alive.append(p)
+    return alive
+
+func spectate_next_alive_player() -> void:
+    var alive := get_alive_players()
+    if alive.is_empty():
+        spectate_target = null
+        _update_hud_spectating("")
+        return
+        
+    var current_idx := alive.find(spectate_target)
+    var next_idx := (current_idx + 1) % alive.size()
+    spectate_target = alive[next_idx]
+    var target_name = spectate_target.character_name if spectate_target.character_name != "" else spectate_target.name
+    _update_hud_spectating("%s (Player %s)" % [target_name, spectate_target.name])
+
+func spectate_prev_alive_player() -> void:
+    var alive := get_alive_players()
+    if alive.is_empty():
+        spectate_target = null
+        _update_hud_spectating("")
+        return
+        
+    var current_idx := alive.find(spectate_target)
+    var prev_idx := (current_idx - 1 + alive.size()) % alive.size()
+    spectate_target = alive[prev_idx]
+    var target_name = spectate_target.character_name if spectate_target.character_name != "" else spectate_target.name
+    _update_hud_spectating("%s (Player %s)" % [target_name, spectate_target.name])
+
+func _update_hud_spectating(target_name: String) -> void:
+    var world = get_tree().root.find_child("World", true, false)
+    if world != null and world.hud != null:
+        world.hud.update_spectating_name(target_name)
+
+func start_respawn_countdown(duration: float) -> void:
+    var world = get_tree().root.find_child("World", true, false)
+    if world != null and world.hud != null:
+        var target_name := ""
+        if spectate_target != null and is_instance_valid(spectate_target):
+            var char_name = spectate_target.character_name if spectate_target.character_name != "" else spectate_target.name
+            target_name = "%s (Player %s)" % [char_name, spectate_target.name]
+        world.hud.show_spectator_overlay(target_name, duration)
+
+func stop_spectating() -> void:
+    is_spectating = false
+    spectate_target = null
+    if camera != null:
+        camera.top_level = false
+        camera.position = Vector2.ZERO
+        camera.rotation = 0.0
+        camera.enabled = is_multiplayer_authority()
+        if is_multiplayer_authority():
+            camera.make_current()
+    var world = get_tree().root.find_child("World", true, false)
+    if world != null and world.hud != null:
+        world.hud.hide_spectator_overlay()
+
+func respawn(spawn_pos: Vector2) -> void:
+    is_dead = false
+    global_position = spawn_pos
+    velocity = Vector2.ZERO
+    current_hp = max_hp
+    ability_energy = max_ability
+    collision_layer = 2
+    collision_mask = 5
+    if visuals:
+        visuals.visible = true
+        visuals.modulate.a = 1.0
+        
+    if is_in_group("dead_players"):
+        remove_from_group("dead_players")
+    if not is_in_group("players"):
+        add_to_group("players")
+        
+    if is_multiplayer_authority():
+        stop_spectating()
+        GameManager.player_healed.emit(self, 0.0, current_hp)
+        GameManager.use_ability_player(self, ability_energy)
+        
+    is_invulnerable = true
+    _flash_invulnerability()
+
+func _flash_invulnerability() -> void:
+    var tween := create_tween()
+    if tween != null and visuals != null:
+        for i in 3:
+            tween.tween_property(visuals, "modulate:a", 0.3, 0.25)
+            tween.tween_property(visuals, "modulate:a", 1.0, 0.25)
+        tween.tween_callback(func(): is_invulnerable = false)
+    else:
+        await get_tree().create_timer(1.5, false).timeout
+        is_invulnerable = false
 
 func _on_ready() -> void:
     add_to_group("players")
