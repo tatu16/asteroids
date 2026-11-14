@@ -6,6 +6,7 @@ extends Control
 @onready var play_button: Button = %PlayButton
 
 const SELECT_CHARACTER: PackedScene = preload("res://scenes/menus/select_character.tscn")
+const JOIN_LOBBY_SCENE: PackedScene = preload("res://scenes/menus/join_menu.tscn")
 
 var prev_selected: Button
 
@@ -30,7 +31,10 @@ func load_characters() -> void:
         
 func _on_play_button_pressed() -> void:
     if GameManager.selected_character:
-        get_tree().change_scene_to_file("res://scenes/world.tscn")
+        if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
+            Lobby.load_game.rpc("res://scenes/world.tscn")
+        else:
+            get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 func _on_character_selected(button: Button) -> void:
     if prev_selected == null:
@@ -39,6 +43,12 @@ func _on_character_selected(button: Button) -> void:
         prev_selected.button_pressed = false
     prev_selected = button
 
-
 func _on_return_button_pressed() -> void:
     get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+
+func _on_join_button_pressed() -> void:
+    var join_menu = JOIN_LOBBY_SCENE.instantiate()
+    add_child(join_menu)
+
+func _on_host_button_pressed() -> void:
+    Lobby.create_game()

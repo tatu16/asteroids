@@ -8,6 +8,8 @@ func _ready() -> void:
     GameManager.player_healed.connect(update_hp)
 
 func update_hp(player: Player, _amount: float, new_hp: float) -> void:
+    if not player.is_multiplayer_authority():
+        return
     hp_bar.max_value = player.max_hp
     hp_bar.value = new_hp
 

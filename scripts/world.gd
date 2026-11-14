@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var player_spawner: MultiplayerSpawner = $PlayerSpawner
+@onready var players_container: Node2D = $Players
 @onready var projectile_spawner: MultiplayerSpawner = $ProjectileSpawner
 @onready var timer: Timer = $Timer
 @onready var hud: CanvasLayer = $Hud
@@ -17,6 +19,12 @@ var pending_upgrades: Dictionary = {}
 
 func _ready() -> void:
     add_to_group("world")
+    
+    player_spawner.spawn_function = _spawn_player_replica
+    
+    multiplayer.peer_connected.connect(_on_peer_connected)
+    multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+    
     GameManager.player_died.connect(_on_player_died)
     GameManager.player_levelup.connect(_on_player_levelup)
     GameManager.player_xp_changed.connect(_on_player_xp_changed)
@@ -28,6 +36,41 @@ func _ready() -> void:
         for peer_id in multiplayer.get_peers():
             spawn_player(peer_id)
         start_game()
+
+func _spawn_player_replica(data: Dictionary) -> Node:
+    var peer_id: int = data["peer_id"]
+    var character_path: String = data.get("character_path", "")
+    
+    var player = PLAYER_SCENE.instantiate() as Player
+    player.name = str(peer_id)
+    player.set_multiplayer_authority(peer_id)
+    player.projectile_spawner = projectile_spawner
+    
+    var char_data: CharacterData = null
+    if not character_path.is_empty() and ResourceLoader.exists(character_path):
+        char_data = load(character_path) as CharacterData
+    if char_data == null:
+        char_data = GameManager.selected_character
+    player.character_data = char_data
+    
+    return player
+
+func get_player(peer_id: int) -> Player:
+    if players_container != null:
+        return players_container.get_node_or_null(str(peer_id)) as Player
+    return get_node_or_null(str(peer_id)) as Player
+
+func _on_peer_connected(peer_id: int) -> void:
+    if not multiplayer.is_server():
+        return
+    spawn_player(peer_id)
+
+func _on_peer_disconnected(peer_id: int) -> void:
+    if not multiplayer.is_server():
+        return
+    var player = get_player(peer_id)
+    if player:
+        player.queue_free()
 
 func _unhandled_input(event: InputEvent) -> void:
     if not game_finished:
@@ -69,12 +112,19 @@ func start_game() -> void:
     timer.start()
     
 func spawn_player(peer_id: int) -> void:
-    var player = PLAYER_SCENE.instantiate() as Player
-    player.character_data = GameManager.selected_character
-    player.name = str(peer_id)
-    player.set_multiplayer_authority(peer_id)
-    player.projectile_spawner = projectile_spawner
-    add_child(player)
+    var character_path := ""
+    if Lobby.players.has(peer_id) and Lobby.players[peer_id].has("character_path"):
+        character_path = Lobby.players[peer_id]["character_path"]
+    elif peer_id == 1 and GameManager.selected_character != null:
+        character_path = GameManager.selected_character.resource_path
+    elif GameManager.selected_character != null:
+        character_path = GameManager.selected_character.resource_path
+
+    var spawn_data := {
+        "peer_id": peer_id,
+        "character_path": character_path
+    }
+    player_spawner.spawn(spawn_data)
     
 func _on_timer_timeout() -> void:
     if not multiplayer.is_server():
@@ -144,7 +194,7 @@ func end_game() -> void:
             SaveManager.Stat.LONGEST_RUN,
             elapsed_time
         )
-        var player = get_node_or_null(str(peer_id)) as Player
+        var player = get_player(peer_id)
         if player != null:
             SaveManager.add_run_stat(
                 peer_id,
@@ -249,6 +299,8 @@ func request_upgrade(player_path: NodePath, upgrade_id: String) -> void:
     if peer_id == 0:
         peer_id = multiplayer.get_unique_id()
     var player := get_node_or_null(player_path) as Player
+    if player == null:
+        player = get_player(peer_id)
     if player == null or player.get_multiplayer_authority() != peer_id:
         return
     if upgrade_id not in [
@@ -281,6 +333,9 @@ func sync_player_upgrade(player_path: NodePath, upgrade_id: String) -> void:
     if multiplayer.is_server():
         return
     var player := get_node_or_null(player_path) as Player
+    if player == null and players_container != null:
+        var player_node_name = str(player_path).get_file()
+        player = players_container.get_node_or_null(player_node_name) as Player
     if player == null:
         return
     player.apply_upgrade(upgrade_id)

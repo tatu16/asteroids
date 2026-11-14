@@ -19,4 +19,5 @@ func _on_select_button_pressed() -> void:
         return
     print("selected name = %s" % character_data.character_name)
     GameManager.selected_character = character_data
+    Lobby.set_player_character(character_data.resource_path)
     GameManager.character_selected.emit(select_button)

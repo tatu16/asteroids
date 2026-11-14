@@ -21,6 +21,16 @@ const MAX_UPGRADE_LEVELS: Dictionary = {
 }
 
 func _ready() -> void:
+    var peer_id := name.to_int()
+    if peer_id > 0:
+        set_multiplayer_authority(peer_id)
+        var synchronizer := get_node_or_null("MultiplayerSynchronizer") as MultiplayerSynchronizer
+        if synchronizer != null:
+            synchronizer.set_multiplayer_authority(peer_id)
+        var camera := get_node_or_null("Camera2D") as Camera2D
+        if camera != null:
+            camera.enabled = is_multiplayer_authority()
+
     super()
     if character_data == null:
         return
@@ -55,12 +65,33 @@ func _physics_process(delta: float) -> void:
         handle_movement(delta)
         handle_rotation(delta)
         handle_shooting()
-    move_and_slide()
+        move_and_slide()
 
 func handle_shooting() -> void:
     if not Input.is_action_pressed("shoot"):
         return
     var direction = global_position.direction_to(get_global_mouse_position())
+    if multiplayer.is_server():
+        fire_weapons(direction)
+    else:
+        var can_fire := false
+        for weapon in current_weapons:
+            if weapon.cooldown <= 0.0:
+                can_fire = true
+                weapon.cooldown = 1.0 / (weapon.weapon_data.fire_rate * weapon.attack_speed_multiplier)
+        if can_fire:
+            request_fire.rpc_id(1, direction)
+
+@rpc("any_peer", "call_local", "reliable")
+func request_fire(direction: Vector2) -> void:
+    if not multiplayer.is_server():
+        return
+    var sender_id := multiplayer.get_remote_sender_id()
+    if sender_id != 0 and sender_id != get_multiplayer_authority():
+        return
+    fire_weapons(direction)
+
+func fire_weapons(direction: Vector2) -> void:
     for weapon in current_weapons:
         weapon.projectile_spawner = projectile_spawner
         weapon.try_fire(direction)

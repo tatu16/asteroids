@@ -75,6 +75,13 @@ func _get_player() -> Player:
     var world = get_tree().root.find_child("World", true, false)
     if world == null:
         return null
+    if world.has_method("get_player"):
+        return world.get_player(multiplayer.get_unique_id())
+    var players = world.get_node_or_null("Players")
+    if players != null:
+        var p = players.get_node_or_null(str(multiplayer.get_unique_id())) as Player
+        if p != null:
+            return p
     return world.get_node_or_null(str(multiplayer.get_unique_id())) as Player
 
 func _get_upgrade_level(upgrade_id: String) -> int:
@@ -86,7 +93,7 @@ func _get_upgrade_level(upgrade_id: String) -> int:
 func finish_upgrade(upgrade_id: String) -> void:
     var world = get_tree().root.find_child("World", true, false)
     if world != null:
-        var player = world.get_node_or_null(str(multiplayer.get_unique_id())) as Player
+        var player = _get_player()
         if player != null:
             if multiplayer.is_server():
                 world.request_upgrade(player.get_path(), upgrade_id)

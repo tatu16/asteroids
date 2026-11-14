@@ -52,9 +52,6 @@ func spawn_break_particles() -> void:
     particles.emitting = true
 
 func _physics_process(delta: float) -> void:
-    if not multiplayer.is_server():
-        return
-        
     apply_acceleration(delta)
     global_position += direction * speed * delta
     rotation = direction.angle() + GameManager.SPRITE_ROTATION_OFFSET
