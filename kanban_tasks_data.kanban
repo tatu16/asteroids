@@ -38,13 +38,9 @@
 			"tasks": [
 				"842e04e8-fe6c-4940-a4a2-7bb15d21bc97",
 				"a1da655a-06a0-4213-b6b9-33145047ebcd",
-				"a017a31a-cde6-40ce-afb0-e9db8195df03",
-				"c7276b00-cbb2-4a6a-9834-4f0859f3f46f",
 				"8484dab7-a548-4b05-b530-88b693975aff",
 				"552ed52d-9c36-4001-be8d-57984916c367",
-				"8387f388-0249-41e2-aa62-90329d7d3009",
 				"08e66973-3ef8-4dd9-80bd-b142eabdc409",
-				"28b17728-06df-4cab-b34e-55dee243d5d6",
 				"99c063ef-f572-421d-9594-3f95b0f98c7a"
 			]
 		},
@@ -52,7 +48,9 @@
 			"uuid": "2090c6f7-72e0-45f1-87ae-9ce438f6455d",
 			"title": "Doing",
 			"tasks": [
-				"a2eeceb1-ab0a-4709-ae91-65fcaf07a8d4"
+				"a2eeceb1-ab0a-4709-ae91-65fcaf07a8d4",
+				"c7276b00-cbb2-4a6a-9834-4f0859f3f46f",
+				"28b17728-06df-4cab-b34e-55dee243d5d6"
 			]
 		},
 		{
@@ -65,29 +63,21 @@
 				"c28c599a-bb27-4277-8ea7-17ca0305ebf0",
 				"186f43ec-893e-47e1-abfe-86be60895d67",
 				"150bb4fd-f8b4-48bc-abdf-668f6d0c3e2d",
-				"8bafbf30-a8c1-4e6b-8918-7062e06a937a"
+				"8bafbf30-a8c1-4e6b-8918-7062e06a937a",
+				"a017a31a-cde6-40ce-afb0-e9db8195df03",
+				"8387f388-0249-41e2-aa62-90329d7d3009"
 			]
 		},
 		{
 			"uuid": "8b8b9827-e8bd-45e5-8a4e-d68bfda95167",
 			"title": "Backlog",
-			"tasks": [
-				"6069574a-f557-49d5-87b2-b195b2326568",
-				"60d7090e-5ffb-44dc-ac77-8b9c5a6a17e4"
-			]
+			"tasks": []
 		}
 	],
 	"tasks": [
 		{
 			"uuid": "842e04e8-fe6c-4940-a4a2-7bb15d21bc97",
 			"title": "More powerups",
-			"description": "",
-			"category": "bc745f9f-de91-48cc-88c2-b1ad69eada2d",
-			"steps": []
-		},
-		{
-			"uuid": "60d7090e-5ffb-44dc-ac77-8b9c5a6a17e4",
-			"title": "split projectiles that has few projectiles in it",
 			"description": "",
 			"category": "bc745f9f-de91-48cc-88c2-b1ad69eada2d",
 			"steps": []
@@ -150,7 +140,7 @@
 		},
 		{
 			"uuid": "8484dab7-a548-4b05-b530-88b693975aff",
-			"title": "glow when hit",
+			"title": "damage feedback",
 			"description": "",
 			"category": "30c39c30-5a76-42d5-8ade-6bdd921992dd",
 			"steps": []
@@ -174,13 +164,6 @@
 			"title": "Enemy attacks",
 			"description": "",
 			"category": "cc348701-8a46-4949-a670-76911ef5a0bf",
-			"steps": []
-		},
-		{
-			"uuid": "6069574a-f557-49d5-87b2-b195b2326568",
-			"title": "More ships",
-			"description": "",
-			"category": "bc745f9f-de91-48cc-88c2-b1ad69eada2d",
 			"steps": []
 		},
 		{

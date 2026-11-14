@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chrm3aobewxyi"]
 
 [ext_resource type="Script" uid="uid://dvub8j1ok235u" path="res://scripts/player/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://bpid8j8v6ugqo" path="res://scenes/particles/speed_trail.tscn" id="2_dovo2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
@@ -22,6 +23,10 @@ rotation_smoothing_enabled = true
 scale = Vector2(0.5, 0.5)
 
 [node name="ShipSprite" type="Sprite2D" parent="Visuals" unique_id=1743324801]
+
+[node name="SpeedTrail" parent="." unique_id=152685920 instance=ExtResource("2_dovo2")]
+max_points = 120
+trail_offset = 8.0
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="ready" from="." to="." method="_on_ready"]

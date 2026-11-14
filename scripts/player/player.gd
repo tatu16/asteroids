@@ -97,7 +97,7 @@ func handle_movement(delta: float) -> void:
             Vector2.ZERO,
             linear_drag * delta
         )
-    
+
 func handle_rotation(delta: float) -> void:
     visuals.rotation = global_position.direction_to(
         get_global_mouse_position()
