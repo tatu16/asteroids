@@ -31,11 +31,16 @@ func _ready() -> void:
         var synchronizer := get_node_or_null("MultiplayerSynchronizer") as MultiplayerSynchronizer
         if synchronizer != null:
             synchronizer.set_multiplayer_authority(peer_id)
-        var camera := get_node_or_null("Camera2D") as Camera2D
-        if camera != null:
-            camera.enabled = is_multiplayer_authority()
 
     super()
+    
+    if camera != null:
+        camera.enabled = is_multiplayer_authority()
+        if camera.enabled:
+            camera.make_current()
+    
+    add_to_group("players")
+    
     if character_data == null:
         return
 
@@ -343,9 +348,6 @@ func _flash_invulnerability() -> void:
     else:
         await get_tree().create_timer(1.5, false).timeout
         is_invulnerable = false
-
-func _on_ready() -> void:
-    add_to_group("players")
 
 func _update_ability(player: Player, amount: float) -> void:
     if player != self:

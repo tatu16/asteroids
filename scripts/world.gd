@@ -38,6 +38,8 @@ func _ready() -> void:
         for peer_id in multiplayer.get_peers():
             spawn_player(peer_id)
         start_game()
+    else:
+        call_deferred("_request_join_game")
 
 func _spawn_player_replica(data: Dictionary) -> Node:
     var peer_id: int = data["peer_id"]
@@ -51,8 +53,10 @@ func _spawn_player_replica(data: Dictionary) -> Node:
     var char_data: CharacterData = null
     if not character_path.is_empty() and ResourceLoader.exists(character_path):
         char_data = load(character_path) as CharacterData
+    
     if char_data == null:
         char_data = GameManager.selected_character
+    
     player.character_data = char_data
     
     return player
@@ -63,9 +67,14 @@ func get_player(peer_id: int) -> Player:
     return get_node_or_null(str(peer_id)) as Player
 
 func _on_peer_connected(peer_id: int) -> void:
-    if not multiplayer.is_server():
-        return
-    spawn_player(peer_id)
+    print(
+        "Peer connected | Local ID: ",
+        multiplayer.get_unique_id(),
+        " | Server: ",
+        multiplayer.is_server(),
+        " | Connected peer: ",
+        peer_id
+    )
 
 func _on_peer_disconnected(peer_id: int) -> void:
     if not multiplayer.is_server():
@@ -123,6 +132,9 @@ func start_game() -> void:
     timer.start()
     
 func spawn_player(peer_id: int) -> void:
+    if get_player(peer_id) != null:
+        return
+        
     var character_path := ""
     if Lobby.players.has(peer_id) and Lobby.players[peer_id].has("character_path"):
         character_path = Lobby.players[peer_id]["character_path"]
@@ -459,3 +471,42 @@ func request_exit_game() -> void:
 func _client_leave_game() -> void:
     Lobby.remove_multiplayer_peer()
     Lobby.server_disconnected.emit()
+
+func _request_join_game() -> void:
+    if not multiplayer.has_multiplayer_peer():
+        return
+    if multiplayer.has_multiplayer_peer():
+        request_join_game.rpc_id(1)
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_join_game() -> void:
+    if not multiplayer.is_server():
+        return
+
+    # wait for lobby to register player
+    var peer_id := multiplayer.get_remote_sender_id()
+    for i in range(120):
+        if Lobby.players.has(peer_id):
+            break
+        await get_tree().process_frame
+
+    if not Lobby.players.has(peer_id):
+        print("join failed: player no peer_id")
+        return
+    
+    if Lobby.players[peer_id].get("character_path", "").is_empty():
+        print("no character selected")
+        return
+
+    if get_player(peer_id) != null:
+        print("player already exists")
+        return
+        
+    var spawned_player := player_spawner.spawn({
+        "peer_id": peer_id,
+        "character_path": Lobby.players[peer_id]["character_path"]
+    })
+    
+    # synchronize game state
+    update_timer.rpc_id(peer_id, elapsed_time)
+    set_game_paused.rpc_id(peer_id, is_paused)

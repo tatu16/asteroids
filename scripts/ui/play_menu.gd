@@ -43,10 +43,9 @@ func _on_play_button_pressed() -> void:
             get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 func _on_character_selected(button: Button) -> void:
-    if prev_selected == null:
-        prev_selected = button
-    if not button == prev_selected:
+    if prev_selected != null and prev_selected != button:
         prev_selected.button_pressed = false
+
     prev_selected = button
 
 func _on_return_button_pressed() -> void:

@@ -69,15 +69,14 @@ func create_game():
 
 func set_player_character(char_path: String) -> void:
     player_info["character_path"] = char_path
+    
     var my_id = multiplayer.get_unique_id() if multiplayer.has_multiplayer_peer() else 1
     if not players.has(my_id):
         players[my_id] = player_info.duplicate()
     players[my_id]["character_path"] = char_path
-    if multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-        if multiplayer.is_server():
-            _update_player_character.rpc(char_path)
-        else:
-            _update_player_character.rpc_id(1, char_path)
+    
+    if multiplayer.has_multiplayer_peer() and not multiplayer.is_server():
+        _update_player_character.rpc_id(1, char_path)
 
 @rpc("any_peer", "reliable")
 func _update_player_character(char_path: String) -> void:
