@@ -26,6 +26,8 @@ func _ready():
     multiplayer.connection_failed.connect(_on_connected_fail)
     multiplayer.server_disconnected.connect(_on_server_disconnected)
 
+    server_disconnected.connect(_return_to_menu)
+
 func join_game(address = "", port = DEFAULT_PORT):
     if address.is_empty():
         address = DEFAULT_SERVER_IP
@@ -86,7 +88,7 @@ func _update_player_character(char_path: String) -> void:
         players[sender_id] = {}
     players[sender_id]["character_path"] = char_path
 
-func remove_multiplayer_peer():
+func remove_multiplayer_peer() -> void:
     if multiplayer.has_multiplayer_peer():
         multiplayer.multiplayer_peer.close()
         
@@ -122,6 +124,7 @@ func leave_lobby() -> void:
         _host_is_leaving.rpc()
         await get_tree().create_timer(0.25).timeout
     remove_multiplayer_peer()
+    server_disconnected.emit()
     print("Left lobby")
 
 @rpc("authority", "call_remote", "reliable")
@@ -156,3 +159,5 @@ func _on_player_connected(id):
     print("Player connected: %s" % id)
     _register_player.rpc_id(id, player_info)
     
+func _return_to_menu() -> void:
+    get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

@@ -70,9 +70,18 @@ func _on_peer_connected(peer_id: int) -> void:
 func _on_peer_disconnected(peer_id: int) -> void:
     if not multiplayer.is_server():
         return
-    var player = get_player(peer_id)
-    if player:
+        
+    print("Player disconnect: ", peer_id)
+    var player := get_player(peer_id)
+    if player != null and is_instance_valid(player):
+        player.remove_from_group("players")
+        player.remove_from_group("dead_players")
+        player.is_dead = true
         player.queue_free()
+        
+    pending_upgrades.erase(peer_id)
+    if is_paused and pending_upgrades.is_empty():
+        continue_game()
 
 func _unhandled_input(event: InputEvent) -> void:
     if not game_finished:
@@ -157,6 +166,10 @@ func request_pause_game() -> void:
     
 func continue_game() -> void:
     if not multiplayer.is_server() or not is_paused:
+        return
+    
+    # prevent continuing while another player selecting upgrade
+    if not pending_upgrades.is_empty():
         return
         
     is_paused = false
@@ -396,9 +409,53 @@ func sync_player_upgrade(player_path: NodePath, upgrade_id: String) -> void:
 func request_continue_game() -> void:
     if not multiplayer.is_server():
         return
+        
+    # Allow continue from peer that is in the same lobby
+    var sender_id := multiplayer.get_remote_sender_id()
+    if not Lobby.players.has(sender_id):
+        return
+        
     continue_game()
 
 func _on_player_xp_changed(peer_id: int, current_xp: float, xp_required: float, level: int) -> void:
     if peer_id != multiplayer.get_unique_id():
         return
     hud.update_xp(current_xp, xp_required, level)
+
+func exit_game() -> void:
+    if multiplayer.is_server():
+        # only save if the game has not ended already
+        if not game_finished:
+            # save host's stats
+            var host_stats = SaveManager.get_run_stats(1)
+            if not host_stats.is_empty():
+                SaveManager.add_finished_run(host_stats)
+            
+            # send stats to peers
+            for peer_id in multiplayer.get_peers():
+                var stats = SaveManager.get_run_stats(peer_id)
+                if not stats.is_empty():
+                    receive_run_stats.rpc_id(peer_id, stats)
+        await Lobby.leave_lobby()
+    else:
+        request_exit_game.rpc_id(1)
+    
+@rpc("any_peer", "reliable")
+func request_exit_game() -> void:
+    if not multiplayer.is_server():
+        return
+
+    var peer_id = multiplayer.get_remote_sender_id()
+    # don't save twice if the game is already ended
+    if not game_finished:
+        var stats = SaveManager.get_run_stats(peer_id)
+        if not stats.is_empty():
+            receive_run_stats.rpc_id(peer_id, stats)
+
+    _client_leave_game.rpc_id(peer_id)
+
+
+@rpc("authority", "call_remote", "reliable")
+func _client_leave_game() -> void:
+    Lobby.remove_multiplayer_peer()
+    Lobby.server_disconnected.emit()

@@ -30,7 +30,14 @@ func _on_exit_game_button_pressed() -> void:
     add_child(confirm)
 
 func _on_confirmation_result(confirmed: bool) -> void:
-    if confirmed:
-        get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
-    else:
+    if not confirmed:
         print("Exit cancelled")
+        return
+    
+    var world := get_tree().current_scene
+    if world == null or not world.has_method("exit_game"):
+        print("Couldn't find active world")
+        return
+    world.exit_game()
+    queue_free()
+        
