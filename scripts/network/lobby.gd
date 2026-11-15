@@ -44,24 +44,18 @@ func join_game(address = "", port = DEFAULT_PORT):
     return OK
 
 func create_game():
-    var peer: ENetMultiplayerPeer
-    var port: int
-    var error: Error = ERR_CANT_CREATE
-
-    for attempt in 100:
-        peer = ENetMultiplayerPeer.new()
-        port = randi_range(10000, 50000)
-        error = peer.create_server(port, MAX_CONNECTIONS)
-        if error == OK:
-            break
-        print("Port %s is unavailable, retrying" % port)
+    var peer: ENetMultiplayerPeer =  ENetMultiplayerPeer.new()
+    var port: int = 13420
+    
+    var error = peer.create_server(port, MAX_CONNECTIONS)
 
     if error != OK:
-        print("Failed to create server after 100 attempts: ", error)
+        print("Failed to create server: ", error)
         return error
 
     current_port = port
     multiplayer.multiplayer_peer = peer
+
     players[1] = player_info.duplicate()
     player_connected.emit(1, player_info)
     print("created a game to port = %s" % port)
