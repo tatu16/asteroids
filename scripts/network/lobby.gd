@@ -140,6 +140,7 @@ func _on_connected_ok():
 
 func _on_connected_fail():
     print("Failed to connect the server")
+    print("Connection status: ", multiplayer.multiplayer_peer.get_connection_status())
     remove_multiplayer_peer()
 
 func _on_server_disconnected():
