@@ -8,6 +8,7 @@ extends Control
 @onready var host_button: Button = %HostButton
 @onready var join_button: Button = %JoinButton
 @onready var leave_button: Button = %LeaveButton
+@onready var player_list: ItemList = %PlayerListList
 
 const SELECT_CHARACTER: PackedScene = preload("res://scenes/menus/select_character.tscn")
 const JOIN_LOBBY_SCENE: PackedScene = preload("res://scenes/menus/join_menu.tscn")
@@ -75,9 +76,16 @@ func set_normal_view() -> void:
     leave_button.disabled = true
     connect_text.text = ""
     
+func update_player_list() -> void:
+    print(Lobby.player_info)
+    player_list.clear()
+    for player in Lobby.player_info:
+        player_list.add_item(player, null, true)
+    
 func _on_player_connected(peer_id, player_info):
     print(peer_id, player_info)
     set_lobby_view()
+    update_player_list()
         
 func _on_leave_button_pressed() -> void:
     Lobby.leave_lobby()
