@@ -16,6 +16,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="ConfirmMenu" type="CanvasLayer" unique_id=1964798614]
+layer = 100
 script = ExtResource("1_1mp08")
 
 [node name="Control" type="Control" parent="." unique_id=1553113917]
@@ -33,10 +34,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -68.5
-offset_top = -29.0
-offset_right = 68.5
-offset_bottom = 29.0
+offset_left = -114.0
+offset_top = -67.0
+offset_right = 114.0
+offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 0
@@ -50,14 +51,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1mp08")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer" unique_id=63874197]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer" unique_id=1168343438]
+custom_minimum_size = Vector2(256, 140)
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 48
 
 [node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1195555478]
 unique_name_in_owner = true
@@ -68,6 +70,8 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1227514426]
 layout_mode = 2
+size_flags_vertical = 10
+offset_transform_enabled = true
 theme_override_constants/separation = 16
 
 [node name="ConfirmButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=426841149]

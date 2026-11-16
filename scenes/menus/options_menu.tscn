@@ -7,6 +7,7 @@
 bg_color = Color(0.13725491, 0.20784314, 0.30980393, 0.72156864)
 
 [node name="OptionsMenu" type="CanvasLayer" unique_id=1008031853]
+layer = 5
 script = ExtResource("1_bp0ux")
 
 [node name="Control" type="Control" parent="." unique_id=2095664390]

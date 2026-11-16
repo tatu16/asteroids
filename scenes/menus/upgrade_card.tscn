@@ -15,15 +15,25 @@ border_color = Color(0.4563582, 0.5340862, 0.8431133, 1)
 [node name="Button" type="Control" unique_id=791074418]
 layout_mode = 3
 anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_j4ydr")
 script = ExtResource("1_o63o4")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1872488516]
 propagate_maximum_size = false
-layout_mode = 0
-offset_left = -0.5
-offset_right = 191.5
-offset_bottom = 300.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = -210.5
+offset_right = 134.0
+offset_bottom = 269.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kwnof")
 
 [node name="Button" type="Button" parent="PanelContainer" unique_id=1434843961]
@@ -51,10 +61,11 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("1_lfc0y")
 expand_mode = 4
-stretch_mode = 3
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=470276119]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
@@ -71,25 +82,23 @@ theme_override_constants/separation = 8
 [node name="UpgradeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1757752404]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_j4ydr")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 40
 text = "upgrade name"
 
 [node name="CurrentLevel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=980826084]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 24
 text = "Lv. 1"
 horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="DescriptionLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1285131028]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 32
 text = "Increase projectile damage by 20%"
 vertical_alignment = 1
 autowrap_mode = 3

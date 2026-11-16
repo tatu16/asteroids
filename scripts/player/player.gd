@@ -127,8 +127,8 @@ func handle_movement(delta: float) -> void:
     var speed_multiplier := 1.0
     for ability in abilities:
         speed_multiplier *= ability.movement_multiplier()
+        
     var target_speed := max_speed * speed_multiplier
-
     var acceleration_force := acceleration * speed_multiplier
 
     if direction != Vector2.ZERO:

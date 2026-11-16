@@ -37,14 +37,14 @@ glow_bloom = 0.2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xo05s"]
 shader = ExtResource("6_o8fc1")
 shader_parameter/aspect_ratio = 1.0
-shader_parameter/density = 0.89999997723
-shader_parameter/layer_parascale = 3
+shader_parameter/density = 0.749999981025
+shader_parameter/layer_parascale = 4
 shader_parameter/star_speed = Vector2(0.002, 0.001)
 shader_parameter/star_wave = Vector2(0.03, 0.01)
-shader_parameter/star_size = 1.999999955296
-shader_parameter/star_rotate_speed = 0.5
-shader_parameter/twinkle_effect = 0.1999999955296
-shader_parameter/twinkle_speed = 0.3
+shader_parameter/star_size = 0.999999977648
+shader_parameter/star_rotate_speed = 0.35000015912499993
+shader_parameter/twinkle_effect = 0.0499999988824
+shader_parameter/twinkle_speed = 0.0499999988824
 shader_parameter/pixelate_enabled = true
 shader_parameter/pixelate_count = 1000.0
 

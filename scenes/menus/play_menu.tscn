@@ -52,13 +52,16 @@ script = ExtResource("1_ixn57")
 character_registry = ExtResource("2_h37g1")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1676008267]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 80
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 120
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=688405018]
 layout_mode = 2
@@ -83,24 +86,30 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Return"
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer2" unique_id=230024324]
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Select character"
 vertical_alignment = 1
 
-[node name="CharacterContainer" type="FlowContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2" unique_id=186639525]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2" unique_id=889500595]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="CharacterContainer" type="HFlowContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=361091227]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 6
 theme_override_constants/h_separation = 8
-alignment = 1
-vertical = true
+last_wrap_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/HBoxContainer" unique_id=1911084613]
 layout_mode = 2
@@ -112,13 +121,14 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=286810331]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 8
 
 [node name="ConnectTextEdit" type="TextEdit" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1418352041]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(168, 32)
+custom_minimum_size = Vector2(192, 40)
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 placeholder_text = "127.0.0.1:12345"
 virtual_keyboard_enabled = false
 
@@ -126,21 +136,21 @@ virtual_keyboard_enabled = false
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Create Lobby"
 
 [node name="JoinButton" type="Button" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=676613634]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Join Game"
 
 [node name="LeaveButton" type="Button" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=2097396161]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Leave lobby"
 
@@ -155,7 +165,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=962533991]
 layout_mode = 2
 theme = ExtResource("3_3pot6")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 28
 text = "Players:"
 
 [node name="PlayerListList" type="ItemList" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1415501605]
@@ -164,7 +174,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_3pot6")
 theme_override_constants/v_separation = 8
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 24
 
 [node name="PlayButton" type="Button" parent="MarginContainer/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1707950030]
 unique_name_in_owner = true

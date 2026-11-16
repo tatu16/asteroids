@@ -23,7 +23,11 @@ Lobby="*uid://cedsnaj8s2dww"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+window/stretch/scale_mode="fractional"
 
 [editor_plugins]
 
@@ -103,6 +107,7 @@ zoom_out={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+common/physics_interpolation=true
 
 [rendering]
 

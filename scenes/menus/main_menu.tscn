@@ -12,49 +12,55 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xqga4")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1984872117]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 80
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=613722518]
-layout_mode = 2
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1132412020]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1132412020]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -456.0
+offset_top = -244.0
+offset_right = 456.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=543879459]
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=543879459]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_ovrgc")
 theme_override_font_sizes/font_size = 32
 text = "Play"
 
-[node name="ShopButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2038233264]
+[node name="ShopButton" type="Button" parent="VBoxContainer" unique_id=2038233264]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_ovrgc")
 theme_override_font_sizes/font_size = 32
 text = "Shop"
 
-[node name="OptionButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1158596218]
+[node name="OptionButton" type="Button" parent="VBoxContainer" unique_id=1158596218]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_ovrgc")
 theme_override_font_sizes/font_size = 32
 text = "Options"
 
-[node name="ExitGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1200904169]
+[node name="ExitGameButton" type="Button" parent="VBoxContainer" unique_id=1200904169]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_ovrgc")
 theme_override_font_sizes/font_size = 32
 text = "Exit Game"
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

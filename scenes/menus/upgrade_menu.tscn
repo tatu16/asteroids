@@ -33,10 +33,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 160
-theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 160
-theme_override_constants/margin_bottom = 120
+theme_override_constants/margin_left = 240
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 240
+theme_override_constants/margin_bottom = 160
 
 [node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer" unique_id=882664078]
 layout_mode = 2
@@ -49,11 +49,10 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HFlowContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer" unique_id=2137300843]
+[node name="VFlowContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer" unique_id=2137300843]
 layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="LevelupLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer" unique_id=1061910937]
+[node name="LevelupLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer" unique_id=1061910937]
 layout_mode = 2
 theme = ExtResource("1_j4pd8")
 theme_override_font_sizes/font_size = 40
@@ -61,48 +60,45 @@ text = "Level Up!"
 label_settings = SubResource("LabelSettings_kwnof")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer" unique_id=920726167]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer" unique_id=920726167]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CardContainer" type="GridContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer" unique_id=780322472]
+[node name="CardContainer" type="GridContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer" unique_id=780322472]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 3
 
-[node name="UpgradeCard" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/CardContainer" unique_id=927897595 instance=ExtResource("2_vsubm")]
+[node name="UpgradeCard" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer/CardContainer" unique_id=927897595 instance=ExtResource("2_vsubm")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="UpgradeCard2" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/CardContainer" unique_id=2662459 instance=ExtResource("2_vsubm")]
+[node name="UpgradeCard2" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer/CardContainer" unique_id=2662459 instance=ExtResource("2_vsubm")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="UpgradeCard3" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/CardContainer" unique_id=965216339 instance=ExtResource("2_vsubm")]
+[node name="UpgradeCard3" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer/CardContainer" unique_id=965216339 instance=ExtResource("2_vsubm")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer" unique_id=1825975057]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer" unique_id=1825975057]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
 
-[node name="ButtonContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/MarginContainer" unique_id=1947450]
+[node name="ButtonContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer/MarginContainer" unique_id=1947450]
 layout_mode = 2
 offset_transform_enabled = true
 alignment = 1
 
-[node name="SkipButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/MarginContainer/ButtonContainer" unique_id=1888534879]
+[node name="SkipButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer/MarginContainer/ButtonContainer" unique_id=1888534879]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_j4pd8")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 40
 text = "Skip"
 
-[node name="RerollButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/MarginContainer/ButtonContainer" unique_id=2075270719]
+[node name="RerollButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/VFlowContainer/HBoxContainer/MarginContainer/ButtonContainer" unique_id=2075270719]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_j4pd8")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 40
 text = "Reroll"

@@ -7,6 +7,7 @@
 bg_color = Color(0.13725491, 0.20784314, 0.30980393, 0.3647059)
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=1215251899]
+layer = 3
 script = ExtResource("1_fwndu")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=417254347]
@@ -17,60 +18,56 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rvr8k")
 
-[node name="Control" type="Control" parent="PanelContainer" unique_id=1941722287]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control" unique_id=571067089]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Label" type="Label" parent="." unique_id=868266052]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+offset_left = -960.0
+offset_right = 960.0
+offset_bottom = 65.0
 grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/Control/VBoxContainer" unique_id=101956840]
-layout_mode = 2
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_bottom = 80
-
-[node name="Label" type="Label" parent="PanelContainer/Control/VBoxContainer/MarginContainer2" unique_id=868266052]
-layout_mode = 2
 theme = ExtResource("2_7unhi")
 theme_override_font_sizes/font_size = 64
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Control/VBoxContainer" unique_id=309293393]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_constants/margin_top = 60
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control/VBoxContainer/MarginContainer" unique_id=413908404]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=413908404]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.5
+offset_top = -77.5
+offset_right = 65.5
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 16
 
-[node name="ContinueButton" type="Button" parent="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer" unique_id=301418167]
+[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=301418167]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_7unhi")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 40
 text = "Continue"
 
-[node name="OptionsButton" type="Button" parent="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer" unique_id=637835207]
+[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=637835207]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_7unhi")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 40
 text = "Options"
 
-[node name="ExitGameButton" type="Button" parent="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1292943170]
+[node name="ExitGameButton" type="Button" parent="VBoxContainer" unique_id=1292943170]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_7unhi")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 40
 text = "Exit Game"
 
-[connection signal="pressed" from="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

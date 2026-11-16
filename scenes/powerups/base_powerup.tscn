@@ -10,10 +10,10 @@ radius = 31.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rvr8k"]
 shader = ExtResource("3_ve6bp")
 shader_parameter/glow_color = Color(0.89, 0, 0.11, 1)
-shader_parameter/glow_radius = 0.6500000292450601
-shader_parameter/glow_intensity = 1.5
+shader_parameter/glow_radius = 0.20000000787006
+shader_parameter/glow_intensity = 0.800000038
 shader_parameter/glow_opacity = 0.6
-shader_parameter/glow_softness = 2.0
+shader_parameter/glow_softness = 1.00000004424012
 
 [node name="BasePowerup" type="Area2D" unique_id=521559601]
 collision_layer = 32
@@ -30,7 +30,7 @@ texture = ExtResource("2_ve6bp")
 [node name="Glow" type="ColorRect" parent="." unique_id=1257418178]
 texture_filter = 2
 material = SubResource("ShaderMaterial_rvr8k")
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(100, 100)
 propagate_maximum_size = true
 clip_contents = true
 anchors_preset = 8
@@ -38,9 +38,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -80.0
-offset_right = 80.0
-offset_bottom = 80.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
