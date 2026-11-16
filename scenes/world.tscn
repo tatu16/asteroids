@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://ccjdlg8w2xb1i" path="res://scenes/ui/hud.tscn" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://qw6ecitnvlsk" path="res://scripts/world.gd" id="1_k0juu"]
-[ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
 [ext_resource type="Script" uid="uid://csqkbljsr6fvb" path="res://scripts/weapons/projectiles/projectile_spawner.gd" id="4_jhx03"]
 [ext_resource type="PackedScene" uid="uid://dcbbdfokwjv3l" path="res://scenes/enemies/crawler.tscn" id="4_k0juu"]
 [ext_resource type="Script" uid="uid://bg8qnpe7idde0" path="res://scripts/misc/xp_orb_spawner.gd" id="5_7t5mc"]
 [ext_resource type="Script" uid="uid://e47htshakmap" path="res://scripts/misc/background_manager.gd" id="5_qfnet"]
 [ext_resource type="Script" uid="uid://cu7xnghmhhwwe" path="res://scripts/enemies/enemy_spawner.gd" id="6_i7141"]
+[ext_resource type="Script" uid="uid://f001g4cw841p" path="res://scripts/powerups/powerup_spawner.gd" id="6_lakw3"]
 [ext_resource type="Shader" uid="uid://bm6ipb38fq3n1" path="res://resources/shaders/starfield.gdshader" id="6_o8fc1"]
 [ext_resource type="Shader" uid="uid://b8j75k3h1w722" path="res://resources/shaders/nebula.gdshader" id="6_qfnet"]
 [ext_resource type="PackedScene" uid="uid://06nxfvh0ytjp" path="res://scenes/enemies/slime.tscn" id="8_7r4gi"]
@@ -17,9 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://bwxbaqghk8ghd" path="res://scenes/enemies/destroyer.tscn" id="10_q5onr"]
 [ext_resource type="PackedScene" uid="uid://b5dr71h0b4eqi" path="res://scenes/enemies/watcher.tscn" id="11_jhx03"]
 [ext_resource type="PackedScene" uid="uid://xwdlcbdaejci" path="res://scenes/enemies/interceptor.tscn" id="12_o8fc1"]
+[ext_resource type="PackedScene" uid="uid://b5gktb6vgshdf" path="res://scenes/objects/triangle.tscn" id="20_triangle"]
+[ext_resource type="PackedScene" uid="uid://bl5fp3m1ew06v" path="res://scenes/objects/square.tscn" id="21_square"]
+[ext_resource type="PackedScene" uid="uid://dp3ptg2qwc3kd" path="res://scenes/objects/pentagon.tscn" id="22_pentagon"]
+[ext_resource type="PackedScene" uid="uid://bj2xs4hywoh4u" path="res://scenes/objects/wall.tscn" id="23_wall"]
+[ext_resource type="Script" uid="uid://ndd86rt31731" path="res://scripts/objects/object_spawner.gd" id="24_object_spawner"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
-panorama = ExtResource("1_rwgxs")
 
 [sub_resource type="Sky" id="Sky_nnsk1"]
 sky_material = SubResource("PanoramaSkyMaterial_k0juu")
@@ -27,6 +31,8 @@ sky_material = SubResource("PanoramaSkyMaterial_k0juu")
 [sub_resource type="Environment" id="Environment_kwnof"]
 background_mode = 3
 sky = SubResource("Sky_nnsk1")
+glow_enabled = true
+glow_bloom = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xo05s"]
 shader = ExtResource("6_o8fc1")
@@ -144,8 +150,6 @@ environment = SubResource("Environment_kwnof")
 [node name="Timer" type="Timer" parent="." unique_id=629375088]
 autostart = true
 
-[node name="Players" type="Node" parent="." unique_id=1442882629]
-
 [node name="EnemyMultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1424124974]
 spawn_path = NodePath("../Enemies")
 
@@ -157,11 +161,35 @@ script = ExtResource("4_jhx03")
 spawn_path = NodePath("../XpOrbs")
 script = ExtResource("5_7t5mc")
 
+[node name="PowerUpSpawner" type="MultiplayerSpawner" parent="." unique_id=1088469269]
+spawn_path = NodePath("../PowerUps")
+script = ExtResource("6_lakw3")
+
+[node name="ObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=171130377 node_paths=PackedStringArray("xp_orb_spawner", "powerup_spawner")]
+spawn_path = NodePath("../Objects")
+script = ExtResource("24_object_spawner")
+object_scenes = Array[PackedScene]([ExtResource("20_triangle"), ExtResource("21_square"), ExtResource("22_pentagon")])
+wall_scene = ExtResource("23_wall")
+xp_orb_spawner = NodePath("../XpOrbSpawner")
+powerup_spawner = NodePath("../PowerUpSpawner")
+arena_size = Vector2(2000, 2000)
+
+[node name="SpawnTimer" type="Timer" parent="ObjectSpawner" unique_id=318679365]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=854290260]
+spawn_path = NodePath("../Players")
+
+[node name="Players" type="Node2D" parent="." unique_id=1442882629]
+
 [node name="Enemies" type="Node2D" parent="." unique_id=1625680015]
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=2146273196]
 
 [node name="XpOrbs" type="Node2D" parent="." unique_id=784941827]
+
+[node name="PowerUps" type="Node2D" parent="." unique_id=1682830168]
+
+[node name="Objects" type="Node2D" parent="." unique_id=80191282]
 
 [node name="BackgroundManager" type="CanvasLayer" parent="." unique_id=2061202080]
 layer = -1
@@ -216,20 +244,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="EnemySpawner" type="Node" parent="." unique_id=1241153966 node_paths=PackedStringArray("multiplayer_spawner", "projectile_spawner", "xp_orb_spawner", "enemies_container")]
+[node name="EnemySpawner" type="Node" parent="." unique_id=1241153966 node_paths=PackedStringArray("multiplayer_spawner", "projectile_spawner", "xp_orb_spawner", "powerup_spawner", "enemies_container")]
 script = ExtResource("6_i7141")
 enemy_scenes = Array[PackedScene]([ExtResource("4_k0juu"), ExtResource("8_7r4gi"), ExtResource("9_w7kh3"), ExtResource("10_q5onr"), ExtResource("11_jhx03"), ExtResource("12_o8fc1")])
 multiplayer_spawner = NodePath("../EnemyMultiplayerSpawner")
 projectile_spawner = NodePath("../ProjectileSpawner")
 xp_orb_spawner = NodePath("../XpOrbSpawner")
+powerup_spawner = NodePath("../PowerUpSpawner")
 enemies_container = NodePath("../Enemies")
-starting_spawn_interval = 4.0
-minimum_spawn_interval = 0.5
-starting_enemy_cap = 6
-enemy_cap_increase = 3
-enemy_cap_interval = 30
-maximum_enemy_cap = 100
-spawn_distance = 700.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=74926261]
 

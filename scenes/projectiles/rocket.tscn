@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://quc17hjjergs"]
 
-[ext_resource type="Script" uid="uid://chw5n14gdpla0" path="res://scripts/weapons/projectiles/baseProjectile/base_projectile.gd" id="1_r4bah"]
-[ext_resource type="Texture2D" uid="uid://ckh2gcufet3js" path="res://assets/sprites/projectiles/projectile_rocket.png" id="1_r4mtq"]
+[ext_resource type="PackedScene" uid="uid://dko3qs58litj5" path="res://scenes/projectiles/base_projectile.tscn" id="1_base"]
+[ext_resource type="Texture2D" uid="uid://ckh2gcufet3js" path="res://assets/sprites/projectiles/projectile_rocket.png" id="2_texture"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b58ev"]
+size = Vector2(20, 29)
 
-[node name="ProjectileBolt" type="Area2D" unique_id=1697098870]
-collision_layer = 8
-collision_mask = 31
-script = ExtResource("1_r4bah")
+[node name="Rocket" unique_id=321728614 instance=ExtResource("1_base")]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1293725938]
-texture = ExtResource("1_r4mtq")
+[node name="Sprite2D" parent="." index="0" unique_id=604656692]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_texture")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1689260575]
-shape = SubResource("CircleShape2D_kwnof")
+[node name="CollisionShape2D" parent="." index="1" unique_id=1328337806]
+position = Vector2(3, -7.5)
+shape = SubResource("RectangleShape2D_b58ev")

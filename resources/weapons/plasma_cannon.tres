@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://c33riyneh1c2y"]
 
+[ext_resource type="PackedScene" uid="uid://fb8kq13lakdm" path="res://scenes/projectiles/plasma_bolt.tscn" id="1_g5abs"]
 [ext_resource type="Script" uid="uid://ciohp752diq3d" path="res://resources/weapons/weapon_data.gd" id="1_lhk4l"]
 
 [resource]
 script = ExtResource("1_lhk4l")
+projectile_scene = ExtResource("1_g5abs")
 metadata/_custom_type_script = "uid://ciohp752diq3d"

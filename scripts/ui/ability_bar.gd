@@ -1,12 +1,14 @@
 extends Control
 
 @onready var ability_bar: TextureProgressBar = %TextureProgressBar
-@onready var ability_label: Label = %AbilityLabelLabel
+@onready var ability_label: Label = %AbilityLabel
 
 func _ready() -> void:
     GameManager.player_use_ability.connect(update_ability)
 
 func update_ability(player: Player, amount_left: float) -> void:
+    if not player.is_multiplayer_authority():
+        return
     ability_bar.max_value = player.max_ability
     ability_bar.value = amount_left
 

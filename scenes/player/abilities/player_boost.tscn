@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bxopx164bk1qg"]
+
+[ext_resource type="Script" uid="uid://bp0h4uqb4u40p" path="res://scripts/player/ability/boost_ability.gd" id="1_0xoid"]
+[ext_resource type="PackedScene" uid="uid://byk5ncmpd0rlp" path="res://scenes/particles/ability_boost.tscn" id="2_rayvr"]
+
+[node name="BoostAbility" type="Area2D" unique_id=1821695162]
+script = ExtResource("1_0xoid")
+supported_upgrade_ids = Array[String](["boost"])
+activation_particles_scene = ExtResource("2_rayvr")
+activation_particles_offset = Vector2(0, 40)
+
+[node name="Visual" type="Node2D" parent="." unique_id=2062298591]

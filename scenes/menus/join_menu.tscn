@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://clcgd0uxnva4e"]
+
+[ext_resource type="Script" uid="uid://jmpq6visqb1l" path="res://scripts/ui/join_menu.gd" id="1_lcbyc"]
+[ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_gvf75"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
+bg_color = Color(0.08627451, 0.08627451, 0.08627451, 0.22745098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4lx4"]
+bg_color = Color(0.13725491, 0.20784314, 0.30980393, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.5658483, 0.63657576, 0.8933709, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="JoinMenu" type="CanvasLayer" unique_id=2006145467]
+script = ExtResource("1_lcbyc")
+
+[node name="Control" type="Control" parent="." unique_id=627996604]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_gvf75")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1419887226]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" unique_id=710177343]
+layout_mode = 2
+theme_override_constants/margin_left = 360
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 360
+theme_override_constants/margin_bottom = 160
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/MarginContainer" unique_id=1921156561]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y4lx4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/MarginContainer/PanelContainer" unique_id=931032882]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer" unique_id=634527716]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1201692594]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ReturnButton" type="Button" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=920938397]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Return"
+
+[node name="Label" type="Label" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1724398263]
+layout_mode = 2
+text = "Join a lobby"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=895502907]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="IP_PORT" type="Label" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=317826814]
+layout_mode = 2
+text = "IP:PORT"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=552164891]
+layout_mode = 2
+
+[node name="IPTextEdit" type="TextEdit" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=167061067]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "127.0.0.1"
+
+[node name="PortTextEdit" type="TextEdit" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=227963869]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+placeholder_text = "7000"
+
+[node name="ConnectButton" type="Button" parent="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1064539559]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Connect"
+
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ConnectButton" to="." method="_on_connect_button_pressed"]

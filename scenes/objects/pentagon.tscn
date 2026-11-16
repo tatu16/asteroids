@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dp3ptg2qwc3kd"]
+
+[ext_resource type="PackedScene" uid="uid://calknllgl3wls" path="res://scenes/objects/base_object.tscn" id="1_base"]
+
+[node name="BasePentagon" instance=ExtResource("1_base")]
+
+[node name="Polygon2D" parent="." index="0"]
+polygon = PackedVector2Array(-15.999994, -18.98442, 16.000006, -18.98442, 24.000006, 5.0155787, 5.722046e-06, 21.01558, -23.999994, 5.0155787)
+uv = PackedVector2Array(7.9999924, -32, 24, -32, 31.999992, -16, 15.999992, 0, 0, -16)

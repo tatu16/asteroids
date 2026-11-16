@@ -1,7 +1,27 @@
 [gd_scene format=3 uid="uid://chrm3aobewxyi"]
 
 [ext_resource type="Script" uid="uid://dvub8j1ok235u" path="res://scripts/player/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://bpid8j8v6ugqo" path="res://scenes/particles/speed_trail.tscn" id="2_dovo2"]
+[ext_resource type="Shader" uid="uid://cry26bjwnm5ch" path="res://resources/shaders/hit_flash.gdshader" id="2_gmlin"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5acxu"]
+shader = ExtResource("2_gmlin")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 0.85, 0.75, 1)
+shader_parameter/flash_strength = 0.3
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_player"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Visuals:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:global_position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" unique_id=2123365197 groups=["players"]]
 z_index = 1
@@ -22,6 +42,13 @@ rotation_smoothing_enabled = true
 scale = Vector2(0.5, 0.5)
 
 [node name="ShipSprite" type="Sprite2D" parent="Visuals" unique_id=1743324801]
+material = SubResource("ShaderMaterial_5acxu")
+
+[node name="SpeedTrail" parent="Visuals" unique_id=152685920 instance=ExtResource("2_dovo2")]
+scale = Vector2(2, 2)
+max_points = 120
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=184920485]
+replication_config = SubResource("SceneReplicationConfig_player")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="ready" from="." to="." method="_on_ready"]

@@ -1,0 +1,27 @@
+{
+  "pack_id": "four-shockwave",
+  "display_name": "Four Shockwave",
+  "version": "1.2.0",
+  "image": "four-shockwave_shockwave_green_32.png",
+  "cell": {
+    "width": 32,
+    "height": 32
+  },
+  "columns": 8,
+  "rows": 1,
+  "anchor": "center",
+  "perspective": "effect",
+  "clips": [
+    {
+      "name": "shockwave_green_32",
+      "animation": "shockwave_green_32",
+      "direction": "fx",
+      "row": 0,
+      "from": 0,
+      "to": 7,
+      "frames": 8,
+      "fps": 12,
+      "loop": false
+    }
+  ]
+}

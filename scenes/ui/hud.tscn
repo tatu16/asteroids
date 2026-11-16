@@ -27,14 +27,6 @@ width = 256
 height = 12
 repeat = 2
 
-[sub_resource type="Animation" id="Animation_136eg"]
-resource_name = "default"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_oj5la"]
-_data = {
-&"default": SubResource("Animation_136eg")
-}
-
 [node name="Hud" type="CanvasLayer" unique_id=1693138881]
 process_mode = 3
 script = ExtResource("1_hqnrr")
@@ -114,38 +106,80 @@ layout_mode = 2
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1416033049]
+[node name="Control" type="Control" parent="Control" unique_id=575292173]
+anchors_preset = 0
+offset_top = 616.0
+offset_right = 1152.0
+offset_bottom = 616.0
+
+[node name="XPContainer" type="Control" parent="Control/Control" unique_id=903450698]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -58.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = 10.0
+grow_vertical = 0
+
+[node name="XPLabel" type="Label" parent="Control/Control/XPContainer" unique_id=1547361174]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_right = 72.0
+offset_bottom = 40.0
+theme = ExtResource("2_8qguk")
+theme_override_colors/font_color = Color(1, 1, 1, 0.78431374)
+theme_override_font_sizes/font_size = 32
+text = "0/100"
+vertical_alignment = 2
+
+[node name="TimeContainer" type="Control" parent="Control/Control" unique_id=1523458252]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TimeLabel" type="Label" parent="Control/VBoxContainer" unique_id=1709015249]
+[node name="TimeLabel" type="Label" parent="Control/Control/TimeContainer" unique_id=1709015249]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -30.0
+offset_right = 40.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("2_8qguk")
 theme_override_colors/font_color = Color(1, 1, 1, 0.78431374)
 theme_override_font_sizes/font_size = 40
 text = "05:50"
 horizontal_alignment = 1
 
-[node name="LevelContainer" type="PanelContainer" parent="Control/VBoxContainer" unique_id=1054035845]
-layout_mode = 2
+[node name="LevelContainer" type="PanelContainer" parent="Control" unique_id=1054035845]
+layout_mode = 0
+offset_top = 626.0
+offset_right = 1152.0
+offset_bottom = 648.0
 offset_transform_enabled = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/LevelContainer" unique_id=922199559]
+[node name="MarginContainer" type="MarginContainer" parent="Control/LevelContainer" unique_id=922199559]
 layout_mode = 2
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
-[node name="Level" type="TextureProgressBar" parent="Control/VBoxContainer/LevelContainer/MarginContainer" unique_id=1136639911]
+[node name="Level" type="TextureProgressBar" parent="Control/LevelContainer/MarginContainer" unique_id=1136639911]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 12)
 custom_maximum_size = Vector2(-1, 16)
@@ -155,6 +189,3 @@ value = 50.0
 rounded = true
 nine_patch_stretch = true
 texture_progress = SubResource("GradientTexture2D_riqys")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/VBoxContainer/LevelContainer/MarginContainer/Level" unique_id=909077705]
-libraries/ = SubResource("AnimationLibrary_oj5la")

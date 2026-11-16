@@ -51,6 +51,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="HFlowContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer" unique_id=2137300843]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="LevelupLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer" unique_id=1061910937]
 layout_mode = 2
@@ -65,6 +66,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="CardContainer" type="GridContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer" unique_id=780322472]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 3
@@ -93,10 +95,14 @@ alignment = 1
 
 [node name="SkipButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/MarginContainer/ButtonContainer" unique_id=1888534879]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_j4pd8")
+theme_override_font_sizes/font_size = 24
 text = "Skip"
 
 [node name="RerollButton" type="Button" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer/MarginContainer/ButtonContainer" unique_id=2075270719]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_j4pd8")
+theme_override_font_sizes/font_size = 24
 text = "Reroll"

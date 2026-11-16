@@ -55,69 +55,71 @@ theme_override_font_sizes/font_size = 48
 text = "You Died!"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=738576447]
+[node name="HSplitContainer" type="HSplitContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1440496557]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1059193474]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=1059193474]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="ScoreLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=870953998]
+[node name="ScoreLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=870953998]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Score"
 
-[node name="SurvivalTimeLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=870953999]
+[node name="SurvivalTimeLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=870953999]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Time Survived"
 
-[node name="DamageDealtLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1470489889]
+[node name="DamageDealtLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=1470489889]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Damage Dealt"
 
-[node name="DamageTakenLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=69231788]
+[node name="DamageTakenLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=69231788]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Damage Taken"
 
-[node name="ProjectileLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1507074666]
+[node name="ProjectileLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=1507074666]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Projectiles Shot"
 
-[node name="LevelLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1263233176]
+[node name="LevelLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer" unique_id=1263233176]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Level"
 
-[node name="EnemiesKilledLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=134870287]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=723359717]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EnemiesKilledLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=230660475]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Enemies Killed"
 
-[node name="XPLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=156323916]
+[node name="XPLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=160434062]
 unique_name_in_owner = true
 layout_mode = 2
 text = "XP Collected"
 
-[node name="DeathsLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=156323917]
+[node name="DeathsLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=1936291209]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Deaths"
 
-[node name="BestRunLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=156323918]
+[node name="BestRunLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=820866154]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Longest Run"
 
-[node name="HighestLevelLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=156323919]
+[node name="HighestLevelLabel" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer2" unique_id=926751732]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Highest Level"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1804151779]
-layout_mode = 2
 
 [node name="ButtonContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=539572928]
 layout_mode = 2

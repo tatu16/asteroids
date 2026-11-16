@@ -15,6 +15,7 @@ enum Stat {
     LONGEST_RUN,
     HIGHEST_LEVEL,
     SCORE,
+    COINS,
 }
 
 # Player's last run's stats
@@ -65,6 +66,9 @@ func get_run_stats(peer_id: int) -> Dictionary:
 
 # CLIENT: Add finished run stats to lifetime stats
 func add_finished_run(stats: Dictionary) -> void:
+    if stats.is_empty():
+        return
+        
     if total_stats.is_empty():
         total_stats = create_player_stats()
 
@@ -80,7 +84,7 @@ func add_finished_run(stats: Dictionary) -> void:
             )
         else:
             total_stats[stat] += stats.get(stat, 0)
-
+            
     save()
 
 # CLIENT: Save lifetime stats

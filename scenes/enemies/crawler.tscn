@@ -2,8 +2,149 @@
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_cgsye"]
 [ext_resource type="Texture2D" uid="uid://cw38naid3m3v7" path="res://assets/sprites/enemies/enemy_crawler.png" id="2_8yhgg"]
+[ext_resource type="Script" uid="uid://3jl0q6jm57hn" path="res://scripts/enemies/crawler.gd" id="3_crawler"]
+[ext_resource type="Shader" uid="uid://cry26bjwnm5ch" path="res://resources/shaders/hit_flash.gdshader" id="3_l8e30"]
 
-[node name="Crawler" unique_id=1998242713 instance=ExtResource("1_cgsye")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yhgg"]
+shader = ExtResource("3_l8e30")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=1378219400]
-texture = ExtResource("2_8yhgg")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgsye"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(0, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yhgg"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(384, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8e30"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(768, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntbkm"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(1152, 0, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_perxt"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(0, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoiq7"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(384, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgobn"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(768, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndks1"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(1152, 256, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qow5c"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(0, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5omq"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(384, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3pkw"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(768, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsjyu"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(1152, 512, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tou1g"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(0, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r2hj"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(384, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gahls"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(768, 768, 384, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk117"]
+atlas = ExtResource("2_8yhgg")
+region = Rect2(1152, 768, 384, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgsye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yhgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8e30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntbkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_perxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoiq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgobn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndks1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qow5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5omq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3pkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsjyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tou1g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r2hj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gahls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk117")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Crawler" unique_id=853659130 instance=ExtResource("1_cgsye")]
+script = ExtResource("3_crawler")
+grab_distance = 70.0
+grab_duration = 1.0
+max_hp = 60.0
+xp = 2.0
+death_particles_color = Color(0.520711, 0.0030368578, 0.8536263, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=133863090]
+material = SubResource("ShaderMaterial_8yhgg")
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.88915324
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
+position = Vector2(1, 3)
+scale = Vector2(1.5, 1.5)

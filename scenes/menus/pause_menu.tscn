@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cloe867u2mwel"]
+
+[ext_resource type="Script" uid="uid://bw8pduksyvwjx" path="res://scripts/ui/pause_menu.gd" id="1_fwndu"]
+[ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_7unhi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvr8k"]
+bg_color = Color(0.13725491, 0.20784314, 0.30980393, 0.3647059)
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1215251899]
+script = ExtResource("1_fwndu")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=417254347]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvr8k")
+
+[node name="Control" type="Control" parent="PanelContainer" unique_id=1941722287]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control" unique_id=571067089]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/Control/VBoxContainer" unique_id=101956840]
+layout_mode = 2
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="Label" type="Label" parent="PanelContainer/Control/VBoxContainer/MarginContainer2" unique_id=868266052]
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 64
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Control/VBoxContainer" unique_id=309293393]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/margin_top = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control/VBoxContainer/MarginContainer" unique_id=413908404]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ContinueButton" type="Button" parent="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer" unique_id=301418167]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 32
+text = "Continue"
+
+[node name="OptionsButton" type="Button" parent="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer" unique_id=637835207]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="ExitGameButton" type="Button" parent="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1292943170]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_7unhi")
+theme_override_font_sizes/font_size = 32
+text = "Exit Game"
+
+[connection signal="pressed" from="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="PanelContainer/Control/VBoxContainer/MarginContainer/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

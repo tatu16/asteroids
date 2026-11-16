@@ -21,6 +21,9 @@ var default_weapon: WeaponData
 var current_hp: float
 var ability_energy: float
 var current_weapons: Array[Weapon] = []
+var flash_id: int = 0
+
+@onready var sprite: Sprite2D = get_node_or_null("Visuals/ShipSprite") as Sprite2D
 
 func _ready() -> void:
     if character_data:
@@ -32,6 +35,9 @@ func _ready() -> void:
     if default_weapon:
         add_weapon(default_weapon)
         
+    if sprite and sprite.material:
+            sprite.material = sprite.material.duplicate()
+        
 func add_weapon(weapon_data: WeaponData) -> void:
     var weapon = Weapon.new()
     weapon.weapon_data = weapon_data
@@ -40,9 +46,28 @@ func add_weapon(weapon_data: WeaponData) -> void:
     add_child(weapon)
     current_weapons.append(weapon)
     
+func damage_feedback() -> void:
+    if not is_instance_valid(sprite) or sprite.material == null:
+        return
+        
+    flash_id += 1
+    var current_flash_id := flash_id
+    
+    sprite.material.set_shader_parameter("active", true)
+    await get_tree().create_timer(0.15).timeout
+    if not is_instance_valid(self):
+        return
+
+    if current_flash_id != flash_id:
+        return
+
+    if is_instance_valid(sprite) and sprite.material != null:
+        sprite.material.set_shader_parameter("active", false)
+    
 func take_damage(amount: float) -> void:
     if self is Player:
         GameManager.damage_player(self, amount)
+        damage_feedback()
     else:
         current_hp = maxf(current_hp - amount, 0.0)
 

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bj2xs4hywoh4u"]
+
+[ext_resource type="Script" uid="uid://whml2mfv1eqm" path="res://scripts/objects/wall.gd" id="1_wall"]
+[ext_resource type="Shader" uid="uid://bm30fs61d3v3o" path="res://resources/shaders/sprite_glow.gdshader" id="2_glow"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow"]
+shader = ExtResource("2_glow")
+shader_parameter/glow_color = Color(0.1, 0.45, 1, 1)
+shader_parameter/glow_radius = 0.65
+shader_parameter/glow_intensity = 1.5
+shader_parameter/glow_opacity = 0.7
+shader_parameter/glow_softness = 2.0
+
+[node name="Wall" type="AnimatableBody2D" unique_id=1488908479 groups=["wall"]]
+collision_mask = 0
+script = ExtResource("1_wall")
+outside_shade_color = Color(0.09985284, 0, 0, 0.65900004)
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1123125951]
+width = 2.0
+antialiased = true
+
+[node name="GlowLine2D" type="Line2D" parent="." unique_id=1123125952]
+z_index = -1
+material = SubResource("ShaderMaterial_glow")
+width = 14.0
+antialiased = true
+
+[node name="ChangeTimer" type="Timer" parent="." unique_id=990844290]
+
+[node name="ShrinkTimer" type="Timer" parent="." unique_id=990844291]

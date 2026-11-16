@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dpm485trajnjw"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_01sw4"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 0, 0)
+spread = 75.0
+initial_velocity_max = 150.0
+angular_velocity_min = -58.240013
+angular_velocity_max = 39.999985
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 4.0
+color = Color(0.26666668, 0.7019608, 1, 1)
+
+[node name="BoltBreak" type="GPUParticles2D" unique_id=1284533704]
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+emitting = false
+amount = 32
+sub_emitter = NodePath(".")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+randomness = 0.17
+process_material = SubResource("ParticleProcessMaterial_01sw4")
