@@ -14,6 +14,9 @@ shader_parameter/glow_softness = 2.0
 [node name="Wall" type="AnimatableBody2D" unique_id=1488908479 groups=["wall"]]
 collision_mask = 0
 script = ExtResource("1_wall")
+maximum_sides = 14
+arena_size = Vector2(2500, 2500)
+rotation_speed = 0.5
 outside_shade_color = Color(0.09985284, 0, 0, 0.65900004)
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1123125951]

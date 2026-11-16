@@ -195,7 +195,7 @@ func continue_game() -> void:
 @rpc("authority", "call_local", "reliable")
 func set_game_paused(paused: bool) -> void:
     is_paused = paused
-    for group_name in ["players", "dead_players", "enemies", "projectiles", "xp_orbs", "powerups"]:
+    for group_name in ["players", "dead_players", "enemies", "projectiles", "xp_orbs", "powerups", "wall"]:
         for gameplay_node in get_tree().get_nodes_in_group(group_name):
             if not is_instance_valid(gameplay_node):
                 continue

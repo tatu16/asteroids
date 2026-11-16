@@ -9,6 +9,7 @@
 shader = ExtResource("3_m05u0")
 shader_parameter/active = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_strength = 0.3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uhsk6"]
 atlas = ExtResource("2_tgu21")
@@ -159,6 +160,7 @@ slide_deceleration = 35.0
 restart_delay = 0.5
 max_hp = 75.0
 damage = 8.0
+contact_damage_distance = 100.0
 death_particles_color = Color(0.68235296, 0.09411765, 1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=244096947]

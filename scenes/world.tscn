@@ -172,7 +172,7 @@ object_scenes = Array[PackedScene]([ExtResource("20_triangle"), ExtResource("21_
 wall_scene = ExtResource("23_wall")
 xp_orb_spawner = NodePath("../XpOrbSpawner")
 powerup_spawner = NodePath("../PowerUpSpawner")
-arena_size = Vector2(2000, 2000)
+arena_size = Vector2(2500, 2500)
 
 [node name="SpawnTimer" type="Timer" parent="ObjectSpawner" unique_id=318679365]
 
@@ -252,6 +252,12 @@ projectile_spawner = NodePath("../ProjectileSpawner")
 xp_orb_spawner = NodePath("../XpOrbSpawner")
 powerup_spawner = NodePath("../PowerUpSpawner")
 enemies_container = NodePath("../Enemies")
+spawn_interval_decrease = 0.5
+spawn_batch_interval = 30
+maximum_spawn_batch = 8
+enemy_cap_interval = 20
+maximum_enemy_cap = 200
+stat_scale_interval = 30.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=74926261]
 
