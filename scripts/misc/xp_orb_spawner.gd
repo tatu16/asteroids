@@ -11,6 +11,16 @@ func spawn_xp_orb(xp_value: float, spawn_position: Vector2) -> void:
     if not multiplayer.is_server():
         return
 
+    call_deferred(
+        "_spawn_xp_orb_deferred",
+        xp_value,
+        spawn_position
+    )
+
+func _spawn_xp_orb_deferred(
+    xp_value: float,
+    spawn_position: Vector2
+) -> void:
     spawn({
         "xp_value": xp_value,
         "position": spawn_position

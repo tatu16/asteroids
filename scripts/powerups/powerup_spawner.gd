@@ -9,6 +9,17 @@ func spawn_powerup(scene: PackedScene, spawn_position: Vector2) -> void:
         return
     if scene == null:
         return
+
+    call_deferred(
+        "_spawn_powerup_deferred",
+        scene,
+        spawn_position
+    )
+
+func _spawn_powerup_deferred(
+    scene: PackedScene,
+    spawn_position: Vector2
+) -> void:
     spawn({
         "scene_path": scene.resource_path,
         "position": spawn_position
