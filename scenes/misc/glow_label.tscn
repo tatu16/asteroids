@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cql77i1cmh6c7"]
 
-[ext_resource type="Script" uid="uid://br1kn1unhkes5" path="res://scripts/powerups/powerup_label.gd" id="1_f10m2"]
+[ext_resource type="Script" uid="uid://cmdmoy4yepyfu" path="res://scripts/powerups/glow_label.gd" id="1_f10m2"]
 [ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_oqknd"]
 
 [node name="Glowlabel" type="Node2D" unique_id=1157305392]
@@ -8,7 +8,7 @@ script = ExtResource("1_f10m2")
 
 [node name="Label" type="Label" parent="." unique_id=1926333275]
 unique_name_in_owner = true
-z_index = 1
+z_index = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
