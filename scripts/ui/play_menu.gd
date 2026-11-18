@@ -1,5 +1,7 @@
 extends Control
 
+signal return_requested
+
 @export var character_registry: CharacterRegistry
 
 @onready var character_container: FlowContainer = %CharacterContainer
@@ -19,7 +21,7 @@ func _ready() -> void:
     load_characters()
     GameManager.character_selected.connect(_on_character_selected)
     Lobby.player_connected.connect(_on_player_connected)
-    
+
 func load_characters() -> void:
     if character_registry == null:
         print("character registry is missing!")
@@ -34,7 +36,7 @@ func load_characters() -> void:
         var character_button = SELECT_CHARACTER.instantiate()
         character_button.character_data = data
         character_container.add_child(character_button)
-        
+
 func _on_play_button_pressed() -> void:
     if GameManager.selected_character:
         if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
@@ -50,7 +52,11 @@ func _on_character_selected(button: Button) -> void:
 
 func _on_return_button_pressed() -> void:
     Lobby.leave_lobby()
-    get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+    return_requested.emit()
+    if get_parent() == get_tree().root:
+        get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+    else:
+        queue_free()
 
 func _on_join_button_pressed() -> void:
     var join_menu = JOIN_LOBBY_SCENE.instantiate()
@@ -74,18 +80,18 @@ func set_normal_view() -> void:
     join_button.disabled = false
     leave_button.disabled = true
     connect_text.text = ""
-    
+
 func update_player_list() -> void:
     print(Lobby.player_info)
     player_list.clear()
     for player in Lobby.player_info:
         player_list.add_item(player, null, true)
-    
+
 func _on_player_connected(peer_id, player_info):
     print(peer_id, player_info)
     set_lobby_view()
     update_player_list()
-        
+
 func _on_leave_button_pressed() -> void:
     Lobby.leave_lobby()
     set_normal_view()

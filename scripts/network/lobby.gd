@@ -159,4 +159,7 @@ func _on_player_connected(id):
     _register_player.rpc_id(id, player_info)
     
 func _return_to_menu() -> void:
+    var current_scene = get_tree().current_scene
+    if current_scene != null and current_scene.scene_file_path == "res://scenes/menus/main_menu.tscn":
+        return
     get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

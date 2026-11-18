@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://menu_bg_tscn"]
+
+[ext_resource type="Script" uid="uid://c0ifr3wf52dgn"  path="res://scripts/ui/menu_background.gd" id="1_menubg"]
+[ext_resource type="Shader" uid="uid://bm6ipb38fq3n1"  path="res://resources/shaders/starfield.gdshader"  id="2_star"]
+[ext_resource type="Shader" uid="uid://b8j75k3h1w722"  path="res://resources/shaders/nebula.gdshader"     id="3_nebula"]
+[ext_resource type="Shader" uid="uid://0pvgaoqgt3g0"   path="res://resources/shaders/deep_space.gdshader" id="4_deep"]
+
+[sub_resource type="ShaderMaterial" id="SM_star"]
+shader = ExtResource("2_star")
+shader_parameter/aspect_ratio      = 1.0
+shader_parameter/density           = 0.75
+shader_parameter/layer_parascale   = 4
+shader_parameter/star_speed        = Vector2(0.002, 0.001)
+shader_parameter/star_wave         = Vector2(0.03, 0.01)
+shader_parameter/star_size         = 1.0
+shader_parameter/star_rotate_speed = 0.35
+shader_parameter/twinkle_effect    = 0.05
+shader_parameter/twinkle_speed     = 0.05
+shader_parameter/pixelate_enabled  = true
+shader_parameter/pixelate_count    = 1000.0
+
+[sub_resource type="ShaderMaterial" id="SM_nebula"]
+shader = ExtResource("3_nebula")
+shader_parameter/camera_position     = Vector2(0, 0)
+shader_parameter/zoom                = 1.0
+shader_parameter/world_scale         = Vector2(1920, 1080)
+shader_parameter/timeScaleFactor     = 0.013
+shader_parameter/colour_muiltiplier  = Color(1, 1, 1, 1)
+shader_parameter/colour_muiltiplier2 = Color(1, 1, 1, 1)
+shader_parameter/brightness          = 1.3
+shader_parameter/clouds_resolution   = 8.0
+shader_parameter/clouds_intesity     = 0.15
+shader_parameter/waveyness           = 1.6
+shader_parameter/fragmentation       = 9.0
+shader_parameter/distortion          = 1.8
+shader_parameter/clouds_alpha        = 0.5
+shader_parameter/movement            = 1.0
+shader_parameter/blur                = 1.5
+shader_parameter/blur2               = 0.014
+shader_parameter/bg_speed            = 0.12
+shader_parameter/mid_speed           = 0.3
+shader_parameter/fg_speed            = 0.45
+shader_parameter/pixel_size          = 1.0
+shader_parameter/color_steps         = 5.0
+shader_parameter/pixel_dither        = 0.035
+shader_parameter/cloud_softness      = 1.0
+shader_parameter/color_blend         = 0.65
+shader_parameter/quantize_clouds     = false
+shader_parameter/color_purple   = Color(0.16,  0.025, 0.38,  1)
+shader_parameter/color_blue     = Color(0.025, 0.1,   0.38,  1)
+shader_parameter/color_cyan     = Color(0.015, 0.3,   0.42,  1)
+shader_parameter/color_pink     = Color(0.42,  0.035, 0.28,  1)
+shader_parameter/color_magenta  = Color(0.3,   0.035, 0.42,  1)
+shader_parameter/color_orange   = Color(0.42,  0.12,  0.045, 1)
+shader_parameter/color_lavender = Color(0.3,   0.2,   0.48,  1)
+
+[sub_resource type="ShaderMaterial" id="SM_deep"]
+shader = ExtResource("4_deep")
+shader_parameter/camera_position   = Vector2(0, 0)
+shader_parameter/zoom              = 1.0
+shader_parameter/viewport_size     = Vector2(1920, 1080)
+shader_parameter/world_scale       = Vector2(1920, 1080)
+shader_parameter/space_color       = Color(0.008, 0.012, 0.035, 1)
+shader_parameter/blue_glow         = Color(0.025, 0.055, 0.16,  1)
+shader_parameter/purple_glow       = Color(0.09,  0.025, 0.14,  1)
+shader_parameter/cyan_glow         = Color(0.015, 0.09,  0.14,  1)
+shader_parameter/pixel_size        = 1.5
+shader_parameter/glow_strength     = 0.65
+shader_parameter/vignette_strength = 0.45
+shader_parameter/animation_speed   = 0.008
+
+[node name="MenuBackground" type="CanvasLayer"]
+layer = -1
+script = ExtResource("1_menubg")
+
+[node name="DeepSpace" type="ColorRect" parent="."]
+z_index = 1
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("SM_deep")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Nebula" type="ColorRect" parent="."]
+z_index = 2
+material = SubResource("SM_nebula")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Starfield" type="ColorRect" parent="."]
+z_index = 3
+texture_filter = 2
+material = SubResource("SM_star")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ObjectsContainer" type="Node2D" parent="."]
+z_index = 4
