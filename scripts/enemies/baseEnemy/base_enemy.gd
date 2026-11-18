@@ -86,14 +86,13 @@ func spawn_death_particles(hit_direction: Vector2 = Vector2.ZERO) -> void:
         
     get_tree().current_scene.add_child(particles)
     particles.global_position = global_position
-
-    var material = particles.process_material.duplicate() as ParticleProcessMaterial
-    particles.process_material = material
-    material.color = death_particles_color
     if hit_direction != Vector2.ZERO:
-        var dir = hit_direction.normalized()
-        material.direction = Vector3(dir.x, dir.y, 0.0)
+        particles.rotation = hit_direction.angle()
+    particles.modulate = death_particles_color
+    particles.one_shot = true
     particles.emitting = true
+
+    get_tree().create_timer(particles.lifetime + 0.1).timeout.connect(particles.queue_free)
 
 func drop_powerup() -> void:
     if not multiplayer.is_server():

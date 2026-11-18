@@ -10,7 +10,7 @@ const FLOATING_TEXT = preload("res://scenes/misc/glow_label.tscn")
 
 var target: Player = null
 
-func _on_ready() -> void:
+func _ready() -> void:
     if not multiplayer.is_server():
         return
         

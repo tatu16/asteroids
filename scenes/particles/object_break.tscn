@@ -17,7 +17,6 @@ scale_min = 2.0
 scale_max = 8.0
 
 [node name="ObjectBreak" type="GPUParticles2D" unique_id=1623180267]
-visibility_rect = Rect2(-100000, -100000, 200000, 200000)
 material = SubResource("CanvasItemMaterial_rk0ym")
 emitting = false
 amount = 32
@@ -26,4 +25,5 @@ lifetime = 1.4
 one_shot = true
 explosiveness = 1.0
 randomness = 0.17
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
 process_material = SubResource("ParticleProcessMaterial_rk0ym")

@@ -42,14 +42,11 @@ func spawn_break_particles() -> void:
     particles.global_position = global_position
     
     var return_direction = -direction.normalized()
-    var material = particles.process_material.duplicate() as ParticleProcessMaterial
-    particles.process_material = material
-    material.direction = Vector3(
-        return_direction.x,
-        return_direction.y,
-        0.0
-    )
+    particles.rotation = return_direction.angle()
+    particles.one_shot = true
     particles.emitting = true
+
+    get_tree().create_timer(particles.lifetime + 0.1).timeout.connect(particles.queue_free)
 
 func _physics_process(delta: float) -> void:
     apply_acceleration(delta)

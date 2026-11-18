@@ -73,6 +73,8 @@ func spawn_activation_particles() -> void:
     activation_particles.position = activation_particles_offset
     activation_particles.emitting = true
 
+    get_tree().create_timer(activation_particles.lifetime + 0.1).timeout.connect(activation_particles.queue_free)
+
 func stop_activation_particles() -> void:
     if activation_particles == null:
         return

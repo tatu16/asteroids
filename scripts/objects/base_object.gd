@@ -52,13 +52,11 @@ func spawn_break_particles(projectile: Projectile) -> void:
     particles.global_position = global_position
 
     var opposite_direction = projectile.direction.normalized()
-    particles.process_material = particles.process_material.duplicate()
-    particles.process_material.direction = Vector3(
-        opposite_direction.x,
-        opposite_direction.y,
-        0.0
-    )
+    particles.rotation = opposite_direction.angle()
+    particles.one_shot = true
     particles.emitting = true
+
+    get_tree().create_timer(particles.lifetime + 0.1).timeout.connect(particles.queue_free)
 
 func _on_area_entered(area: Node2D) -> void:
     if not multiplayer.is_server():
