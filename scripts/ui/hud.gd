@@ -11,8 +11,10 @@ var spectator_panel: Control = null
 var respawn_timer_label: Label = null
 var spectating_label: Label = null
 var respawn_countdown: float = -1.0
+var guide_overlay: Control = null
 
 const SPECTATOR_OVERLAY_SCENE: PackedScene = preload("res://scenes/ui/spectator_overlay.tscn")
+const GUIDE_OVERLAY_SCENE: PackedScene = preload("res://scenes/ui/guide_overlay.tscn")
 
 func _ready() -> void:
     GameManager.score_changed.connect(update_score)
@@ -25,6 +27,12 @@ func _ready() -> void:
         "PanelContainer/MarginContainer/VBoxContainer/TimerLabel")
     spectating_label = spectator_panel.get_node(
         "PanelContainer/MarginContainer/VBoxContainer/SpectatingLabel")
+    
+    guide_overlay = GUIDE_OVERLAY_SCENE.instantiate()
+    $Control.add_child(guide_overlay)
+    guide_overlay.visible = true
+    await get_tree().create_timer(10.0).timeout
+    guide_overlay.visible = false
 
 func _process(delta: float) -> void:
     var world = get_tree().root.find_child("World", true, false)
