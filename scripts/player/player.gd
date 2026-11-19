@@ -29,6 +29,7 @@ const MAX_UPGRADE_LEVELS: Dictionary = {
     "max_hp": 10,
     "boost": 10,
 }
+
 func _ready() -> void:
     var peer_id := name.to_int()
     if peer_id > 0:

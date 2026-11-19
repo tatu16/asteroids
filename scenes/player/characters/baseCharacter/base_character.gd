@@ -23,6 +23,8 @@ var ability_energy: float
 var current_weapons: Array[Weapon] = []
 var flash_id: int = 0
 
+const glow_label_scene: PackedScene = preload("res://scenes/misc/glow_label.tscn")
+
 @onready var sprite: Sprite2D = get_node_or_null("Visuals/ShipSprite") as Sprite2D
 
 func _ready() -> void:
@@ -46,9 +48,20 @@ func add_weapon(weapon_data: WeaponData) -> void:
     add_child(weapon)
     current_weapons.append(weapon)
     
-func damage_feedback() -> void:
+func damage_feedback(amount: float) -> void:
     if not is_instance_valid(sprite) or sprite.material == null:
         return
+        
+    var glow_label = glow_label_scene.instantiate()
+    get_tree().current_scene.add_child(glow_label)
+    var spawn_pos = global_position + Vector2(0.0, -24.0)
+    var display = str(roundi(amount)) if fmod(amount, 1.0) == 0.0 else ("%.1f" % amount)
+    glow_label.show_text(
+        display,
+        Color(1.0, 0.218, 0.349, 1.0),
+        spawn_pos,
+        18
+    )
         
     flash_id += 1
     var current_flash_id := flash_id
@@ -67,7 +80,7 @@ func damage_feedback() -> void:
 func take_damage(amount: float) -> void:
     if self is Player:
         GameManager.damage_player(self, amount)
-        damage_feedback()
+        damage_feedback(amount)
     else:
         current_hp = maxf(current_hp - amount, 0.0)
 
