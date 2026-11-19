@@ -1,11 +1,12 @@
 extends Node2D
 
-@export var max_points := 60
+@export var max_points := 30
 @export var trail_offset := 8.0
 @export var rear_offset := 24.0
 @export var minimum_speed := 10.0
 @export var trail_width := 4.0
 @export var trail_color := Color(1.0, 1.0, 1.0, 0.6)
+@export var point_spacing := 8.0
 
 @onready var left_trail: Line2D = $LeftTrail
 @onready var right_trail: Line2D = $RightTrail
@@ -14,6 +15,9 @@ var player: CharacterBody2D
 var ship_sprite: Sprite2D
 var prev_position := Vector2.ZERO
 var has_prev_position := false
+var last_left_position := Vector2.ZERO
+var last_right_position := Vector2.ZERO
+var has_last_position := false
 
 func _ready() -> void:
     _find_references()
@@ -97,9 +101,18 @@ func _process(delta: float) -> void:
     var left_position := rear_center - side_dir
     var right_position := rear_center + side_dir
 
-    # Points are in world space since trails are top-level
-    left_trail.add_point(left_trail.to_local(left_position))
-    right_trail.add_point(right_trail.to_local(right_position))
+    # Only add points after moving a minimum distance
+    if not has_last_position:
+        last_left_position = left_position
+        last_right_position = right_position
+        has_last_position = true
+
+    if left_position.distance_to(last_left_position) >= point_spacing:
+        left_trail.add_point(left_trail.to_local(left_position))
+        right_trail.add_point(right_trail.to_local(right_position))
+
+        last_left_position = left_position
+        last_right_position = right_position
 
     while left_trail.get_point_count() > max_points:
         left_trail.remove_point(0)

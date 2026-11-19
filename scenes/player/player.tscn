@@ -47,7 +47,6 @@ material = SubResource("ShaderMaterial_5acxu")
 
 [node name="SpeedTrail" parent="Visuals" unique_id=152685920 instance=ExtResource("2_dovo2")]
 scale = Vector2(2, 2)
-max_points = 120
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=184920485]
 replication_config = SubResource("SceneReplicationConfig_player")
