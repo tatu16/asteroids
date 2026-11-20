@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dx111lcewrskc"]
-
-[ext_resource type="PackedScene" uid="uid://xpmbwhwjflf8" path="res://scenes/projectiles/bolt.tscn" id="1_tgtov"]
-[ext_resource type="Script" uid="uid://ciohp752diq3d" path="res://resources/weapons/weapon_data.gd" id="1_vlbdd"]
-
-[resource]
-script = ExtResource("1_vlbdd")
-projectile_scene = ExtResource("1_tgtov")
-metadata/_custom_type_script = "uid://ciohp752diq3d"
